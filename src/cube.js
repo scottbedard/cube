@@ -5,6 +5,7 @@ import {
     sliceCube,
     turnSliceF,
     turnSliceL,
+    turnSliceR,
     turnSliceU,
 } from './utils';
 
@@ -76,7 +77,7 @@ export default class Cube {
         } else if (face === 'f') {
             turnSliceF(this, slicedCube, parsedTurn);
         } else if (face === 'r') {
-
+            turnSliceR(this, slicedCube, parsedTurn);
         } else if (face === 'b') {
 
         } else if (face === 'd') {
