@@ -141,8 +141,9 @@ export function parseTurn(turn) {
     const double = turn.endsWith('2');
     const outer = depth === 1 || turn.match(/[a-z]/) !== null;
     const prime = turn.endsWith('-');
+    const whole = ['x', 'y', 'z'].includes(face);
 
-    return { depth, face, double, outer, prime };
+    return { depth, face, double, outer, prime, whole };
 }
 
 /**
@@ -208,6 +209,52 @@ export function sliceCube(cube) {
             cols: chunkCols(d),
         },
     };
+}
+
+/**
+ * Turn a cube along it's X axis.
+ * 
+ * @param  {Cube}   cube 
+ * @param  {object} parsedTurn
+ * @return {void}
+ */
+export function turnCubeX(cube, parsedTurn) {
+    const { double, prime } = parsedTurn;
+
+    let newU, newL, newF, newR, newB, newD;
+
+    if (double) {
+        // 180
+        newU = cube.state.d.slice();
+        newL = rotate(cube.state.l, 180);
+        newF = reverse(cube.state.b);
+        newR = rotate(cube.state.r, 180);
+        newB = reverse(cube.state.f);
+        newD = cube.state.u.slice();
+    } else if (prime) {
+        // 90 counter-clockwise
+        newU = reverse(cube.state.b);
+        newL = rotate(cube.state.l, 90);
+        newF = cube.state.u.slice();
+        newR = rotate(cube.state.r, -90);
+        newB = reverse(cube.state.d);
+        newD = cube.state.f.slice();
+    } else {
+        // 90 clockwise
+        newU = cube.state.f.slice();
+        newL = rotate(cube.state.l, -90);
+        newF = cube.state.d.slice();
+        newR = rotate(cube.state.r, 90);
+        newB = reverse(cube.state.u);
+        newD = reverse(cube.state.b);
+    }
+
+    cube.state.u = newU;
+    cube.state.l = newL;
+    cube.state.f = newF;
+    cube.state.r = newR;
+    cube.state.b = newB;
+    cube.state.d = newD;
 }
 
 /**

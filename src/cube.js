@@ -4,6 +4,7 @@ import {
     parseTurn,
     rotate,
     sliceCube,
+    turnCubeX,
     turnSliceB,
     turnSliceD,
     turnSliceF,
@@ -56,8 +57,22 @@ export default class Cube {
      */
     turn(turn) {
         const parsedTurn = parseTurn(turn);
+        const { depth, double, face, outer, prime, whole } = parsedTurn;
+
+        // whole-cube turns
+        if (whole) {
+            if (face === 'x') {
+                turnCubeX(this, parsedTurn);
+            } else if (face === 'y') {
+
+            } else if (face === 'z') {
+
+            }
+
+            return;
+        }
+
         const slicedCube = sliceCube(this);
-        const { depth, double, face, outer, prime } = parsedTurn;
 
         // turn the outer face if necessary
         if (outer) {
