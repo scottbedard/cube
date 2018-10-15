@@ -4,6 +4,7 @@ import {
     rotate,
     sliceCube,
     turnSliceB,
+    turnSliceD,
     turnSliceF,
     turnSliceL,
     turnSliceR,
@@ -82,7 +83,7 @@ export default class Cube {
         } else if (face === 'b') {
             turnSliceB(this, slicedCube, parsedTurn);
         } else if (face === 'd') {
-
+            turnSliceD(this, slicedCube, parsedTurn);
         }
 
         // @todo: process "inner" turns, usually from whole-cube turns
