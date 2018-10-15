@@ -1,5 +1,8 @@
 # cube
 
+[![Build](https://img.shields.io/circleci/project/github/scottbedard/cube.svg)](https://circleci.com/gh/scottbedard/cube)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/scottbedard/cube/blob/master/LICENSE)
+
 A basic javascript class for modeling Rubik's cubes.
 
 > **Note:** This is a work in progress, and is not ready for use by anyone.
