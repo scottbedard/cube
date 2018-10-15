@@ -304,6 +304,52 @@ export function turnCubeY(cube, parsedTurn) {
 }
 
 /**
+ * Turn a cube along the Z axis.
+ * 
+ * @param  {Cube}   cube 
+ * @param  {object} parsedTurn
+ * @return {void}
+ */
+export function turnCubeZ(cube, parsedTurn) {
+    const { double, prime } = parsedTurn;
+
+    let newU, newL, newF, newR, newB, newD;
+
+    if (double) {
+        // 180
+        newU = reverse(cube.state.d);
+        newL = reverse(cube.state.r);
+        newF = rotate(cube.state.f, 180);
+        newR = reverse(cube.state.l);
+        newB = rotate(cube.state.b, 180);
+        newD = reverse(cube.state.u);
+    } else if (prime) {
+        // 90 counter-clockwise
+        newU = rotate(cube.state.r, -90);
+        newL = rotate(cube.state.u, -90);
+        newF = rotate(cube.state.f, -90);
+        newR = rotate(cube.state.d, -90);
+        newB = rotate(cube.state.b, 90);
+        newD = rotate(cube.state.l, -90);
+    } else {
+        // 90 clockwise
+        newU = rotate(cube.state.l, 90);
+        newL = rotate(cube.state.d, 90);
+        newF = rotate(cube.state.f, 90);
+        newR = rotate(cube.state.u, 90);
+        newB = rotate(cube.state.b, -90);
+        newD = rotate(cube.state.r, 90);
+    }
+
+    cube.state.u = newU;
+    cube.state.l = newL;
+    cube.state.f = newF;
+    cube.state.r = newR;
+    cube.state.b = newB;
+    cube.state.d = newD;
+}
+
+/**
  * Turn slices for a B turn.
  *
  * @param  {Cube}   cube 
