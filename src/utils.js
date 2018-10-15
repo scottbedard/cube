@@ -93,14 +93,14 @@ export function flip(arr) {
  * @return {string}
  */
 export function getOppositeFace(face) {
-    switch(face) {
-        case 'u': return 'd';
-        case 'l': return 'r';
-        case 'f': return 'b';
-        case 'r': return 'l';
-        case 'b': return 'f';
-        case 'd': return 'u';
-    }
+    return {
+        u: 'd',
+        l: 'r',
+        f: 'b',
+        r: 'l',
+        b: 'f',
+        d: 'u',
+    }[face];
 }
 
 /**
