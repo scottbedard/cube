@@ -194,6 +194,108 @@ export function sliceCube(cube) {
 }
 
 /**
+ * Turn slices for a F turn.
+ *
+ * @param  {Cube}   cube 
+ * @param  {object} slicedCube 
+ * @param  {object} parsedTurn
+ * @return {void}
+ */
+export function turnSliceF(cube, slicedCube, parsedTurn) {
+    const { depth, double, outer, prime } = parsedTurn;
+
+    loopSlices(parsedTurn, i => {
+        const oldU = slicedCube.u.rows.slice(-i).shift();
+        const oldR = slicedCube.r.cols.slice(i - 1).shift();
+        const oldD = slicedCube.d.rows.slice(i - 1).shift();
+        const oldL = slicedCube.l.cols.slice(-i).shift();
+
+        let newU, newR, newD, newL;
+
+        if (double) {
+            // 180
+            newU = reverse(oldD);
+            newR = reverse(oldL);
+            newD = reverse(oldU);
+            newL = reverse(oldR);
+        } else if (prime) {
+            // 90 counter-clockwise
+            newU = oldR;
+            newR = reverse(oldD);
+            newD = oldL;
+            newL = reverse(oldU);
+        } else {
+            // 90 clockwise
+            newU = reverse(oldL);
+            newR = oldU;
+            newD = reverse(oldR);
+            newL = oldD;
+        }
+
+        slicedCube.u.rows.splice(-i, 1, newU);
+        slicedCube.r.cols.splice(i - 1, 1, newR);
+        slicedCube.d.rows.splice(i - 1, 1, newD);
+        slicedCube.l.cols.splice(-i, 1, newL);
+
+        cube.state.u = flattenRows(slicedCube.u.rows);
+        cube.state.r = flattenCols(slicedCube.r.cols);
+        cube.state.d = flattenRows(slicedCube.d.rows);
+        cube.state.l = flattenCols(slicedCube.l.cols);
+    });
+}
+
+/**
+ * Turn slices for a L turn.
+ *
+ * @param  {Cube}   cube 
+ * @param  {object} slicedCube 
+ * @param  {object} parsedTurn
+ * @return {void}
+ */
+export function turnSliceL(cube, slicedCube, parsedTurn) {
+    const { depth, double, outer, prime } = parsedTurn;
+
+    loopSlices(parsedTurn, i => {
+        const oldU = slicedCube.u.cols.slice(i - 1).shift();
+        const oldF = slicedCube.f.cols.slice(i - 1).shift();
+        const oldD = slicedCube.d.cols.slice(i - 1).shift();
+        const oldB = slicedCube.b.cols.slice(-i).shift();
+
+        let newU, newF, newD, newB;
+
+        if (double) {
+            // 180
+            newU = oldD;
+            newF = reverse(oldB);
+            newD = oldU;
+            newB = reverse(oldF);
+        } else if (prime) {
+            // 90 counter-clockwise
+            newU = oldF;
+            newF = oldD;
+            newD = reverse(oldB);
+            newB = reverse(oldU);
+        } else {
+            // 90 clockwise
+            newU = reverse(oldB);
+            newF = oldU;
+            newD = oldF;
+            newB = reverse(oldD);
+        }
+
+        slicedCube.u.cols.splice(i - 1, 1, newU);
+        slicedCube.f.cols.splice(i - 1, 1, newF);
+        slicedCube.d.cols.splice(i - 1, 1, newD);
+        slicedCube.b.cols.splice(-i, 1, newB);
+
+        cube.state.u = flattenCols(slicedCube.u.cols);
+        cube.state.f = flattenCols(slicedCube.f.cols);
+        cube.state.d = flattenCols(slicedCube.d.cols);
+        cube.state.b = flattenCols(slicedCube.b.cols);
+    });
+}
+
+/**
  * Turn slices for a U turn.
  *
  * @param  {Cube}   cube 
@@ -241,56 +343,5 @@ export function turnSliceU(cube, slicedCube, parsedTurn) {
         cube.state.r = flattenRows(slicedCube.r.rows);
         cube.state.f = flattenRows(slicedCube.f.rows);
         cube.state.l = flattenRows(slicedCube.l.rows);
-    });
-}
-
-/**
- * Turn slices for a U turn.
- *
- * @param  {Cube}   cube 
- * @param  {object} slicedCube 
- * @param  {object} parsedTurn
- * @return {void}
- */
-export function turnSliceL(cube, slicedCube, parsedTurn) {
-    const { depth, double, outer, prime } = parsedTurn;
-
-    loopSlices(parsedTurn, i => {
-        const oldU = slicedCube.u.cols.slice(i - 1).shift();
-        const oldF = slicedCube.f.cols.slice(i - 1).shift();
-        const oldD = slicedCube.d.cols.slice(i - 1).shift();
-        const oldB = slicedCube.b.cols.slice(-i).shift();
-
-        let newU, newF, newD, newB;
-
-        if (double) {
-            // 180
-            newU = oldD;
-            newF = reverse(oldB);
-            newD = oldU;
-            newB = reverse(oldF);
-        } else if (prime) {
-            // 90 counter-clockwise
-            newU = oldF;
-            newF = oldD;
-            newD = reverse(oldB);
-            newB = reverse(oldU);
-        } else {
-            // 90 clockwise
-            newU = reverse(oldB);
-            newF = oldU;
-            newD = oldF;
-            newB = reverse(oldD);
-        }
-
-        slicedCube.u.cols.splice(i - 1, 1, newU);
-        slicedCube.f.cols.splice(i - 1, 1, newF);
-        slicedCube.d.cols.splice(i - 1, 1, newD);
-        slicedCube.b.cols.splice(-i, 1, newB);
-
-        cube.state.u = flattenCols(slicedCube.u.cols);
-        cube.state.f = flattenCols(slicedCube.f.cols);
-        cube.state.d = flattenCols(slicedCube.d.cols);
-        cube.state.b = flattenCols(slicedCube.b.cols);
     });
 }
