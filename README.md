@@ -42,5 +42,5 @@ Turn notation has 3 basic parts.
 
 'X'   // turn the cube around the X axis 90 degrees clockwise
 'X-'  // turn the cube around the X axis 90 degrees counter-clockwise
-'X2'  // turn the cube around the X axios 180 degrees
+'X2'  // turn the cube around the X axis 180 degrees
 ```
