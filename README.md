@@ -21,11 +21,11 @@ cube.isSolved();
 
 Turn notation has 3 basic parts.
 
-**Depth**, this defines how many layers from the outer face to turn. By default, this value is `1`.
+**Depth**, defines how many layers from the outer face to turn. By default, this value is `1`.
 
-**Face**, this defines which face is being turned. This is the only required part of a turn, and may be `U`, `L`, `F`, `R`, `B`, `D`. If lower cased, the turn will include all layers from the depth to the face being turned.
+**Face / Axis**, defines which face or axis is being turned. For face turns, this value may be `U`, `L`, `F`, `R`, `B`, or `D`, and if lower cased the turn will include all layers from the depth to the face being turned. For axis turns, this value may be `X`, `Y`, or `Z`.
 
-**Direction**, this defines how to turn the face. A value of `-` will turn the face 90 degrees counter-clockwise, a value of `2` will turn the face 180 degrees, and if omitted the face will be turned 90 degrees clockwise.
+**Direction**, defines which direction to turn the face. A value of `-` will turn the face/axis 90 degrees counter-clockwise, and a value of `2` will turn the face/axis 180 degrees. If omitted, the face/axis will be turned 90 degrees clockwise.
 
 ```js
 'F'   // turn the F face 90 degrees clockwise
@@ -39,4 +39,8 @@ Turn notation has 3 basic parts.
 '2d'  // turn the first and second slices from the D face 90 degrees clockwise
 '2d-' // turn the first and second slices from the D face 90 degrees counter-clockwise
 '2d2' // turn the first and second slices from the D face 180 degrees
+
+'X'   // turn the cube around the X axis 90 degrees clockwise
+'X-'  // turn the cube around the X axis 90 degrees counter-clockwise
+'X2'  // turn the cube around the X axios 180 degrees
 ```
