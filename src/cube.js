@@ -1,5 +1,9 @@
 import {
     isInt,
+    parseTurn,
+    rotate,
+    sliceCube,
+    turnSliceU,
 } from './utils';
 
 export default class Cube {
@@ -36,5 +40,47 @@ export default class Cube {
             b: new Array(stickers).fill(4),
             d: new Array(stickers).fill(5),
         };
+    }
+
+    /**
+     * Turn the cube
+     * 
+     * @param  {string} turn
+     * @return {void}
+     */
+    turn(turn) {
+        const parsedTurn = parseTurn(turn);
+        const slicedCube = sliceCube(this);
+        const { depth, double, face, outer, prime } = parsedTurn;
+
+        // turn the outer face if necessary
+        if (outer) {
+            let deg = 90;
+
+            if (prime) {
+                deg = -90;
+            } else if (double) {
+                deg = 180;
+            }
+
+            this.state[face] = rotate(this.state[face], deg);
+        }
+
+        // turn slices
+        if (face === 'u') {
+            turnSliceU(this, slicedCube, parsedTurn);
+        } else if (face === 'l') {
+
+        } else if (face === 'f') {
+
+        } else if (face === 'r') {
+
+        } else if (face === 'b') {
+
+        } else if (face === 'd') {
+
+        }
+
+        // @todo: process "inner" turns, usually from whole-cube turns
     }
 }
