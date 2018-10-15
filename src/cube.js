@@ -34,6 +34,35 @@ export default class Cube {
     }
 
     /**
+     * Test if the cube is solved.
+     * 
+     * @return {boolean}
+     */
+    isSolved() {
+        const u = this.state.u[0];
+        const l = this.state.l[0];
+        const f = this.state.f[0];
+        const r = this.state.r[0];
+        const b = this.state.b[0];
+        const d = this.state.d[0];
+
+        for (let i = 1; i < this.size; i++) {
+            if (
+                this.state.u[i] !== u ||
+                this.state.l[i] !== l ||
+                this.state.f[i] !== f ||
+                this.state.r[i] !== r ||
+                this.state.b[i] !== b ||
+                this.state.d[i] !== d
+            ) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
      * Reset the cube to it's initial state.
      * 
      * @return {void}

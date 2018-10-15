@@ -7,11 +7,14 @@ A basic javascript class for modeling Rubik's cubes.
 ## Basic usage
 
 ```js
+// create a new 3x3 cube
 const cube = new Cube(3);
 
+// perform a turn
 cube.turn('F');
 
-console.log(cube.state);
+// test if the cube is solved
+cube.isSolved();
 ```
 
 ## Notation

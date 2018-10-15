@@ -24,6 +24,20 @@ describe('Cube', function() {
         expect(() => new Cube(NaN)).to.throw();
     });
 
+    it('isSolved', function() {
+        // the cube should be in an initial solved state
+        const cube = new Cube(2);
+        expect(cube.isSolved()).to.be.true;
+
+        // making a turn should now show the cube as unsolved
+        cube.turn('F');
+        expect(cube.isSolved()).to.be.false;
+
+        // and undoing the turn should return it to a solved state
+        cube.turn('F-');
+        expect(cube.isSolved()).to.be.true;
+    });
+
     describe('turn', function() {
         let cube;
 
