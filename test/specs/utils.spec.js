@@ -9,6 +9,7 @@ import {
     flattenCols,
     flattenRows,
     flip,
+    parseTurn,
     rotate,
 } from '../../src/utils';
 
@@ -74,6 +75,48 @@ describe('utils', function() {
             [2, 5, 8],
             [3, 6, 9],
         ]);
+    });
+
+    it('parseTurn', function() {
+        expect(parseTurn('F')).to.deep.equal({
+            depth: 1,
+            double: false,
+            face: 'f',
+            outer: true,
+            prime: false,
+        });
+
+        expect(parseTurn('F-')).to.deep.equal({
+            depth: 1,
+            double: false,
+            face: 'f',
+            outer: true,
+            prime: true,
+        });
+
+        expect(parseTurn('F2')).to.deep.equal({
+            depth: 1,
+            double: true,
+            face: 'f',
+            outer: true,
+            prime: false,
+        });
+
+        expect(parseTurn('2F')).to.deep.equal({
+            depth: 2,
+            double: false,
+            face: 'f',
+            outer: false,
+            prime: false,
+        });
+
+        expect(parseTurn('2f')).to.deep.equal({
+            depth: 2,
+            double: false,
+            face: 'f',
+            outer: true,
+            prime: false,
+        });
     });
 
     it('rotate', function() {

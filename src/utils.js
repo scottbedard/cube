@@ -96,6 +96,24 @@ export function isInt(val) {
 }
 
 /**
+ * Parse a turn string.
+ * 
+ * @param  {string} turn
+ * @return {Object}
+ */
+export function parseTurn(turn) {
+    const rawDepth = turn.match(/^[0-9]+/) || 1;
+
+    const depth = Array.isArray(rawDepth) ? Number(rawDepth[0]) : rawDepth;
+    const face = turn.match(/[A-Za-z]/)[0].toLowerCase();
+    const double = turn.endsWith('2');
+    const outer = depth === 1 || turn.match(/[a-z]/) !== null;
+    const prime = turn.endsWith('-');
+
+    return { depth, face, double, outer, prime };
+}
+
+/**
  * Returns a reversed array without mutating the source.
  * 
  * @param  {Array} arr 
