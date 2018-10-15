@@ -212,7 +212,7 @@ export function sliceCube(cube) {
 }
 
 /**
- * Turn a cube along it's X axis.
+ * Turn a cube along the X axis.
  * 
  * @param  {Cube}   cube 
  * @param  {object} parsedTurn
@@ -247,6 +247,52 @@ export function turnCubeX(cube, parsedTurn) {
         newR = rotate(cube.state.r, 90);
         newB = reverse(cube.state.u);
         newD = reverse(cube.state.b);
+    }
+
+    cube.state.u = newU;
+    cube.state.l = newL;
+    cube.state.f = newF;
+    cube.state.r = newR;
+    cube.state.b = newB;
+    cube.state.d = newD;
+}
+
+/**
+ * Turn a cube along the Y axis.
+ * 
+ * @param  {Cube}   cube 
+ * @param  {object} parsedTurn
+ * @return {void}
+ */
+export function turnCubeY(cube, parsedTurn) {
+    const { double, prime } = parsedTurn;
+
+    let newU, newL, newF, newR, newB, newD;
+
+    if (double) {
+        // 180
+        newU = rotate(cube.state.u, 180);
+        newL = cube.state.r.slice();
+        newF = cube.state.b.slice();
+        newR = cube.state.l.slice();
+        newB = cube.state.f.slice();
+        newD = rotate(cube.state.d, 180);
+    } else if (prime) {
+        // 90 counter-clockwise
+        newU = rotate(cube.state.u, -90);
+        newL = cube.state.b.slice();
+        newF = cube.state.l.slice();
+        newR = cube.state.f.slice();
+        newB = cube.state.r.slice();
+        newD = rotate(cube.state.d, 90);
+    } else {
+        // 90 clockwise
+        newU = rotate(cube.state.u, 90);
+        newL = cube.state.f.slice();
+        newF = cube.state.r.slice();
+        newR = cube.state.b.slice();
+        newB = cube.state.l.slice();
+        newD = rotate(cube.state.d, -90);
     }
 
     cube.state.u = newU;

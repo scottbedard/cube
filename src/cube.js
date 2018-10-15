@@ -5,6 +5,7 @@ import {
     rotate,
     sliceCube,
     turnCubeX,
+    turnCubeY,
     turnSliceB,
     turnSliceD,
     turnSliceF,
@@ -64,7 +65,7 @@ export default class Cube {
             if (face === 'x') {
                 turnCubeX(this, parsedTurn);
             } else if (face === 'y') {
-
+                turnCubeY(this, parsedTurn);
             } else if (face === 'z') {
 
             }
