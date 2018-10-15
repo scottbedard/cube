@@ -184,6 +184,46 @@ describe('Cube', function() {
             });
         });
 
+        it('3U', function() {
+            // this test only exists to make sure that the "inner" face
+            // is turned when the depth is equal to the size of the cube.
+            // in real solves, this would normally just be a D- turn.
+            cube.turn('3U');
+            
+            expect(cube.state).to.deep.equal({
+                u: [
+                    'u0', 'u1', 'u2',
+                    'u3', 'u4', 'u5',
+                    'u6', 'u7', 'u8',
+                ],
+                l: [
+                    'l0', 'l1', 'l2',
+                    'l3', 'l4', 'l5',
+                    'f6', 'f7', 'f8',
+                ],
+                f: [
+                    'f0', 'f1', 'f2',
+                    'f3', 'f4', 'f5',
+                    'r6', 'r7', 'r8',
+                ],
+                r: [
+                    'r0', 'r1', 'r2',
+                    'r3', 'r4', 'r5',
+                    'b6', 'b7', 'b8',
+                ],
+                b: [
+                    'b0', 'b1', 'b2',
+                    'b3', 'b4', 'b5',
+                    'l6', 'l7', 'l8',
+                ],
+                d: [
+                    'd2', 'd5', 'd8',
+                    'd1', 'd4', 'd7',
+                    'd0', 'd3', 'd6',
+                ],
+            });
+        });
+
         it('L', function() {
             cube.turn('L');
             

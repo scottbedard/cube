@@ -9,6 +9,7 @@ import {
     flattenCols,
     flattenRows,
     flip,
+    getOppositeFace,
     parseTurn,
     rotate,
 } from '../../src/utils';
@@ -75,6 +76,15 @@ describe('utils', function() {
             [2, 5, 8],
             [3, 6, 9],
         ]);
+    });
+
+    it('getOppositeFace', function() {
+        expect(getOppositeFace('u')).to.equal('d');
+        expect(getOppositeFace('l')).to.equal('r');
+        expect(getOppositeFace('f')).to.equal('b');
+        expect(getOppositeFace('r')).to.equal('l');
+        expect(getOppositeFace('b')).to.equal('f');
+        expect(getOppositeFace('d')).to.equal('u');
     });
 
     it('parseTurn', function() {

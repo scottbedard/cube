@@ -87,6 +87,23 @@ export function flip(arr) {
 }
 
 /**
+ * Get the opposite face.
+ * 
+ * @param  {string} face 
+ * @return {string}
+ */
+export function getOppositeFace(face) {
+    switch(face) {
+        case 'u': return 'd';
+        case 'l': return 'r';
+        case 'f': return 'b';
+        case 'r': return 'l';
+        case 'b': return 'f';
+        case 'd': return 'u';
+    }
+}
+
+/**
  * Test if a value an integer.
  * 
  * @param {any} val

@@ -1,5 +1,6 @@
 import {
     isInt,
+    getOppositeFace,
     parseTurn,
     rotate,
     sliceCube,
@@ -71,6 +72,23 @@ export default class Cube {
             this.state[face] = rotate(this.state[face], deg);
         }
 
+        // turn the inner face if necessary. notice the
+        // turn direction is reversed because it's being
+        // turned from the context of the opposite face
+        if (depth >= this.size) {
+            let deg = -90;
+
+            if (prime) {
+                deg = 90;
+            } else if (double) {
+                deg = 180;
+            }
+
+            const oppositeFace = getOppositeFace(face);
+
+            this.state[oppositeFace] = rotate(this.state[oppositeFace], deg);
+        }
+
         // turn slices
         if (face === 'u') {
             turnSliceU(this, slicedCube, parsedTurn);
@@ -85,7 +103,5 @@ export default class Cube {
         } else if (face === 'd') {
             turnSliceD(this, slicedCube, parsedTurn);
         }
-
-        // @todo: process "inner" turns, usually from whole-cube turns
     }
 }
