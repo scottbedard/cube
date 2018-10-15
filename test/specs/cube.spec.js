@@ -964,7 +964,7 @@ describe('Cube', function() {
             });
         });
 
-        it.only('Y2', function() {
+        it('Y2', function() {
             cube.turn('Y2');
             
             expect(cube.state).to.deep.equal({
