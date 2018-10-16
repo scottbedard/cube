@@ -1,6 +1,6 @@
 {
-  "name": "rollup-starter-lib",
-  "version": "1.0.0",
+  "name": "@bedard/cube",
+  "version": "0.1.0",
   "main": "dist/cube.cjs.js",
   "module": "dist/cube.esm.js",
   "browser": "dist/cube.umd.js",
