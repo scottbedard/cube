@@ -113,3 +113,9 @@ To picture how these values would map to an actual cube, imagine unfolding a cub
 L F R B
   D
 ```
+
+### License
+
+[MIT](https://github.com/scottbedard/cube/blob/master/LICENSE)
+
+Copyright (c) 2018-present, Scott Bedard
