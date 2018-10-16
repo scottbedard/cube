@@ -18,8 +18,8 @@ jobs:
       - run:
           name: Codecov
           command: |
-            nyc report --reporter=text-lcov > coverage.lcov
-            codecov -t 4a7a492a-fc7a-426d-9e9a-64aa9f3f41cb
+            ./node_modules/.bin/nyc report --reporter=text-lcov > coverage.lcov
+            ./node_modules/.bin/codecov -t 4a7a492a-fc7a-426d-9e9a-64aa9f3f41cb
       - save_cache:
           key: -v3-{{ checksum "package.json" }}
           paths:
