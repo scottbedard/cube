@@ -66,3 +66,50 @@ The cube can be returned to it's original state via the `reset` method.
 ```js
 cube.reset();
 ```
+
+## State
+
+To read the current state of the cube, access the `state` property. This property holds an object with properties for each face, each containing an array of sticker values. The face arrays start from the top left sticker and read sequentially to the bottom right. So for example, a newly instantiated 3x3 cube would have the following state.
+
+```js
+{
+    u: [
+        0, 0, 0,
+        0, 0, 0,
+        0, 0, 0,
+    ],
+    l: [
+        1, 1, 1,
+        1, 1, 1,
+        1, 1, 1,
+    },
+    f: [
+        2, 2, 2,
+        2, 2, 2,
+        2, 2, 2,
+    ],
+    r: [
+        3, 3, 3,
+        3, 3, 3,
+        3, 3, 3,
+    ],
+    b: [
+        4, 4, 4,
+        4, 4, 4,
+        4, 4, 4,
+    ],
+    d: [
+        5, 5, 5,
+        5, 5, 5,
+        5, 5, 5,
+    ],
+}
+```
+
+To picture how these values would map to an actual cube, imagine unfolding a cube while looking at the `F` face. Note that the `B` face is oriented the same as the `L`, `F`, and `R` faces.
+
+```
+  U
+L F R B
+  D
+```
