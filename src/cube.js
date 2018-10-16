@@ -34,6 +34,29 @@ export default class Cube {
     }
 
     /**
+     * Apply a series of turns to the cube.
+     * 
+     * @param  {Array|string} turns
+     * @return {void}
+     */
+    applyTurns(turns) {
+        const turnsArray = Array.isArray(turns) 
+            ? turns 
+            : turns.split(/[ ,]+/);
+
+        turnsArray.forEach(this.turn);
+    }
+
+    /**
+     * Get the last turn from history.
+     * 
+     * @return {object|undefined}
+     */
+    getLastTurn() {
+        return this.history.slice(-1).pop();
+    }
+
+    /**
      * Test if the cube is solved.
      * 
      * @return {boolean}
@@ -69,6 +92,8 @@ export default class Cube {
      */
     reset() {
         const stickers = this.size ** 2;
+
+        this.history = [];
         
         this.state = {
             u: new Array(stickers).fill(0),
@@ -90,6 +115,12 @@ export default class Cube {
         const parsedTurn = parseTurn(turn);
         const { depth, double, face, outer, prime, whole } = parsedTurn;
 
+        // make a log of the turn
+        const date = Date.now();
+        const event = { date, parsedTurn };
+
+        this.history.push(event);
+
         // whole-cube turns
         if (whole) {
             if (face === 'x') {
@@ -100,10 +131,8 @@ export default class Cube {
                 turnCubeZ(this, parsedTurn);
             }
 
-            return;
+            return event;
         }
-
-        const slicedCube = sliceCube(this);
 
         // turn the outer face if necessary
         if (outer) {
@@ -136,6 +165,8 @@ export default class Cube {
         }
 
         // turn slices
+        const slicedCube = sliceCube(this);
+
         if (face === 'u') {
             turnSliceU(this, slicedCube, parsedTurn);
         } else if (face === 'l') {
@@ -149,5 +180,7 @@ export default class Cube {
         } else if (face === 'd') {
             turnSliceD(this, slicedCube, parsedTurn);
         }
+
+        return event;
     }
 }

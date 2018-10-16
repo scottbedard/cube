@@ -24,7 +24,26 @@ describe('Cube', function() {
         expect(() => new Cube(NaN)).to.throw();
     });
 
-    it('isSolved', function() {
+    it('exposes "history" showing what turns have been made', function(done) {
+        const cube = new Cube(2);
+        expect(cube.history.length).to.equal(0);
+        expect(cube.getLastTurn()).to.be.undefined;
+
+        setTimeout(() => {
+            const firstTurn = cube.turn('F');
+            expect(cube.history.length).to.equal(1);            
+
+            setTimeout(() => {
+                const secondTurn = cube.turn('R');
+                expect(cube.history.length).to.equal(2);
+                expect(secondTurn.date > firstTurn.date).to.be.true;
+
+                done();
+            }, 25);
+        }, 50);
+    })
+
+    it('exposes "isSolved" to test if cube is solved', function() {
         // the cube should be in an initial solved state
         const cube = new Cube(2);
         expect(cube.isSolved()).to.be.true;

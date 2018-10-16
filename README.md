@@ -5,22 +5,7 @@
 
 A basic javascript class for modeling Rubik's cubes.
 
-> **Note:** This is a work in progress, and is not ready for use by anyone.
-
-## Basic usage
-
-```js
-// create a new 3x3 cube
-const cube = new Cube(3);
-
-// perform a turn
-cube.turn('F');
-
-// test if the cube is solved
-cube.isSolved();
-```
-
-## Notation
+## Turn Notation
 
 Turn notation has 3 basic parts.
 
@@ -46,4 +31,31 @@ Turn notation has 3 basic parts.
 'X'   // turn the cube around the X axis 90 degrees clockwise
 'X-'  // turn the cube around the X axis 90 degrees counter-clockwise
 'X2'  // turn the cube around the X axis 180 degrees
+```
+
+## API
+
+To instantiate a cube, use the `Cube` constructor and define the `size` of the cube. The `size` parameter must be an integer greater than `1`.
+
+```js
+// create a new 3x3 cube
+const cube = new Cube(3);
+```
+
+To perform a single turn, call the `turn` method. This returns a `turn` object.
+
+```js
+cube.turn('F');
+```
+
+To perform a series of turns, use the `applyTurns` method. This method accepts a comma-seperated or whitespace-seperated string of turns, or an array of strings. The turns that have been made can be accessed via the `history` property.
+
+```js
+cube.applyTurns('F R- U2');
+```
+
+To test if the cube is solved, use the `isSolved` method. This function returns `true` or `false`.
+
+```js
+cube.isSolved();
 ```
