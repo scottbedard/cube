@@ -106,6 +106,15 @@ describe('utils', function() {
             whole: false,
         });
 
+        expect(parseTurn(`F'`)).to.deep.equal({
+            depth: 1,
+            double: false,
+            face: 'f',
+            outer: true,
+            prime: true,
+            whole: false,
+        });
+
         expect(parseTurn('F2')).to.deep.equal({
             depth: 1,
             double: true,

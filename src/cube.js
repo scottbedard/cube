@@ -44,7 +44,7 @@ export default class Cube {
             ? turns 
             : turns.split(/[ ,]+/);
 
-        turnsArray.forEach(this.turn);
+        turnsArray.forEach(turn => this.turn(turn));
     }
 
     /**

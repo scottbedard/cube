@@ -140,7 +140,7 @@ export function parseTurn(turn) {
     const face = turn.match(/[A-Za-z]/)[0].toLowerCase();
     const double = turn.endsWith('2');
     const outer = depth === 1 || turn.match(/[a-z]/) !== null;
-    const prime = turn.endsWith('-');
+    const prime = turn.endsWith('-') || turn.endsWith(`'`);
     const whole = ['x', 'y', 'z'].includes(face);
 
     return { depth, face, double, outer, prime, whole };
