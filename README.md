@@ -59,3 +59,9 @@ To test if the cube is solved, use the `isSolved` method. This function returns 
 ```js
 cube.isSolved();
 ```
+
+The cube can be returned to it's original state via the `reset` method.
+
+```js
+cube.reset();
+```
