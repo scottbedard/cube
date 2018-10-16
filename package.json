@@ -10,7 +10,9 @@
     "@babel/preset-env": "^7.1.0",
     "@babel/register": "^7.0.0",
     "chai": "^4.2.0",
+    "codecov": "^3.1.0",
     "mocha": "^5.2.0",
+    "nyc": "^13.1.0",
     "rollup": "^0.66.0",
     "rollup-plugin-babel": "^4.0.3",
     "rollup-plugin-commonjs": "^9.1.0",
@@ -19,7 +21,7 @@
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
-    "test": "mocha",
+    "test": "nyc mocha",
     "pretest": "npm run build"
   },
   "files": [
