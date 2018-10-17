@@ -164,10 +164,10 @@ describe('turns', function() {
         });
     });
 
+    // these tests only exists to make sure that the "inner" face
+    // is turned when the depth is equal to the size of the cube.
+    // in real solves, this would normally just be a D- turn.
     it('3U', function() {
-        // this test only exists to make sure that the "inner" face
-        // is turned when the depth is equal to the size of the cube.
-        // in real solves, this would normally just be a D- turn.
         cube.turn('3U');
         
         expect(cube.state).to.deep.equal({
@@ -203,6 +203,81 @@ describe('turns', function() {
             ],
         });
     });
+
+    it('3U-', function() {
+        cube.turn('3U-');
+        
+        expect(cube.state).to.deep.equal({
+            u: [
+                'u0', 'u1', 'u2',
+                'u3', 'u4', 'u5',
+                'u6', 'u7', 'u8',
+            ],
+            l: [
+                'l0', 'l1', 'l2',
+                'l3', 'l4', 'l5',
+                'b6', 'b7', 'b8',
+            ],
+            f: [
+                'f0', 'f1', 'f2',
+                'f3', 'f4', 'f5',
+                'l6', 'l7', 'l8',
+            ],
+            r: [
+                'r0', 'r1', 'r2',
+                'r3', 'r4', 'r5',
+                'f6', 'f7', 'f8',
+            ],
+            b: [
+                'b0', 'b1', 'b2',
+                'b3', 'b4', 'b5',
+                'r6', 'r7', 'r8',
+            ],
+            d: [
+                'd6', 'd3', 'd0',
+                'd7', 'd4', 'd1',
+                'd8', 'd5', 'd2',
+            ],
+        });
+    });
+
+    it('3U2', function() {
+        cube.turn('3U2');
+        
+        expect(cube.state).to.deep.equal({
+            u: [
+                'u0', 'u1', 'u2',
+                'u3', 'u4', 'u5',
+                'u6', 'u7', 'u8',
+            ],
+            l: [
+                'l0', 'l1', 'l2',
+                'l3', 'l4', 'l5',
+                'r6', 'r7', 'r8',
+            ],
+            f: [
+                'f0', 'f1', 'f2',
+                'f3', 'f4', 'f5',
+                'b6', 'b7', 'b8',
+            ],
+            r: [
+                'r0', 'r1', 'r2',
+                'r3', 'r4', 'r5',
+                'l6', 'l7', 'l8',
+            ],
+            b: [
+                'b0', 'b1', 'b2',
+                'b3', 'b4', 'b5',
+                'f6', 'f7', 'f8',
+            ],
+            d: [
+                'd8', 'd7', 'd6',
+                'd5', 'd4', 'd3',
+                'd2', 'd1', 'd0',
+            ],
+        });
+    });
+    // end "inner" face turn tests
 
     it('L', function() {
         cube.turn('L');
