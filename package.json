@@ -1,5 +1,5 @@
 {
-  "name": "@bedard/cube",
+  "name": "bedard-cube",
   "version": "0.1.0",
   "main": "dist/cube.cjs.js",
   "module": "dist/cube.esm.js",
@@ -26,5 +26,23 @@
   },
   "files": [
     "dist"
-  ]
+  ],
+  "description": "[![Build](https://img.shields.io/circleci/project/github/scottbedard/cube.svg)](https://circleci.com/gh/scottbedard/cube) [![Coverage](https://img.shields.io/codecov/c/github/scottbedard/cube.svg)](https://codecov.io/gh/scottbedard/cube) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/scottbedard/cube/blob/master/LICENSE)",
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/scottbedard/cube.git"
+  },
+  "keywords": [
+    "rubik's",
+    "cube"
+  ],
+  "author": "Scott Bedard",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/scottbedard/cube/issues"
+  },
+  "homepage": "https://github.com/scottbedard/cube#readme"
 }
