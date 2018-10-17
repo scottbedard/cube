@@ -89,7 +89,7 @@ To read the current state of the cube, access the `state` property. This propert
 }
 ```
 
-To picture how these values would map to an actual cube, imagine unfolding a cube while looking at the `F` face. Note that the `B` face is oriented the same as the `L`, `F`, and `R` faces.
+To picture how these values would map to an actual cube, imagine unfolding a cube while looking at the `F` face. Notice that the `B` face has the same orientation as the `L`, `F`, and `R` faces.
 
 ```
   U
