@@ -2,6 +2,7 @@
 
 [![Build](https://img.shields.io/circleci/project/github/scottbedard/cube.svg)](https://circleci.com/gh/scottbedard/cube)
 [![Coverage](https://img.shields.io/codecov/c/github/scottbedard/cube.svg)](https://codecov.io/gh/scottbedard/cube)
+[![npm](https://img.shields.io/npm/v/bedard-cube.svg)](https://www.npmjs.com/package/bedard-cube)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/scottbedard/cube/blob/master/LICENSE)
 
 A basic javascript class for modeling Rubik's cubes.
