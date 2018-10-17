@@ -5,8 +5,6 @@
 [![npm](https://img.shields.io/npm/v/bedard-cube.svg)](https://www.npmjs.com/package/bedard-cube)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/scottbedard/cube/blob/master/LICENSE)
 
-## Installation
-
 This class models the state of Rubik's cubes. To get started, install the library through Yarn or NPM.
 
 ```bash
