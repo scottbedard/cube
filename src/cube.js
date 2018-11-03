@@ -149,6 +149,16 @@ export default class Cube {
     }
 
     /**
+     * Scramble the cube
+     * 
+     * @param  {numbed} depth
+     * @return {void} 
+     */
+    scramble(depth = 0) {
+        this.turn(this.generateScramble(depth));
+    }
+
+    /**
      * Turn the cube
      * 
      * @param  {Object[]|string} turns

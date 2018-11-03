@@ -89,4 +89,12 @@ describe('Cube', function() {
         expect(typeof turn.outer).to.equal('boolean');
         expect(typeof turn.prime).to.equal('boolean');
     });
+
+    it('can scramble the cube', function() {
+        const cube = new Cube(2);
+
+        cube.scramble(5);
+
+        expect(cube.isSolved()).to.be.false;
+    });
 });
