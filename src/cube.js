@@ -87,9 +87,7 @@ export default class Cube {
             });
         }
         
-        const turnString = scramble.map(turn => printTurn(turn, this.size));
-
-        console.log(turnString);
+        return scramble;
     }
 
     /**
@@ -153,7 +151,7 @@ export default class Cube {
     /**
      * Turn the cube
      * 
-     * @param  {String[]|string} turns
+     * @param  {Object[]|string} turns
      * @return {void}
      */
     turn(turns) {
@@ -162,7 +160,7 @@ export default class Cube {
             : turns.split(/[ ,]+/);
 
         turnsArray.forEach(turn => {
-            const parsedTurn = parseTurn(turn);
+            const parsedTurn = typeof turn === 'string' ? parseTurn(turn) : turn;
             const { depth, double, face, outer, prime, whole } = parsedTurn;
     
             // make a log of the turn

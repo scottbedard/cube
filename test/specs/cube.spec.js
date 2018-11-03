@@ -1,5 +1,6 @@
 import Cube from '../../src/cube';
 import { expect } from 'chai';
+import { parseTurn } from '../../src/utils';
 
 //
 // specs
@@ -55,5 +56,16 @@ describe('Cube', function() {
         // and undoing the turn should return it to a solved state
         cube.turn('F-');
         expect(cube.isSolved()).to.be.true;
+    });
+
+    it('can be turned with an array of turn objects', function() {
+        const cube = new Cube(2);
+        const f = parseTurn('F');
+        const r = parseTurn('R');
+
+        cube.turn([f, r]);
+        
+        expect(cube.history[0].parsedTurn).to.deep.equal(f);
+        expect(cube.history[1].parsedTurn).to.deep.equal(r);
     });
 });
