@@ -24,16 +24,11 @@ To instantiate a cube, use the `Cube` constructor and define the `size` of the c
 const cube = new Cube(3);
 ```
 
-To perform a single turn, call the `turn` method. This returns a `turn` object.
+To perform one or more turns to the cube, use the `turn` method. To see what turns have already been made, check the `history` property.
 
 ```js
-cube.turn('F');
-```
-
-To perform a series of turns, use the `applyTurns` method. This method accepts a comma-seperated or whitespace-seperated string of turns, or an array of strings. The turns that have been made can be accessed via the `history` property.
-
-```js
-cube.applyTurns('F R- U2');
+// accepts a whitespace or comma seperated list of turns
+cube.turn('F R- L');
 ```
 
 To test if the cube is solved, use the `isSolved` method. This function returns `true` or `false`.
