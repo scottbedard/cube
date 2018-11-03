@@ -152,7 +152,7 @@ export function parseTurn(turn) {
  * @param {object} turn
  * @param {number} size
  */
-export function printTurn(turn, size) {
+export function printTurn(turn, size = 3) {
     let suffix = '';
 
     if (turn.prime) {
@@ -173,7 +173,7 @@ export function printTurn(turn, size) {
 
     let content = turn.face.toUpperCase();
 
-    if (size > 2 && turn.outer) {
+    if (size > 3 && turn.outer) {
         content = content.toLowerCase();
     }
 

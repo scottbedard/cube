@@ -11,6 +11,7 @@ import {
     flip,
     getOppositeFace,
     parseTurn,
+    printTurn,
     rotate,
 } from '../../src/utils';
 
@@ -168,6 +169,35 @@ describe('utils', function() {
             prime: false,
             whole: true,
         });
+    });
+
+    it('printTurn', function() {
+        expect(printTurn({
+            depth: 0,
+            double: false,
+            face: 'f',
+            outer: true,
+            prime: false,
+            whole: false,
+        })).to.equal('F');
+
+        expect(printTurn({
+            depth: 0,
+            double: true,
+            face: 'f',
+            outer: true,
+            prime: false,
+            whole: false,
+        })).to.equal('F2');
+
+        expect(printTurn({
+            depth: 0,
+            double: false,
+            face: 'f',
+            outer: true,
+            prime: true,
+            whole: false,
+        })).to.equal('F-');
     });
 
     it('rotate', function() {
