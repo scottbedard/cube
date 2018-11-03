@@ -184,6 +184,51 @@
     };
   }
   /**
+   * Print a turn object.
+   * 
+   * @param {object} turn
+   * @param {number} size
+   */
+
+  function printTurn(turn) {
+    var size = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 3;
+    var suffix = '';
+
+    if (turn.prime) {
+      suffix = '-';
+    } else if (turn.double) {
+      suffix = '2';
+    }
+
+    if (turn.whole) {
+      return "".concat(turn.face).concat(suffix);
+    }
+
+    var prefix = '';
+
+    if (turn.depth) {
+      prefix = turn.depth;
+    }
+
+    var content = turn.face.toUpperCase();
+
+    if (size > 3 && turn.outer) {
+      content = content.toLowerCase();
+    }
+
+    return "".concat(prefix).concat(content).concat(suffix);
+  }
+  /**
+   * Generate random integer.
+   *
+   * @param {number} min 
+   * @param {number} max 
+   */
+
+  function rand(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+  /**
    * Returns a reversed array without mutating the source.
    * 
    * @param  {Array} arr 
@@ -720,13 +765,78 @@
       this.reset();
     }
     /**
-     * Get the last turn from history.
-     * 
-     * @return {object|undefined}
+     * Generate a sequence to scramble the cube.
+     *
+     * @param  {number}         length  scramble depth
+     * @return {Array<object} 
      */
 
 
     _createClass(Cube, [{
+      key: "generateScramble",
+      value: function generateScramble() {
+        var length = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+
+        // set a default scramble length if none was provided
+        if (length === 0) {
+          length = Math.pow(this.size, 3);
+        } // in order to avoid poor scrambles, we need to prevent
+        // turns from cancelling prior turns. for example, turning 
+        // F then F- would not effect the cube and should be avoided.
+
+
+        var scramble = []; // this holds the faces that are acceptable to turn with a
+        // given face. anything intersecting the key is a valid option.
+
+        var intersectingFaces = {
+          u: ['l', 'f', 'r', 'b'],
+          l: ['u', 'f', 'd', 'b'],
+          f: ['l', 'u', 'r', 'd'],
+          r: ['u', 'b', 'd', 'f'],
+          b: ['u', 'l', 'd', 'r'],
+          d: ['f', 'r', 'b', 'l']
+        }; // generate an array of the faces we'll be turning
+
+        for (var i = 0, face; i < length; i++) {
+          // pick a random direction and amount to turn
+          var double = Boolean(rand(0, 2)) === 2;
+          var outer = this.size > 3 && Boolean(rand(0, 1));
+          var prime = !double && Boolean(rand(0, 1)); // pick a random depth to turn
+
+          var depth = this.size > 3 ? rand(0, Math.floor(this.size / 2)) : 0; // pick a random face
+
+          face = i === 0 ? ['u', 'l', 'f', 'r', 'b', 'd'][rand(0, 5)] : intersectingFaces[face][rand(0, 3)];
+          scramble.push({
+            depth: depth,
+            double: double,
+            face: face,
+            outer: outer,
+            prime: prime
+          });
+        }
+
+        return scramble;
+      }
+      /**
+       * Generate and stringify a scramble.
+       *
+       * @param  {number}         length  scramble depth
+       * @return {Array<object} 
+       */
+
+    }, {
+      key: "generateScrambleString",
+      value: function generateScrambleString() {
+        var length = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+        return this.generateScramble(length).map(printTurn).join(' ');
+      }
+      /**
+       * Get the last turn from history.
+       * 
+       * @return {object|undefined}
+       */
+
+    }, {
       key: "getLastTurn",
       value: function getLastTurn() {
         return this.history.slice(-1).pop();
@@ -765,6 +875,7 @@
       key: "reset",
       value: function reset() {
         var stickers = Math.pow(this.size, 2);
+        this.currentScramble = [];
         this.history = [];
         this.state = {
           u: new Array(stickers).fill(0),
@@ -776,9 +887,24 @@
         };
       }
       /**
+       * Scramble the cube
+       * 
+       * @param  {numbed} length
+       * @return {void} 
+       */
+
+    }, {
+      key: "scramble",
+      value: function scramble() {
+        var length = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+        this.currentScramble = this.generateScramble(length);
+        this.turn(this.currentScramble, false);
+      }
+      /**
        * Turn the cube
        * 
-       * @param  {String[]|string} turns
+       * @param  {Object[]|string}    turns   one or more turns to perform
+       * @param  {boolean}            history determines if history should be recorded
        * @return {void}
        */
 
@@ -787,9 +913,10 @@
       value: function turn(turns) {
         var _this = this;
 
+        var history = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
         var turnsArray = Array.isArray(turns) ? turns : turns.split(/[ ,]+/);
         turnsArray.forEach(function (turn) {
-          var parsedTurn = parseTurn(turn);
+          var parsedTurn = typeof turn === 'string' ? parseTurn(turn) : turn;
           var depth = parsedTurn.depth,
               double = parsedTurn.double,
               face = parsedTurn.face,
@@ -803,7 +930,9 @@
             parsedTurn: parsedTurn
           };
 
-          _this.history.push(event); // whole-cube turns
+          if (history) {
+            _this.history.push(event);
+          } // whole-cube turns
 
 
           if (whole) {

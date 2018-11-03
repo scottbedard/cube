@@ -1,6 +1,7 @@
 {
   "name": "bedard-cube",
   "version": "0.2.0",
+  "bin": "./cli.js",
   "main": "dist/cube.cjs.js",
   "module": "dist/cube.esm.js",
   "browser": "dist/cube.umd.js",
@@ -11,6 +12,8 @@
     "@babel/register": "^7.0.0",
     "chai": "^4.2.0",
     "codecov": "^3.1.0",
+    "commander": "^2.19.0",
+    "minimist": "^1.2.0",
     "mocha": "^5.2.0",
     "nyc": "^13.1.0",
     "rollup": "^0.66.0",

@@ -66,9 +66,9 @@ export default class Cube {
         // generate an array of the faces we'll be turning
         for (let i = 0, face; i < length; i++) {
             // pick a random direction and amount to turn
-            const double = Boolean(rand(0, 1));
+            const double = Boolean(rand(0, 2)) === 2;
             const outer = this.size > 3 && Boolean(rand(0, 1));
-            const prime = Boolean(rand(0, 1));
+            const prime = !double && Boolean(rand(0, 1));
 
             // pick a random depth to turn
             const depth = this.size > 3 ? rand(0, Math.floor(this.size / 2)) : 0;
@@ -82,6 +82,16 @@ export default class Cube {
         }
         
         return scramble;
+    }
+
+    /**
+     * Generate and stringify a scramble.
+     *
+     * @param  {number}         length  scramble depth
+     * @return {Array<object} 
+     */
+    generateScrambleString(length = 0) {
+        return this.generateScramble(length).map(printTurn).join(' ');
     }
 
     /**
