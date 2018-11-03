@@ -68,4 +68,19 @@ describe('Cube', function() {
         expect(cube.history[0].parsedTurn).to.deep.equal(f);
         expect(cube.history[1].parsedTurn).to.deep.equal(r);
     });
+
+    it('can generate scrambles of a given length', function() {
+        const cube = new Cube(3);
+
+        const scramble = cube.generateScramble(5);
+        expect(scramble.length).to.equal(5);
+
+        const turn = scramble.pop();
+        expect(typeof turn).to.equal('object');
+        expect(typeof turn.depth).to.equal('number');
+        expect(typeof turn.double).to.equal('boolean');
+        expect(typeof turn.face).to.equal('string');
+        expect(typeof turn.outer).to.equal('boolean');
+        expect(typeof turn.prime).to.equal('boolean');
+    });
 });
