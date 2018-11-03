@@ -198,6 +198,33 @@ describe('utils', function() {
             prime: true,
             whole: false,
         })).to.equal('F-');
+        
+        expect(printTurn({
+            depth: 2,
+            double: false,
+            face: 'f',
+            outer: true,
+            prime: false,
+            whole: false,
+        })).to.equal('2F');
+
+        expect(printTurn({
+            depth: 2,
+            double: false,
+            face: 'f',
+            outer: true,
+            prime: false,
+            whole: false,
+        }, 4)).to.equal('2f');
+
+        expect(printTurn({
+            depth: 0,
+            double: false,
+            face: 'X',
+            outer: true,
+            prime: false,
+            whole: true,
+        })).to.equal('X');
     });
 
     it('rotate', function() {
