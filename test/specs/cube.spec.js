@@ -74,6 +74,7 @@ describe('Cube', function() {
 
         const scramble = cube.generateScramble(5);
         expect(scramble.length).to.equal(5);
+        expect(cube.history.length).to.equal(0);
 
         const turn = scramble.pop();
         expect(typeof turn).to.equal('object');
