@@ -69,9 +69,14 @@ describe('Cube', function() {
         expect(cube.history[1].parsedTurn).to.deep.equal(r);
     });
 
+    it('generates scrambles at a default length', function() {
+        const cube = new Cube(3);
+        const scramble = cube.generateScramble();
+        expect(scramble.length).to.equal(27);
+    });
+
     it('can generate scrambles of a given length', function() {
         const cube = new Cube(3);
-
         const scramble = cube.generateScramble(5);
         expect(scramble.length).to.equal(5);
         expect(cube.history.length).to.equal(0);
