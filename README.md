@@ -31,6 +31,12 @@ To perform one or more turns to the cube, use the `turn` method. To see what tur
 cube.turn('F R- L');
 ```
 
+The cube can be scrambled via the `scramble` function. This function optionally accepts a number of turns to perform. If omitted, the scramble depth will be determined by the size of the cube. Additionally, a scramble may be generated using the `generateScramble` function. The only difference between these two functions is that `generateScramble` *does not* perform the turns.
+
+```js
+cube.scramble();
+```
+
 To test if the cube is solved, use the `isSolved` method. This function returns `true` or `false`.
 
 ```js
