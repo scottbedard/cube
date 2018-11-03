@@ -1,6 +1,6 @@
 {
   "name": "bedard-cube",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "bin": "./cli.js",
   "main": "dist/cube.cjs.js",
   "module": "dist/cube.esm.js",
