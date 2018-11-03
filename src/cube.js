@@ -48,13 +48,13 @@ export default class Cube {
         }
 
         // in order to avoid poor scrambles, we need to prevent
-        // turns from cancelling prior turns]. for example, turning 
+        // turns from cancelling prior turns. for example, turning 
         // F then F- would not effect the cube and should be avoided.
         const scramble = [];
 
         // this holds the faces that are acceptable to turn with a
         // given face. anything intersecting the key is a valid option.
-        const intersections = {
+        const intersectingFaces = {
             u: ['l', 'f', 'r', 'b'],
             l: ['u', 'f', 'd', 'b'],
             f: ['l', 'u', 'r', 'd'],
@@ -76,15 +76,9 @@ export default class Cube {
             // pick a random face
             face = i === 0
                 ? ['u', 'l', 'f', 'r', 'b', 'd'][rand(0, 5)]
-                : intersections[face][rand(0, 3)];
+                : intersectingFaces[face][rand(0, 3)];
 
-            scramble.push({
-                depth,
-                double,
-                face,
-                outer,
-                prime,
-            });
+            scramble.push({ depth, double, face, outer, prime });
         }
         
         return scramble;
@@ -136,6 +130,8 @@ export default class Cube {
     reset() {
         const stickers = this.size ** 2;
 
+        this.currentScramble = [];
+
         this.history = [];
         
         this.state = {
@@ -151,20 +147,23 @@ export default class Cube {
     /**
      * Scramble the cube
      * 
-     * @param  {numbed} depth
+     * @param  {numbed} length
      * @return {void} 
      */
-    scramble(depth = 0) {
-        this.turn(this.generateScramble(depth));
+    scramble(length = 0) {
+        this.currentScramble = this.generateScramble(length);
+
+        this.turn(this.currentScramble, false);
     }
 
     /**
      * Turn the cube
      * 
-     * @param  {Object[]|string} turns
+     * @param  {Object[]|string}    turns   one or more turns to perform
+     * @param  {boolean}            history determines if history should be recorded
      * @return {void}
      */
-    turn(turns) {
+    turn(turns, history = true) {
         const turnsArray = Array.isArray(turns) 
             ? turns 
             : turns.split(/[ ,]+/);
@@ -177,7 +176,9 @@ export default class Cube {
             const date = Date.now();
             const event = { date, parsedTurn };
     
-            this.history.push(event);
+            if (history) {
+                this.history.push(event);
+            }
     
             // whole-cube turns
             if (whole) {

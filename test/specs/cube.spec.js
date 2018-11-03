@@ -95,6 +95,10 @@ describe('Cube', function() {
 
         cube.scramble(5);
 
+        // the currentScramble should be set, and no history should be
+        // logged for the turns to scramble the cube
         expect(cube.isSolved()).to.be.false;
+        expect(cube.currentScramble.length).to.equal(5);
+        expect(cube.history.length).to.equal(0);
     });
 });
