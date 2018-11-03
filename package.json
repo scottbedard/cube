@@ -1,10 +1,24 @@
 {
   "name": "bedard-cube",
+  "description": "[![Build](https://img.shields.io/circleci/project/github/scottbedard/cube.svg)](https://circleci.com/gh/scottbedard/cube) [![Coverage](https://img.shields.io/codecov/c/github/scottbedard/cube.svg)](https://codecov.io/gh/scottbedard/cube) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/scottbedard/cube/blob/master/LICENSE)",
   "version": "0.2.1",
   "bin": "./cli.js",
   "main": "dist/cube.cjs.js",
   "module": "dist/cube.esm.js",
   "browser": "dist/cube.umd.js",
+  "scripts": {
+    "build": "rollup -c",
+    "dev": "rollup -c -w",
+    "test": "nyc mocha",
+    "pretest": "npm run build"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "files": [
+    "cli.js",
+    "dist"
+  ],
   "dependencies": {},
   "devDependencies": {
     "@babel/core": "^7.1.2",
@@ -20,19 +34,6 @@
     "rollup-plugin-babel": "^4.0.3",
     "rollup-plugin-commonjs": "^9.1.0",
     "rollup-plugin-node-resolve": "^3.0.0"
-  },
-  "scripts": {
-    "build": "rollup -c",
-    "dev": "rollup -c -w",
-    "test": "nyc mocha",
-    "pretest": "npm run build"
-  },
-  "files": [
-    "dist"
-  ],
-  "description": "[![Build](https://img.shields.io/circleci/project/github/scottbedard/cube.svg)](https://circleci.com/gh/scottbedard/cube) [![Coverage](https://img.shields.io/codecov/c/github/scottbedard/cube.svg)](https://codecov.io/gh/scottbedard/cube) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/scottbedard/cube/blob/master/LICENSE)",
-  "directories": {
-    "test": "test"
   },
   "repository": {
     "type": "git",
