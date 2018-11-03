@@ -30,13 +30,13 @@ describe('Cube', function() {
         expect(cube.getLastTurn()).to.be.undefined;
 
         setTimeout(() => {
-            const firstTurn = cube.turn('F');
+            cube.turn('F');
             expect(cube.history.length).to.equal(1);            
 
             setTimeout(() => {
-                const secondTurn = cube.turn('R');
+                cube.turn('R');
                 expect(cube.history.length).to.equal(2);
-                expect(secondTurn.date > firstTurn.date).to.be.true;
+                expect(cube.history[1].date > cube.history[0].date).to.be.true;
 
                 done();
             }, 25);
