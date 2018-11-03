@@ -147,6 +147,50 @@ export function parseTurn(turn) {
 }
 
 /**
+ * Print a turn object.
+ * 
+ * @param {object} turn
+ * @param {number} size
+ */
+export function printTurn(turn, size) {
+    let suffix = '';
+
+    if (turn.prime) {
+        suffix = '-';
+    } else if (turn.double) {
+        suffix = '2';
+    }
+
+    if (turn.whole) {
+        return `${turn.face}${suffix}`
+    }
+
+    let prefix = '';
+
+    if (turn.depth) {
+        prefix = turn.depth;
+    }
+
+    let content = turn.face.toUpperCase();
+
+    if (size > 2 && turn.outer) {
+        content = content.toLowerCase();
+    }
+
+    return `${prefix}${content}${suffix}`
+}
+
+/**
+ * Generate random integer.
+ *
+ * @param {number} min 
+ * @param {number} max 
+ */
+export function rand(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+/**
  * Returns a reversed array without mutating the source.
  * 
  * @param  {Array} arr 

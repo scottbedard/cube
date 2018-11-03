@@ -2,6 +2,8 @@ import {
     isInt,
     getOppositeFace,
     parseTurn,
+    printTurn,
+    rand,
     rotate,
     sliceCube,
     turnCubeX,
@@ -31,6 +33,63 @@ export default class Cube {
         this.size = size;
 
         this.reset();
+    }
+
+    /**
+     * Generate a sequence to scramble the cube.
+     *
+     * @param  {number}         length  scramble depth
+     * @return {Array<object} 
+     */
+    generateScramble(length = 0) {
+        // set a default scramble length if none was provided
+        if (length === 0) {
+            length = this.size ** 3;
+        }
+
+        // in order to avoid poor scrambles, we need to prevent
+        // turns from cancelling prior turns]. for example, turning 
+        // F then F- would not effect the cube and should be avoided.
+        const scramble = [];
+
+        // this holds the faces that are acceptable to turn with a
+        // given face. anything intersecting the key is a valid option.
+        const intersections = {
+            u: ['l', 'f', 'r', 'b'],
+            l: ['u', 'f', 'd', 'b'],
+            f: ['l', 'u', 'r', 'd'],
+            r: ['u', 'b', 'd', 'f'],
+            b: ['u', 'l', 'd', 'r'],
+            d: ['f', 'r', 'b', 'l'],
+        };
+        
+        // generate an array of the faces we'll be turning
+        for (let i = 0, face; i < length; i++) {
+            // pick a random direction and amount to turn
+            const double = Boolean(rand(0, 1));
+            const outer = this.size > 3 && Boolean(rand(0, 1));
+            const prime = Boolean(rand(0, 1));
+
+            // pick a random depth to turn
+            const depth = this.size > 3 ? rand(0, Math.floor(this.size / 2)) : 0;
+
+            // pick a random face
+            face = i === 0
+                ? ['u', 'l', 'f', 'r', 'b', 'd'][rand(0, 5)]
+                : intersections[face][rand(0, 3)];
+
+            scramble.push({
+                depth,
+                double,
+                face,
+                outer,
+                prime,
+            });
+        }
+        
+        const turnString = scramble.map(turn => printTurn(turn, this.size));
+
+        console.log(turnString);
     }
 
     /**
