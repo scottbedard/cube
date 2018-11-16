@@ -2,7 +2,8 @@
 
 [![Build](https://img.shields.io/circleci/project/github/scottbedard/cube.svg)](https://circleci.com/gh/scottbedard/cube)
 [![Coverage](https://img.shields.io/codecov/c/github/scottbedard/cube.svg)](https://codecov.io/gh/scottbedard/cube)
-[![npm](https://img.shields.io/npm/v/bedard-cube.svg)](https://www.npmjs.com/package/bedard-cube)
+[![Dependencies](https://img.shields.io/david/scottbedard/cube.svg)](https://david-dm.org/scottbedard/cube)
+[![NPM](https://img.shields.io/npm/v/bedard-cube.svg)](https://www.npmjs.com/package/bedard-cube)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/scottbedard/cube/blob/master/LICENSE)
 
 This class models the state of Rubik's cubes. To get started, install the library through Yarn or NPM.
