@@ -1,4 +1,5 @@
 import Cube from '../../src/cube';
+import { spy } from 'sinon';
 import { expect } from 'chai';
 import { parseTurn } from '../../src/utils';
 
@@ -120,5 +121,14 @@ describe('Cube', function() {
         expect(cube.isSolved()).to.be.false;
         expect(cube.currentScramble.length).to.equal(5);
         expect(cube.history.length).to.equal(0);
+    });
+
+    it('exposes a method to itterate over all stickers', function() {
+        const fn = spy();
+        const cube = new Cube(2);
+
+        cube.stickers(fn);
+
+        expect(fn.callCount).to.equal(24);
     });
 });

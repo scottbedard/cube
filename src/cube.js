@@ -186,6 +186,18 @@ export default class Cube {
     }
 
     /**
+     * Itterate over all stickers.
+     * 
+     * @param  {Function}   fn
+     * @return {void}
+     */
+    stickers(fn) {
+        const { u, l, f, r, b, d } = this.state;
+        
+        [].concat(u, l, f, r, b, d).forEach(fn);
+    }
+
+    /**
      * Turn the cube
      * 
      * @param  {Object[]|string}    turns   one or more turns to perform
