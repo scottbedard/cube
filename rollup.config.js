@@ -2,6 +2,7 @@ import babel from 'rollup-plugin-babel';
 import commonjs from 'rollup-plugin-commonjs';
 import pkg from './package.json';
 import resolve from 'rollup-plugin-node-resolve';
+import { uglify } from 'rollup-plugin-uglify';
 
 export default [
     // browser-friendly UMD build
@@ -16,6 +17,22 @@ export default [
             babel(),
             resolve(),
             commonjs(),
+        ],
+    },
+
+    // browser-friendly minified build
+    {
+        input: 'src/cube.js',
+        output: {
+            name: 'cube',
+            file: 'dist/cube.umd.min.js',
+            format: 'umd',
+        },
+        plugins: [
+            babel(),
+            resolve(),
+            commonjs(),
+            uglify(),
         ],
     },
 
