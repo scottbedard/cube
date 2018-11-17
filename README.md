@@ -50,6 +50,14 @@ The cube can be returned to it's original state via the `reset` method.
 cube.reset();
 ```
 
+To itterate over all of the cube's stickers, use the `stickers` method.
+
+```js
+cube.stickers(function(sticker) {
+    // ...
+});
+```
+
 ## State
 
 To read the current state of the cube, access the `state` property. This property holds an object with properties for each face, each containing an array of sticker values. The face arrays start from the top left sticker and read sequentially to the bottom right. So for example, a newly instantiated 3x3 cube would have the following state.
@@ -95,6 +103,12 @@ To picture how these values would map to an actual cube, imagine unfolding a cub
   U
 L F R B
   D
+```
+
+To store additional data with the stickers, toggle the `useObjects` option. Setting this flag will store the sticker values as objects. These objects will contain a `value` key, and an `index` key containing the stickers original index.
+
+```js
+new Cube(size, { useObjects: true });
 ```
 
 ## Notation
