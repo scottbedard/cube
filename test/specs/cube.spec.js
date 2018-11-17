@@ -111,6 +111,12 @@ describe('Cube', function() {
         expect(typeof turn.prime).to.equal('boolean');
     });
 
+    it('generates a scramble string', function() {
+        const cube = new Cube(3);
+
+        expect(typeof cube.generateScrambleString(5)).to.equal('string');
+    });
+
     it('can scramble the cube', function() {
         const cube = new Cube(2);
 
