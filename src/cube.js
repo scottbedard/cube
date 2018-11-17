@@ -1,6 +1,7 @@
 import {
-    isInt,
+    generateStickers,
     getOppositeFace,
+    isInt,
     parseTurn,
     printTurn,
     rand,
@@ -24,13 +25,14 @@ export default class Cube {
      * 
      * @param  {number} size
      */
-    constructor(size = 3) {
+    constructor(size = 3, options = {}) {
         // make sure the cube is being constructed with a valid size
         if (!isInt(size) || size < 2) {
             throw new Error('Cube size must be a whole number greater than 1');
         }
 
         this.size = size;
+        this.options = options;
 
         this.reset();
     }
@@ -116,17 +118,32 @@ export default class Cube {
         const b = this.state.b[0];
         const d = this.state.d[0];
 
-        for (let i = 1; i < this.size; i++) {
-            if (
-                this.state.u[i] !== u ||
-                this.state.l[i] !== l ||
-                this.state.f[i] !== f ||
-                this.state.r[i] !== r ||
-                this.state.b[i] !== b ||
-                this.state.d[i] !== d
-            ) {
-                return false;
+        if (this.options.useObjects) {
+            for (let i = 1; i < this.size; i++) {
+                if (
+                    this.state.u[i].value !== u.value ||
+                    this.state.l[i].value !== l.value ||
+                    this.state.f[i].value !== f.value ||
+                    this.state.r[i].value !== r.value ||
+                    this.state.b[i].value !== b.value ||
+                    this.state.d[i].value !== d.value
+                ) {
+                    return false;
+                }
             }
+        } else {
+            for (let i = 1; i < this.size; i++) {
+                if (
+                    this.state.u[i] !== u ||
+                    this.state.l[i] !== l ||
+                    this.state.f[i] !== f ||
+                    this.state.r[i] !== r ||
+                    this.state.b[i] !== b ||
+                    this.state.d[i] !== d
+                ) {
+                    return false;
+                }
+            } 
         }
 
         return true;
@@ -138,19 +155,21 @@ export default class Cube {
      * @return {void}
      */
     reset() {
-        const stickers = this.size ** 2;
-
+        // reset the current scramble and turn history
         this.currentScramble = [];
-
         this.history = [];
         
+        // reset the cube using integer or object values
+        const stickers = this.size ** 2;
+        const useObjects = !!this.options.useObjects;
+
         this.state = {
-            u: new Array(stickers).fill(0),
-            l: new Array(stickers).fill(1),
-            f: new Array(stickers).fill(2),
-            r: new Array(stickers).fill(3),
-            b: new Array(stickers).fill(4),
-            d: new Array(stickers).fill(5),
+            u: generateStickers(stickers, 0, useObjects),
+            l: generateStickers(stickers, 1, useObjects),
+            f: generateStickers(stickers, 2, useObjects),
+            r: generateStickers(stickers, 3, useObjects),
+            b: generateStickers(stickers, 4, useObjects),
+            d: generateStickers(stickers, 5, useObjects),
         };
     }
 

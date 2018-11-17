@@ -17,6 +17,18 @@ describe('Cube', function() {
         expect(cube.state.d).to.deep.equal([5, 5, 5, 5]);
     });
 
+    it('can use objects as sticker values', function() {
+        const cube = new Cube(2, { useObjects: true });
+
+        expect(cube.state.u.map(sticker => sticker.index)).to.deep.equal([
+            0, 1, 2, 3,
+        ]);
+
+        expect(cube.state.u.map(sticker => sticker.value)).to.deep.equal([
+            0, 0, 0, 0,
+        ]);
+    });
+
     it('throws an error if constructed with an invalid size', function() {
         expect(() => new Cube('foo')).to.throw();
         expect(() => new Cube(1)).to.throw();
@@ -44,16 +56,24 @@ describe('Cube', function() {
         }, 50);
     })
 
-    it('exposes "isSolved" to test if cube is solved', function() {
-        // the cube should be in an initial solved state
+    it('tests for solved state using integer values', function() {
         const cube = new Cube(2);
         expect(cube.isSolved()).to.be.true;
 
-        // making a turn should now show the cube as unsolved
         cube.turn('F');
         expect(cube.isSolved()).to.be.false;
 
-        // and undoing the turn should return it to a solved state
+        cube.turn('F-');
+        expect(cube.isSolved()).to.be.true;
+    });
+
+    it('tests for solved state using object values', function() {
+        const cube = new Cube(2, { useObjects: true });
+        expect(cube.isSolved()).to.be.true;
+
+        cube.turn('F');
+        expect(cube.isSolved()).to.be.false;
+
         cube.turn('F-');
         expect(cube.isSolved()).to.be.true;
     });

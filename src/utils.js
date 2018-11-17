@@ -87,6 +87,24 @@ export function flip(arr) {
 }
 
 /**
+ * Generate an array of sticker values or objects.
+ * 
+ * @param  {number}         stickers        the number of stickers to generate
+ * @param  {number|string}  value           the value (color) of the stickers
+ * @param  {boolean}        useObjects      toggles sticker object types
+ * @return {Array}
+ */
+export function generateStickers(stickers, value, useObjects) {
+    const arr = new Array(stickers).fill(value);
+
+    if (useObjects) {
+        return arr.map((v, index) => ({ index, value }));
+    }
+
+    return arr;
+}
+
+/**
  * Get the opposite face.
  * 
  * @param  {string} face 
