@@ -114,6 +114,29 @@ function flip(arr) {
   });
 }
 /**
+ * Generate an array of sticker values or objects.
+ * 
+ * @param  {number}         stickers        the number of stickers to generate
+ * @param  {number|string}  value           the value (color) of the stickers
+ * @param  {boolean}        useObjects      toggles sticker object types
+ * @return {Array}
+ */
+
+function generateStickers(stickers, value, useObjects) {
+  var arr = new Array(stickers).fill(value);
+
+  if (useObjects) {
+    return arr.map(function (v, index) {
+      return {
+        index: index,
+        value: value
+      };
+    });
+  }
+
+  return arr;
+}
+/**
  * Get the opposite face.
  * 
  * @param  {string} face 
@@ -749,6 +772,7 @@ function () {
    */
   function Cube() {
     var size = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 3;
+    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
     _classCallCheck(this, Cube);
 
@@ -758,6 +782,7 @@ function () {
     }
 
     this.size = size;
+    this.options = options;
     this.reset();
   }
   /**
@@ -853,9 +878,17 @@ function () {
       var b = this.state.b[0];
       var d = this.state.d[0];
 
-      for (var i = 1; i < this.size; i++) {
-        if (this.state.u[i] !== u || this.state.l[i] !== l || this.state.f[i] !== f || this.state.r[i] !== r || this.state.b[i] !== b || this.state.d[i] !== d) {
-          return false;
+      if (this.options.useObjects) {
+        for (var i = 1; i < this.size; i++) {
+          if (this.state.u[i].value !== u.value || this.state.l[i].value !== l.value || this.state.f[i].value !== f.value || this.state.r[i].value !== r.value || this.state.b[i].value !== b.value || this.state.d[i].value !== d.value) {
+            return false;
+          }
+        }
+      } else {
+        for (var _i = 1; _i < this.size; _i++) {
+          if (this.state.u[_i] !== u || this.state.l[_i] !== l || this.state.f[_i] !== f || this.state.r[_i] !== r || this.state.b[_i] !== b || this.state.d[_i] !== d) {
+            return false;
+          }
         }
       }
 
@@ -870,16 +903,19 @@ function () {
   }, {
     key: "reset",
     value: function reset() {
-      var stickers = Math.pow(this.size, 2);
+      // reset the current scramble and turn history
       this.currentScramble = [];
-      this.history = [];
+      this.history = []; // reset the cube using integer or object values
+
+      var stickers = Math.pow(this.size, 2);
+      var useObjects = !!this.options.useObjects;
       this.state = {
-        u: new Array(stickers).fill(0),
-        l: new Array(stickers).fill(1),
-        f: new Array(stickers).fill(2),
-        r: new Array(stickers).fill(3),
-        b: new Array(stickers).fill(4),
-        d: new Array(stickers).fill(5)
+        u: generateStickers(stickers, 0, useObjects),
+        l: generateStickers(stickers, 1, useObjects),
+        f: generateStickers(stickers, 2, useObjects),
+        r: generateStickers(stickers, 3, useObjects),
+        b: generateStickers(stickers, 4, useObjects),
+        d: generateStickers(stickers, 5, useObjects)
       };
     }
     /**
@@ -895,6 +931,25 @@ function () {
       var length = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
       this.currentScramble = this.generateScramble(length);
       this.turn(this.currentScramble, false);
+    }
+    /**
+     * Itterate over all stickers.
+     * 
+     * @param  {Function}   fn
+     * @return {void}
+     */
+
+  }, {
+    key: "stickers",
+    value: function stickers(fn) {
+      var _this$state = this.state,
+          u = _this$state.u,
+          l = _this$state.l,
+          f = _this$state.f,
+          r = _this$state.r,
+          b = _this$state.b,
+          d = _this$state.d;
+      [].concat(u, l, f, r, b, d).forEach(fn);
     }
     /**
      * Turn the cube
