@@ -25,7 +25,7 @@ To instantiate a cube, use the `Cube` constructor and define the `size` of the c
 const cube = new Cube(3);
 ```
 
-To perform one or more turns to the cube, use the `turn` method. To see what turns have already been made, check the `history` property.
+To perform one or more turns to the cube, use the `turn` method. To see what turns have already been made, check the `history` property. Turn history will be stored as an array of objects. To manually convert a turn string to an object, use the `parseTurn` method.
 
 ```js
 // accepts a whitespace or comma seperated list of turns
@@ -105,7 +105,7 @@ L F R B
   D
 ```
 
-To store additional data with the stickers, toggle the `useObjects` option. Setting this flag will store the sticker values as objects. These objects will contain a `value` key, and an `index` key containing the stickers original index.
+To store additional data with the stickers, toggle the `useObjects` option. Setting this flag will store the sticker values as `{ originalIndex, value }` objects. Note that the `originalIndex` key does not change as the cube is turned.
 
 ```js
 new Cube(size, { useObjects: true });
