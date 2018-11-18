@@ -21,7 +21,7 @@ describe('Cube', function() {
     it('can use objects as sticker values', function() {
         const cube = new Cube(2, { useObjects: true });
 
-        expect(cube.state.u.map(sticker => sticker.index)).to.deep.equal([
+        expect(cube.state.u.map(sticker => sticker.originalIndex)).to.deep.equal([
             0, 1, 2, 3,
         ]);
 

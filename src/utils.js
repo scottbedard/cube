@@ -98,7 +98,7 @@ export function generateStickers(stickers, value, useObjects) {
     const arr = new Array(stickers).fill(value);
 
     if (useObjects) {
-        return arr.map((v, index) => ({ index, value }));
+        return arr.map((v, originalIndex) => ({ originalIndex, value }));
     }
 
     return arr;
