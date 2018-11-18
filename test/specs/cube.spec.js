@@ -137,4 +137,11 @@ describe('Cube', function() {
 
         expect(fn.callCount).to.equal(24);
     });
+
+    it('exposes a method to parse turn strings', function() {
+        const cube = new Cube(2);
+        const turn = cube.parseTurn('F');
+
+        expect(typeof turn).to.be.equal('object');
+    });
 });

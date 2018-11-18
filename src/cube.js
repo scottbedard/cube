@@ -150,6 +150,16 @@ export default class Cube {
     }
 
     /**
+     * Parse a turn string.
+     *
+     * @param  {string} turn
+     * @return {Object}
+     */
+    parseTurn(turn) {
+        return parseTurn(turn);
+    }
+
+    /**
      * Reset the cube to it's initial state.
      * 
      * @return {void}
