@@ -124,9 +124,9 @@ function generateStickers(stickers, value, useObjects) {
   var arr = new Array(stickers).fill(value);
 
   if (useObjects) {
-    return arr.map(function (v, index) {
+    return arr.map(function (v, originalIndex) {
       return {
-        index: index,
+        originalIndex: originalIndex,
         value: value
       };
     });
@@ -891,6 +891,18 @@ function () {
       }
 
       return true;
+    }
+    /**
+     * Parse a turn string.
+     *
+     * @param  {string} turn
+     * @return {Object}
+     */
+
+  }, {
+    key: "parseTurn",
+    value: function parseTurn$$1(turn) {
+      return parseTurn(turn);
     }
     /**
      * Reset the cube to it's initial state.
