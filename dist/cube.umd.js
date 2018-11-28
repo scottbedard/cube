@@ -229,7 +229,7 @@
 
     var prefix = '';
 
-    if (turn.depth) {
+    if (turn.depth > 1) {
       prefix = turn.depth;
     }
 
@@ -856,17 +856,6 @@
         return this.generateScramble(length).map(printTurn).join(' ');
       }
       /**
-       * Get the last turn from history.
-       * 
-       * @return {object|undefined}
-       */
-
-    }, {
-      key: "getLastTurn",
-      value: function getLastTurn() {
-        return this.history.slice(-1).pop();
-      }
-      /**
        * Test if the cube is solved.
        * 
        * @return {boolean}
@@ -919,10 +908,7 @@
     }, {
       key: "reset",
       value: function reset() {
-        // reset the current scramble and turn history
-        this.currentScramble = [];
-        this.history = []; // reset the cube using integer or object values
-
+        // reset the cube using integer or object values
         var stickers = Math.pow(this.size, 2);
         var useObjects = !!this.options.useObjects;
         this.state = {
@@ -971,7 +957,6 @@
        * Turn the cube
        * 
        * @param  {Object[]|string}    turns   one or more turns to perform
-       * @param  {boolean}            history determines if history should be recorded
        * @return {void}
        */
 
@@ -980,7 +965,6 @@
       value: function turn(turns) {
         var _this = this;
 
-        var history = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
         var turnsArray = Array.isArray(turns) ? turns : turns.split(/[ ,]+/);
         turnsArray.forEach(function (turn) {
           var parsedTurn = typeof turn === 'string' ? parseTurn(turn) : turn;
@@ -995,12 +979,7 @@
           var event = {
             date: date,
             parsedTurn: parsedTurn
-          };
-
-          if (history) {
-            _this.history.push(event);
-          } // whole-cube turns
-
+          }; // whole-cube turns
 
           if (whole) {
             if (face === 'x') {
