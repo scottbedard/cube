@@ -25,7 +25,7 @@ To instantiate a cube, use the `Cube` constructor and define the `size` of the c
 const cube = new Cube(3);
 ```
 
-To perform one or more turns to the cube, use the `turn` method. To see what turns have already been made, check the `history` property. Turn history will be stored as an array of objects. To manually convert a turn string to an object, use the `parseTurn` method.
+To perform one or more turns to the cube, use the `turn` method. To manually convert a turn string to an object, use the `parseTurn` method.
 
 ```js
 // accepts a whitespace or comma seperated list of turns
