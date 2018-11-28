@@ -38,25 +38,6 @@ describe('Cube', function() {
         expect(() => new Cube(NaN)).to.throw();
     });
 
-    it('exposes "history" showing what turns have been made', function(done) {
-        const cube = new Cube(2);
-        expect(cube.history.length).to.equal(0);
-        expect(cube.getLastTurn()).to.be.undefined;
-
-        setTimeout(() => {
-            cube.turn('F');
-            expect(cube.history.length).to.equal(1);            
-
-            setTimeout(() => {
-                cube.turn('R');
-                expect(cube.history.length).to.equal(2);
-                expect(cube.history[1].date > cube.history[0].date).to.be.true;
-
-                done();
-            }, 25);
-        }, 50);
-    })
-
     it('tests for solved state using integer values', function() {
         const cube = new Cube(2);
         expect(cube.isSolved()).to.be.true;
@@ -85,9 +66,8 @@ describe('Cube', function() {
         const r = parseTurn('R');
 
         cube.turn([f, r]);
-        
-        expect(cube.history[0].parsedTurn).to.deep.equal(f);
-        expect(cube.history[1].parsedTurn).to.deep.equal(r);
+
+        expect(cube.isSolved()).to.be.false;
     });
 
     it('generates scrambles at a default length', function() {
@@ -100,7 +80,6 @@ describe('Cube', function() {
         const cube = new Cube(3);
         const scramble = cube.generateScramble(5);
         expect(scramble.length).to.equal(5);
-        expect(cube.history.length).to.equal(0);
 
         const turn = scramble.pop();
         expect(typeof turn).to.equal('object');
@@ -121,12 +100,8 @@ describe('Cube', function() {
         const cube = new Cube(2);
 
         cube.scramble(5);
-
-        // the currentScramble should be set, and no history should be
-        // logged for the turns to scramble the cube
+        
         expect(cube.isSolved()).to.be.false;
-        expect(cube.currentScramble.length).to.equal(5);
-        expect(cube.history.length).to.equal(0);
     });
 
     it('exposes a method to itterate over all stickers', function() {

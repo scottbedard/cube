@@ -97,15 +97,6 @@ export default class Cube {
     }
 
     /**
-     * Get the last turn from history.
-     * 
-     * @return {object|undefined}
-     */
-    getLastTurn() {
-        return this.history.slice(-1).pop();
-    }
-
-    /**
      * Test if the cube is solved.
      * 
      * @return {boolean}
@@ -165,10 +156,6 @@ export default class Cube {
      * @return {void}
      */
     reset() {
-        // reset the current scramble and turn history
-        this.currentScramble = [];
-        this.history = [];
-        
         // reset the cube using integer or object values
         const stickers = this.size ** 2;
         const useObjects = !!this.options.useObjects;
@@ -211,10 +198,9 @@ export default class Cube {
      * Turn the cube
      * 
      * @param  {Object[]|string}    turns   one or more turns to perform
-     * @param  {boolean}            history determines if history should be recorded
      * @return {void}
      */
-    turn(turns, history = true) {
+    turn(turns) {
         const turnsArray = Array.isArray(turns) 
             ? turns 
             : turns.split(/[ ,]+/);
@@ -226,10 +212,6 @@ export default class Cube {
             // make a log of the turn
             const date = Date.now();
             const event = { date, parsedTurn };
-    
-            if (history) {
-                this.history.push(event);
-            }
     
             // whole-cube turns
             if (whole) {
