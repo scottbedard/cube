@@ -1,7 +1,8 @@
 #!/usr/bin/env node
-var program = require('commander');
-var pkg = require('./package.json');
 var Cube = require('./dist/cube.cjs.js');
+var pkg = require('./package.json');
+var program = require('commander');
+var safeEval = require('safe-eval');
 
 program.version(pkg.version, '-v, --version');
 
@@ -16,6 +17,25 @@ program
         length = Number(length);
 
         console.log(new Cube(size).generateScrambleString(length));
+    });
+
+//
+// test
+//
+program.command('test [size] [state] [turns]')
+    .description('test a solution')
+    .action(function(size, state, turns) {
+        size = Number(size);
+        state = JSON.parse(String(state));
+        turns = String(turns);
+
+        var cube = new Cube(size);
+
+        cube.state = state;
+
+        cube.turn(turns);
+
+        console.log(cube.isSolved() ? 1 : 0);
     });
 
 //
