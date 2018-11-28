@@ -225,6 +225,15 @@ describe('utils', function() {
             prime: false,
             whole: true,
         })).to.equal('X');
+
+        expect(printTurn({
+            depth: 1,
+            double: false,
+            face: 'F',
+            outer: true,
+            prime: false,
+            whole: false,
+        })).to.equal('F');
     });
 
     it('rotate', function() {

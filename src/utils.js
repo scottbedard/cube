@@ -185,7 +185,7 @@ export function printTurn(turn, size = 3) {
 
     let prefix = '';
 
-    if (turn.depth) {
+    if (turn.depth > 1) {
         prefix = turn.depth;
     }
 
