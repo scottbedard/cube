@@ -2,7 +2,6 @@
 var Cube = require('./dist/cube.cjs.js');
 var pkg = require('./package.json');
 var program = require('commander');
-var safeEval = require('safe-eval');
 
 program.version(pkg.version, '-v, --version');
 
