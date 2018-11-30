@@ -1,7 +1,7 @@
 {
   "name": "bedard-cube",
   "description": "[![Build](https://img.shields.io/circleci/project/github/scottbedard/cube.svg)](https://circleci.com/gh/scottbedard/cube) [![Coverage](https://img.shields.io/codecov/c/github/scottbedard/cube.svg)](https://codecov.io/gh/scottbedard/cube) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/scottbedard/cube/blob/master/LICENSE)",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "bin": "./cli.js",
   "main": "dist/cube.cjs.js",
   "module": "dist/cube.esm.js",
