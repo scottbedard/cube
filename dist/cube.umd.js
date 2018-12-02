@@ -58,7 +58,7 @@
     var size = Math.sqrt(arr.length);
     return new Array(size).fill().map(function (val, i) {
       var start = i * size;
-      return arr.slice(start, start + size);
+      return slice(arr, start, start + size);
     });
   }
   /**
@@ -259,7 +259,7 @@
    */
 
   function reverse(arr) {
-    return arr.slice(0).reverse();
+    return slice(arr).reverse();
   }
   /**
    * Rotate a face array.
@@ -322,6 +322,19 @@
     };
   }
   /**
+   * Slice an array. This function exists to make
+   * our output more compressable by minifiers.
+   * 
+   * @param  {Array}  arr
+   * @param  {number} begin
+   * @param  {number} end
+   * @return {Array}
+   */
+
+  function slice(arr, begin, end) {
+    return arr.slice(begin, end);
+  }
+  /**
    * Turn a cube along the X axis.
    * 
    * @param  {Cube}   cube 
@@ -336,25 +349,25 @@
 
     if (double) {
       // 180
-      newU = cube.state.d.slice();
+      newU = slice(cube.state.d);
       newL = rotate(cube.state.l, 180);
       newF = reverse(cube.state.b);
       newR = rotate(cube.state.r, 180);
       newB = reverse(cube.state.f);
-      newD = cube.state.u.slice();
+      newD = slice(cube.state.u);
     } else if (prime) {
       // 90 counter-clockwise
       newU = reverse(cube.state.b);
       newL = rotate(cube.state.l, 90);
-      newF = cube.state.u.slice();
+      newF = slice(cube.state.u);
       newR = rotate(cube.state.r, -90);
       newB = reverse(cube.state.d);
-      newD = cube.state.f.slice();
+      newD = slice(cube.state.f);
     } else {
       // 90 clockwise
-      newU = cube.state.f.slice();
+      newU = slice(cube.state.f);
       newL = rotate(cube.state.l, -90);
-      newF = cube.state.d.slice();
+      newF = slice(cube.state.d);
       newR = rotate(cube.state.r, 90);
       newB = reverse(cube.state.u);
       newD = reverse(cube.state.b);
@@ -383,26 +396,26 @@
     if (double) {
       // 180
       newU = rotate(cube.state.u, 180);
-      newL = cube.state.r.slice();
-      newF = cube.state.b.slice();
-      newR = cube.state.l.slice();
-      newB = cube.state.f.slice();
+      newL = slice(cube.state.r);
+      newF = slice(cube.state.b);
+      newR = slice(cube.state.l);
+      newB = slice(cube.state.f);
       newD = rotate(cube.state.d, 180);
     } else if (prime) {
       // 90 counter-clockwise
       newU = rotate(cube.state.u, -90);
-      newL = cube.state.b.slice();
-      newF = cube.state.l.slice();
-      newR = cube.state.f.slice();
-      newB = cube.state.r.slice();
+      newL = slice(cube.state.b);
+      newF = slice(cube.state.l);
+      newR = slice(cube.state.f);
+      newB = slice(cube.state.r);
       newD = rotate(cube.state.d, 90);
     } else {
       // 90 clockwise
       newU = rotate(cube.state.u, 90);
-      newL = cube.state.f.slice();
-      newF = cube.state.r.slice();
-      newR = cube.state.b.slice();
-      newB = cube.state.l.slice();
+      newL = slice(cube.state.f);
+      newF = slice(cube.state.r);
+      newR = slice(cube.state.b);
+      newB = slice(cube.state.l);
       newD = rotate(cube.state.d, -90);
     }
 
@@ -474,10 +487,10 @@
         outer = parsedTurn.outer,
         prime = parsedTurn.prime;
     loopSlices(parsedTurn, function (i) {
-      var oldU = slicedCube.u.rows.slice(i - 1).shift();
-      var oldL = slicedCube.l.cols.slice(i - 1).shift();
-      var oldD = slicedCube.d.rows.slice(-i).shift();
-      var oldR = slicedCube.r.cols.slice(-i).shift();
+      var oldU = slice(slicedCube.u.rows, i - 1).shift();
+      var oldL = slice(slicedCube.l.cols, i - 1).shift();
+      var oldD = slice(slicedCube.d.rows, -i).shift();
+      var oldR = slice(slicedCube.r.cols, -i).shift();
       var newU, newL, newD, newR;
 
       if (double) {
@@ -525,10 +538,10 @@
         outer = parsedTurn.outer,
         prime = parsedTurn.prime;
     loopSlices(parsedTurn, function (i) {
-      var oldF = slicedCube.f.rows.slice(-i).shift();
-      var oldR = slicedCube.r.rows.slice(-i).shift();
-      var oldB = slicedCube.b.rows.slice(-i).shift();
-      var oldL = slicedCube.l.rows.slice(-i).shift();
+      var oldF = slice(slicedCube.f.rows, -i).shift();
+      var oldR = slice(slicedCube.r.rows, -i).shift();
+      var oldB = slice(slicedCube.b.rows, -i).shift();
+      var oldL = slice(slicedCube.l.rows, -i).shift();
       var newF, newR, newB, newL;
 
       if (double) {
@@ -576,10 +589,10 @@
         outer = parsedTurn.outer,
         prime = parsedTurn.prime;
     loopSlices(parsedTurn, function (i) {
-      var oldU = slicedCube.u.rows.slice(-i).shift();
-      var oldR = slicedCube.r.cols.slice(i - 1).shift();
-      var oldD = slicedCube.d.rows.slice(i - 1).shift();
-      var oldL = slicedCube.l.cols.slice(-i).shift();
+      var oldU = slice(slicedCube.u.rows, -i).shift();
+      var oldR = slice(slicedCube.r.cols, i - 1).shift();
+      var oldD = slice(slicedCube.d.rows, i - 1).shift();
+      var oldL = slice(slicedCube.l.cols, -i).shift();
       var newU, newR, newD, newL;
 
       if (double) {
@@ -627,10 +640,10 @@
         outer = parsedTurn.outer,
         prime = parsedTurn.prime;
     loopSlices(parsedTurn, function (i) {
-      var oldU = slicedCube.u.cols.slice(i - 1).shift();
-      var oldF = slicedCube.f.cols.slice(i - 1).shift();
-      var oldD = slicedCube.d.cols.slice(i - 1).shift();
-      var oldB = slicedCube.b.cols.slice(-i).shift();
+      var oldU = slice(slicedCube.u.cols, i - 1).shift();
+      var oldF = slice(slicedCube.f.cols, i - 1).shift();
+      var oldD = slice(slicedCube.d.cols, i - 1).shift();
+      var oldB = slice(slicedCube.b.cols, -i).shift();
       var newU, newF, newD, newB;
 
       if (double) {
@@ -678,10 +691,10 @@
         outer = parsedTurn.outer,
         prime = parsedTurn.prime;
     loopSlices(parsedTurn, function (i) {
-      var oldU = slicedCube.u.cols.slice(-i).shift();
-      var oldB = slicedCube.b.cols.slice(i - 1).shift();
-      var oldD = slicedCube.d.cols.slice(-i).shift();
-      var oldF = slicedCube.f.cols.slice(-i).shift();
+      var oldU = slice(slicedCube.u.cols, -i).shift();
+      var oldB = slice(slicedCube.b.cols, i - 1).shift();
+      var oldD = slice(slicedCube.d.cols, -i).shift();
+      var oldF = slice(slicedCube.f.cols, -i).shift();
       var newU, newB, newD, newF;
 
       if (double) {
@@ -729,10 +742,10 @@
         outer = parsedTurn.outer,
         prime = parsedTurn.prime;
     loopSlices(parsedTurn, function (i) {
-      var oldB = slicedCube.b.rows.slice(i - 1).shift();
-      var oldR = slicedCube.r.rows.slice(i - 1).shift();
-      var oldF = slicedCube.f.rows.slice(i - 1).shift();
-      var oldL = slicedCube.l.rows.slice(i - 1).shift();
+      var oldB = slice(slicedCube.b.rows, i - 1).shift();
+      var oldR = slice(slicedCube.r.rows, i - 1).shift();
+      var oldF = slice(slicedCube.f.rows, i - 1).shift();
+      var oldL = slice(slicedCube.l.rows, i - 1).shift();
       var newB, newR, newF, newL;
 
       if (double) {
@@ -864,6 +877,7 @@
     }, {
       key: "isSolved",
       value: function isSolved() {
+        var stickerLength = this.state.u.length;
         var u = this.state.u[0];
         var l = this.state.l[0];
         var f = this.state.f[0];
@@ -872,13 +886,13 @@
         var d = this.state.d[0];
 
         if (this.options.useObjects) {
-          for (var i = 1; i < this.size; i++) {
+          for (var i = 1; i < stickerLength; i++) {
             if (this.state.u[i].value !== u.value || this.state.l[i].value !== l.value || this.state.f[i].value !== f.value || this.state.r[i].value !== r.value || this.state.b[i].value !== b.value || this.state.d[i].value !== d.value) {
               return false;
             }
           }
         } else {
-          for (var _i = 1; _i < this.size; _i++) {
+          for (var _i = 1; _i < stickerLength; _i++) {
             if (this.state.u[_i] !== u || this.state.l[_i] !== l || this.state.f[_i] !== f || this.state.r[_i] !== r || this.state.b[_i] !== b || this.state.d[_i] !== d) {
               return false;
             }
