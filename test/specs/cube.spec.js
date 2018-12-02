@@ -39,25 +39,73 @@ describe('Cube', function() {
     });
 
     it('tests for solved state using integer values', function() {
-        const cube = new Cube(2);
-        expect(cube.isSolved()).to.be.true;
+        const u = new Cube(2);
+        const l = new Cube(2);
+        const f = new Cube(2);
+        const r = new Cube(2);
+        const b = new Cube(2);
+        const d = new Cube(2);
 
-        cube.turn('F');
-        expect(cube.isSolved()).to.be.false;
+        u.turn('U');
+        l.turn('L');
+        f.turn('F');
+        r.turn('R');
+        b.turn('B');
+        d.turn('D');
+        expect(u.isSolved()).to.be.false;
+        expect(l.isSolved()).to.be.false;
+        expect(f.isSolved()).to.be.false;
+        expect(r.isSolved()).to.be.false;
+        expect(b.isSolved()).to.be.false;
+        expect(d.isSolved()).to.be.false;
 
-        cube.turn('F-');
-        expect(cube.isSolved()).to.be.true;
+        u.turn('U-');
+        l.turn('L-');
+        f.turn('F-');
+        r.turn('R-');
+        b.turn('B-');
+        d.turn('D-');
+        expect(u.isSolved()).to.be.true;
+        expect(l.isSolved()).to.be.true;
+        expect(f.isSolved()).to.be.true;
+        expect(r.isSolved()).to.be.true;
+        expect(b.isSolved()).to.be.true;
+        expect(d.isSolved()).to.be.true;
     });
 
     it('tests for solved state using object values', function() {
-        const cube = new Cube(2, { useObjects: true });
-        expect(cube.isSolved()).to.be.true;
+        const u = new Cube(2, { useObjects: true });
+        const l = new Cube(2, { useObjects: true });
+        const f = new Cube(2, { useObjects: true });
+        const r = new Cube(2, { useObjects: true });
+        const b = new Cube(2, { useObjects: true });
+        const d = new Cube(2, { useObjects: true });
 
-        cube.turn('F');
-        expect(cube.isSolved()).to.be.false;
+        u.turn('U');
+        l.turn('L');
+        f.turn('F');
+        r.turn('R');
+        b.turn('B');
+        d.turn('D');
+        expect(u.isSolved()).to.be.false;
+        expect(l.isSolved()).to.be.false;
+        expect(f.isSolved()).to.be.false;
+        expect(r.isSolved()).to.be.false;
+        expect(b.isSolved()).to.be.false;
+        expect(d.isSolved()).to.be.false;
 
-        cube.turn('F-');
-        expect(cube.isSolved()).to.be.true;
+        u.turn('U-');
+        l.turn('L-');
+        f.turn('F-');
+        r.turn('R-');
+        b.turn('B-');
+        d.turn('D-');
+        expect(u.isSolved()).to.be.true;
+        expect(l.isSolved()).to.be.true;
+        expect(f.isSolved()).to.be.true;
+        expect(r.isSolved()).to.be.true;
+        expect(b.isSolved()).to.be.true;
+        expect(d.isSolved()).to.be.true;
     });
 
     it('can be turned with an array of turn objects', function() {
