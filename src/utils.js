@@ -278,12 +278,21 @@ export function sliceCube(cube) {
  * our output more compressable by minifiers.
  * 
  * @param  {Array}  arr
- * @param  {number} begin
- * @param  {number} end
  * @return {Array}
  */
-export function slice(arr, begin, end) {
-    return arr.slice(begin, end);
+export function slice(arr, ...args) {
+    return arr.slice(...args);
+}
+
+/**
+ * Splice an array. This function exists to make
+ * our output more compressable by minifiers.
+ * 
+ * @param  {Array}  arr
+ * @return {Array}
+ */
+export function splice(arr, ...args) {
+    return arr.splice(...args);
 }
 
 /**
@@ -463,10 +472,10 @@ export function turnSliceB(cube, slicedCube, parsedTurn) {
             newR = reverse(oldD);
         }
 
-        slicedCube.u.rows.splice(i - 1, 1, newU);
-        slicedCube.l.cols.splice(i - 1, 1, newL);
-        slicedCube.d.rows.splice(-i, 1, newD);
-        slicedCube.r.cols.splice(-i, 1, newR);
+        splice(slicedCube.u.rows, i - 1, 1, newU);
+        splice(slicedCube.l.cols, i - 1, 1, newL);
+        splice(slicedCube.d.rows, -i, 1, newD);
+        splice(slicedCube.r.cols, -i, 1, newR);
 
         cube.state.u = flattenRows(slicedCube.u.rows);
         cube.state.l = flattenCols(slicedCube.l.cols);
@@ -514,10 +523,10 @@ export function turnSliceD(cube, slicedCube, parsedTurn) {
             newL = oldB;
         }
 
-        slicedCube.f.rows.splice(-i, 1, newF);
-        slicedCube.r.rows.splice(-i, 1, newR);
-        slicedCube.b.rows.splice(-i, 1, newB);
-        slicedCube.l.rows.splice(-i, 1, newL);
+        splice(slicedCube.f.rows, -i, 1, newF);
+        splice(slicedCube.r.rows, -i, 1, newR);
+        splice(slicedCube.b.rows, -i, 1, newB);
+        splice(slicedCube.l.rows, -i, 1, newL);
 
         cube.state.f = flattenRows(slicedCube.f.rows);
         cube.state.r = flattenRows(slicedCube.r.rows);
@@ -565,10 +574,10 @@ export function turnSliceF(cube, slicedCube, parsedTurn) {
             newL = oldD;
         }
 
-        slicedCube.u.rows.splice(-i, 1, newU);
-        slicedCube.r.cols.splice(i - 1, 1, newR);
-        slicedCube.d.rows.splice(i - 1, 1, newD);
-        slicedCube.l.cols.splice(-i, 1, newL);
+        splice(slicedCube.u.rows, -i, 1, newU);
+        splice(slicedCube.r.cols, i - 1, 1, newR);
+        splice(slicedCube.d.rows, i - 1, 1, newD);
+        splice(slicedCube.l.cols, -i, 1, newL);
 
         cube.state.u = flattenRows(slicedCube.u.rows);
         cube.state.r = flattenCols(slicedCube.r.cols);
@@ -616,10 +625,10 @@ export function turnSliceL(cube, slicedCube, parsedTurn) {
             newB = reverse(oldD);
         }
 
-        slicedCube.u.cols.splice(i - 1, 1, newU);
-        slicedCube.f.cols.splice(i - 1, 1, newF);
-        slicedCube.d.cols.splice(i - 1, 1, newD);
-        slicedCube.b.cols.splice(-i, 1, newB);
+        splice(slicedCube.u.cols, i - 1, 1, newU);
+        splice(slicedCube.f.cols, i - 1, 1, newF);
+        splice(slicedCube.d.cols, i - 1, 1, newD);
+        splice(slicedCube.b.cols, -i, 1, newB);
 
         cube.state.u = flattenCols(slicedCube.u.cols);
         cube.state.f = flattenCols(slicedCube.f.cols);
@@ -667,10 +676,10 @@ export function turnSliceR(cube, slicedCube, parsedTurn) {
             newF = oldD;
         }
 
-        slicedCube.u.cols.splice(-i, 1, newU);
-        slicedCube.b.cols.splice(i - 1, 1, newB);
-        slicedCube.d.cols.splice(-i, 1, newD);
-        slicedCube.f.cols.splice(-i, 1, newF);
+        splice(slicedCube.u.cols, -i, 1, newU);
+        splice(slicedCube.b.cols, i - 1, 1, newB);
+        splice(slicedCube.d.cols, -i, 1, newD);
+        splice(slicedCube.f.cols, -i, 1, newF);
 
         cube.state.u = flattenCols(slicedCube.u.cols);
         cube.state.b = flattenCols(slicedCube.b.cols);
@@ -718,10 +727,10 @@ export function turnSliceU(cube, slicedCube, parsedTurn) {
             newL = oldF;
         }
 
-        slicedCube.b.rows.splice(i - 1, 1, newB);
-        slicedCube.r.rows.splice(i - 1, 1, newR);
-        slicedCube.f.rows.splice(i - 1, 1, newF);
-        slicedCube.l.rows.splice(i - 1, 1, newL);
+        splice(slicedCube.b.rows, i - 1, 1, newB);
+        splice(slicedCube.r.rows, i - 1, 1, newR);
+        splice(slicedCube.f.rows, i - 1, 1, newF);
+        splice(slicedCube.l.rows, i - 1, 1, newL);
 
         cube.state.b = flattenRows(slicedCube.b.rows);
         cube.state.r = flattenRows(slicedCube.r.rows);
