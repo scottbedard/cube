@@ -58,6 +58,17 @@ function chunkRows(arr) {
   });
 }
 /**
+ * Helper function to slice then shift an array.
+ * 
+ * @param  {Array} arr
+ * @param  {number} begin
+ * @return {any}
+ */
+
+function first(arr, begin) {
+  return slice(arr, begin).shift();
+}
+/**
  * Flatten an array of columns.
  * 
  * [                    [
@@ -492,10 +503,10 @@ function turnSliceB(cube, slicedCube, parsedTurn) {
       outer = parsedTurn.outer,
       prime = parsedTurn.prime;
   loopSlices(parsedTurn, function (i) {
-    var oldU = slice(slicedCube.u.rows, i - 1).shift();
-    var oldL = slice(slicedCube.l.cols, i - 1).shift();
-    var oldD = slice(slicedCube.d.rows, -i).shift();
-    var oldR = slice(slicedCube.r.cols, -i).shift();
+    var oldU = first(slicedCube.u.rows, i - 1);
+    var oldL = first(slicedCube.l.cols, i - 1);
+    var oldD = first(slicedCube.d.rows, -i);
+    var oldR = first(slicedCube.r.cols, -i);
     var newU, newL, newD, newR;
 
     if (double) {
@@ -543,10 +554,10 @@ function turnSliceD(cube, slicedCube, parsedTurn) {
       outer = parsedTurn.outer,
       prime = parsedTurn.prime;
   loopSlices(parsedTurn, function (i) {
-    var oldF = slice(slicedCube.f.rows, -i).shift();
-    var oldR = slice(slicedCube.r.rows, -i).shift();
-    var oldB = slice(slicedCube.b.rows, -i).shift();
-    var oldL = slice(slicedCube.l.rows, -i).shift();
+    var oldF = first(slicedCube.f.rows, -i);
+    var oldR = first(slicedCube.r.rows, -i);
+    var oldB = first(slicedCube.b.rows, -i);
+    var oldL = first(slicedCube.l.rows, -i);
     var newF, newR, newB, newL;
 
     if (double) {
@@ -594,10 +605,10 @@ function turnSliceF(cube, slicedCube, parsedTurn) {
       outer = parsedTurn.outer,
       prime = parsedTurn.prime;
   loopSlices(parsedTurn, function (i) {
-    var oldU = slice(slicedCube.u.rows, -i).shift();
-    var oldR = slice(slicedCube.r.cols, i - 1).shift();
-    var oldD = slice(slicedCube.d.rows, i - 1).shift();
-    var oldL = slice(slicedCube.l.cols, -i).shift();
+    var oldU = first(slicedCube.u.rows, -i);
+    var oldR = first(slicedCube.r.cols, i - 1);
+    var oldD = first(slicedCube.d.rows, i - 1);
+    var oldL = first(slicedCube.l.cols, -i);
     var newU, newR, newD, newL;
 
     if (double) {
@@ -645,10 +656,10 @@ function turnSliceL(cube, slicedCube, parsedTurn) {
       outer = parsedTurn.outer,
       prime = parsedTurn.prime;
   loopSlices(parsedTurn, function (i) {
-    var oldU = slice(slicedCube.u.cols, i - 1).shift();
-    var oldF = slice(slicedCube.f.cols, i - 1).shift();
-    var oldD = slice(slicedCube.d.cols, i - 1).shift();
-    var oldB = slice(slicedCube.b.cols, -i).shift();
+    var oldU = first(slicedCube.u.cols, i - 1);
+    var oldF = first(slicedCube.f.cols, i - 1);
+    var oldD = first(slicedCube.d.cols, i - 1);
+    var oldB = first(slicedCube.b.cols, -i);
     var newU, newF, newD, newB;
 
     if (double) {
@@ -696,10 +707,10 @@ function turnSliceR(cube, slicedCube, parsedTurn) {
       outer = parsedTurn.outer,
       prime = parsedTurn.prime;
   loopSlices(parsedTurn, function (i) {
-    var oldU = slice(slicedCube.u.cols, -i).shift();
-    var oldB = slice(slicedCube.b.cols, i - 1).shift();
-    var oldD = slice(slicedCube.d.cols, -i).shift();
-    var oldF = slice(slicedCube.f.cols, -i).shift();
+    var oldU = first(slicedCube.u.cols, -i);
+    var oldB = first(slicedCube.b.cols, i - 1);
+    var oldD = first(slicedCube.d.cols, -i);
+    var oldF = first(slicedCube.f.cols, -i);
     var newU, newB, newD, newF;
 
     if (double) {
@@ -747,10 +758,10 @@ function turnSliceU(cube, slicedCube, parsedTurn) {
       outer = parsedTurn.outer,
       prime = parsedTurn.prime;
   loopSlices(parsedTurn, function (i) {
-    var oldB = slice(slicedCube.b.rows, i - 1).shift();
-    var oldR = slice(slicedCube.r.rows, i - 1).shift();
-    var oldF = slice(slicedCube.f.rows, i - 1).shift();
-    var oldL = slice(slicedCube.l.rows, i - 1).shift();
+    var oldB = first(slicedCube.b.rows, i - 1);
+    var oldR = first(slicedCube.r.rows, i - 1);
+    var oldF = first(slicedCube.f.rows, i - 1);
+    var oldL = first(slicedCube.l.rows, i - 1);
     var newB, newR, newF, newL;
 
     if (double) {

@@ -37,6 +37,17 @@ export function chunkRows(arr) {
 }
 
 /**
+ * Helper function to slice then shift an array.
+ * 
+ * @param  {Array} arr
+ * @param  {number} begin
+ * @return {any}
+ */
+export function first(arr, begin) {
+    return slice(arr, begin).shift();
+}
+
+/**
  * Flatten an array of columns.
  * 
  * [                    [
@@ -445,10 +456,10 @@ export function turnSliceB(cube, slicedCube, parsedTurn) {
     const { depth, double, outer, prime } = parsedTurn;
 
     loopSlices(parsedTurn, i => {
-        const oldU = slice(slicedCube.u.rows, i - 1).shift();
-        const oldL = slice(slicedCube.l.cols, i - 1).shift();
-        const oldD = slice(slicedCube.d.rows, -i).shift();
-        const oldR = slice(slicedCube.r.cols, -i).shift();
+        const oldU = first(slicedCube.u.rows, i - 1);
+        const oldL = first(slicedCube.l.cols, i - 1);
+        const oldD = first(slicedCube.d.rows, -i);
+        const oldR = first(slicedCube.r.cols, -i);
         
         let newU, newL, newD, newR;
 
@@ -496,10 +507,10 @@ export function turnSliceD(cube, slicedCube, parsedTurn) {
     const { depth, double, outer, prime } = parsedTurn;
 
     loopSlices(parsedTurn, i => {
-        const oldF = slice(slicedCube.f.rows, -i).shift();
-        const oldR = slice(slicedCube.r.rows, -i).shift();
-        const oldB = slice(slicedCube.b.rows, -i).shift();
-        const oldL = slice(slicedCube.l.rows, -i).shift();
+        const oldF = first(slicedCube.f.rows, -i);
+        const oldR = first(slicedCube.r.rows, -i);
+        const oldB = first(slicedCube.b.rows, -i);
+        const oldL = first(slicedCube.l.rows, -i);
         
         let newF, newR, newB, newL;
 
@@ -547,10 +558,10 @@ export function turnSliceF(cube, slicedCube, parsedTurn) {
     const { depth, double, outer, prime } = parsedTurn;
 
     loopSlices(parsedTurn, i => {
-        const oldU = slice(slicedCube.u.rows, -i).shift();
-        const oldR = slice(slicedCube.r.cols, i - 1).shift();
-        const oldD = slice(slicedCube.d.rows, i - 1).shift();
-        const oldL = slice(slicedCube.l.cols, -i).shift();
+        const oldU = first(slicedCube.u.rows, -i);
+        const oldR = first(slicedCube.r.cols, i - 1);
+        const oldD = first(slicedCube.d.rows, i - 1);
+        const oldL = first(slicedCube.l.cols, -i);
 
         let newU, newR, newD, newL;
 
@@ -598,10 +609,10 @@ export function turnSliceL(cube, slicedCube, parsedTurn) {
     const { depth, double, outer, prime } = parsedTurn;
 
     loopSlices(parsedTurn, i => {
-        const oldU = slice(slicedCube.u.cols, i - 1).shift();
-        const oldF = slice(slicedCube.f.cols, i - 1).shift();
-        const oldD = slice(slicedCube.d.cols, i - 1).shift();
-        const oldB = slice(slicedCube.b.cols, -i).shift();
+        const oldU = first(slicedCube.u.cols, i - 1);
+        const oldF = first(slicedCube.f.cols, i - 1);
+        const oldD = first(slicedCube.d.cols, i - 1);
+        const oldB = first(slicedCube.b.cols, -i);
 
         let newU, newF, newD, newB;
 
@@ -649,10 +660,10 @@ export function turnSliceR(cube, slicedCube, parsedTurn) {
     const { depth, double, outer, prime } = parsedTurn;
 
     loopSlices(parsedTurn, i => {
-        const oldU = slice(slicedCube.u.cols, -i).shift();
-        const oldB = slice(slicedCube.b.cols, i - 1).shift();
-        const oldD = slice(slicedCube.d.cols, -i).shift();
-        const oldF = slice(slicedCube.f.cols, -i).shift();
+        const oldU = first(slicedCube.u.cols, -i);
+        const oldB = first(slicedCube.b.cols, i - 1);
+        const oldD = first(slicedCube.d.cols, -i);
+        const oldF = first(slicedCube.f.cols, -i);
         
         let newU, newB, newD, newF;
 
@@ -700,10 +711,10 @@ export function turnSliceU(cube, slicedCube, parsedTurn) {
     const { depth, double, outer, prime } = parsedTurn;
 
     loopSlices(parsedTurn, i => {
-        const oldB = slice(slicedCube.b.rows, i - 1).shift();
-        const oldR = slice(slicedCube.r.rows, i - 1).shift();
-        const oldF = slice(slicedCube.f.rows, i - 1).shift();
-        const oldL = slice(slicedCube.l.rows, i - 1).shift();
+        const oldB = first(slicedCube.b.rows, i - 1);
+        const oldR = first(slicedCube.r.rows, i - 1);
+        const oldF = first(slicedCube.f.rows, i - 1);
+        const oldL = first(slicedCube.l.rows, i - 1);
 
         let newB, newR, newF, newL;
 
