@@ -280,8 +280,8 @@ export function sliceCube(cube) {
  * @param  {Array}  arr
  * @return {Array}
  */
-export function slice(arr, ...args) {
-    return arr.slice(...args);
+export function slice(arr, begin, end) {
+    return arr.slice(begin, end);
 }
 
 /**
@@ -291,8 +291,8 @@ export function slice(arr, ...args) {
  * @param  {Array}  arr
  * @return {Array}
  */
-export function splice(arr, ...args) {
-    return arr.splice(...args);
+export function splice(arr, start, deleteCount, item) {
+    return arr.splice(start, deleteCount, item);
 }
 
 /**

@@ -325,12 +325,8 @@ function sliceCube(cube) {
  * @return {Array}
  */
 
-function slice(arr) {
-  for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-    args[_key - 1] = arguments[_key];
-  }
-
-  return arr.slice.apply(arr, args);
+function slice(arr, begin, end) {
+  return arr.slice(begin, end);
 }
 /**
  * Splice an array. This function exists to make
@@ -340,12 +336,8 @@ function slice(arr) {
  * @return {Array}
  */
 
-function splice(arr) {
-  for (var _len2 = arguments.length, args = new Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
-    args[_key2 - 1] = arguments[_key2];
-  }
-
-  return arr.splice.apply(arr, args);
+function splice(arr, start, deleteCount, item) {
+  return arr.splice(start, deleteCount, item);
 }
 /**
  * Turn a cube along the X axis.
