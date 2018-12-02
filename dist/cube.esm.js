@@ -184,7 +184,7 @@ function loopSlices(parsedTurn, fn) {
       outer = parsedTurn.outer;
 
   for (var i = depth, end = outer ? 0 : depth - 1; i > end; i--) {
-    fn(i);
+    fn(i, -i, i - 1);
   }
 }
 /**
@@ -500,11 +500,11 @@ function turnSliceB(cube, slicedCube, parsedTurn) {
       double = parsedTurn.double,
       outer = parsedTurn.outer,
       prime = parsedTurn.prime;
-  loopSlices(parsedTurn, function (i) {
-    var oldU = first(slicedCube.u.rows, i - 1);
-    var oldL = first(slicedCube.l.cols, i - 1);
-    var oldD = first(slicedCube.d.rows, -i);
-    var oldR = first(slicedCube.r.cols, -i);
+  loopSlices(parsedTurn, function (i, negI, iSubOne) {
+    var oldU = first(slicedCube.u.rows, iSubOne);
+    var oldL = first(slicedCube.l.cols, iSubOne);
+    var oldD = first(slicedCube.d.rows, negI);
+    var oldR = first(slicedCube.r.cols, negI);
     var newU, newL, newD, newR;
 
     if (double) {
@@ -529,8 +529,8 @@ function turnSliceB(cube, slicedCube, parsedTurn) {
 
     splice(slicedCube.u.rows, i - 1, 1, newU);
     splice(slicedCube.l.cols, i - 1, 1, newL);
-    splice(slicedCube.d.rows, -i, 1, newD);
-    splice(slicedCube.r.cols, -i, 1, newR);
+    splice(slicedCube.d.rows, negI, 1, newD);
+    splice(slicedCube.r.cols, negI, 1, newR);
     cube.state.u = flattenRows(slicedCube.u.rows);
     cube.state.l = flattenCols(slicedCube.l.cols);
     cube.state.d = flattenRows(slicedCube.d.rows);
@@ -551,11 +551,11 @@ function turnSliceD(cube, slicedCube, parsedTurn) {
       double = parsedTurn.double,
       outer = parsedTurn.outer,
       prime = parsedTurn.prime;
-  loopSlices(parsedTurn, function (i) {
-    var oldF = first(slicedCube.f.rows, -i);
-    var oldR = first(slicedCube.r.rows, -i);
-    var oldB = first(slicedCube.b.rows, -i);
-    var oldL = first(slicedCube.l.rows, -i);
+  loopSlices(parsedTurn, function (i, negI) {
+    var oldF = first(slicedCube.f.rows, negI);
+    var oldR = first(slicedCube.r.rows, negI);
+    var oldB = first(slicedCube.b.rows, negI);
+    var oldL = first(slicedCube.l.rows, negI);
     var newF, newR, newB, newL;
 
     if (double) {
@@ -578,10 +578,10 @@ function turnSliceD(cube, slicedCube, parsedTurn) {
       newL = oldB;
     }
 
-    splice(slicedCube.f.rows, -i, 1, newF);
-    splice(slicedCube.r.rows, -i, 1, newR);
-    splice(slicedCube.b.rows, -i, 1, newB);
-    splice(slicedCube.l.rows, -i, 1, newL);
+    splice(slicedCube.f.rows, negI, 1, newF);
+    splice(slicedCube.r.rows, negI, 1, newR);
+    splice(slicedCube.b.rows, negI, 1, newB);
+    splice(slicedCube.l.rows, negI, 1, newL);
     cube.state.f = flattenRows(slicedCube.f.rows);
     cube.state.r = flattenRows(slicedCube.r.rows);
     cube.state.b = flattenRows(slicedCube.b.rows);
@@ -602,11 +602,11 @@ function turnSliceF(cube, slicedCube, parsedTurn) {
       double = parsedTurn.double,
       outer = parsedTurn.outer,
       prime = parsedTurn.prime;
-  loopSlices(parsedTurn, function (i) {
-    var oldU = first(slicedCube.u.rows, -i);
-    var oldR = first(slicedCube.r.cols, i - 1);
-    var oldD = first(slicedCube.d.rows, i - 1);
-    var oldL = first(slicedCube.l.cols, -i);
+  loopSlices(parsedTurn, function (i, negI, iSubOne) {
+    var oldU = first(slicedCube.u.rows, negI);
+    var oldR = first(slicedCube.r.cols, iSubOne);
+    var oldD = first(slicedCube.d.rows, iSubOne);
+    var oldL = first(slicedCube.l.cols, negI);
     var newU, newR, newD, newL;
 
     if (double) {
@@ -629,10 +629,10 @@ function turnSliceF(cube, slicedCube, parsedTurn) {
       newL = oldD;
     }
 
-    splice(slicedCube.u.rows, -i, 1, newU);
-    splice(slicedCube.r.cols, i - 1, 1, newR);
-    splice(slicedCube.d.rows, i - 1, 1, newD);
-    splice(slicedCube.l.cols, -i, 1, newL);
+    splice(slicedCube.u.rows, negI, 1, newU);
+    splice(slicedCube.r.cols, iSubOne, 1, newR);
+    splice(slicedCube.d.rows, iSubOne, 1, newD);
+    splice(slicedCube.l.cols, negI, 1, newL);
     cube.state.u = flattenRows(slicedCube.u.rows);
     cube.state.r = flattenCols(slicedCube.r.cols);
     cube.state.d = flattenRows(slicedCube.d.rows);
@@ -653,11 +653,11 @@ function turnSliceL(cube, slicedCube, parsedTurn) {
       double = parsedTurn.double,
       outer = parsedTurn.outer,
       prime = parsedTurn.prime;
-  loopSlices(parsedTurn, function (i) {
-    var oldU = first(slicedCube.u.cols, i - 1);
-    var oldF = first(slicedCube.f.cols, i - 1);
-    var oldD = first(slicedCube.d.cols, i - 1);
-    var oldB = first(slicedCube.b.cols, -i);
+  loopSlices(parsedTurn, function (i, negI, iSubOne) {
+    var oldU = first(slicedCube.u.cols, iSubOne);
+    var oldF = first(slicedCube.f.cols, iSubOne);
+    var oldD = first(slicedCube.d.cols, iSubOne);
+    var oldB = first(slicedCube.b.cols, negI);
     var newU, newF, newD, newB;
 
     if (double) {
@@ -680,10 +680,10 @@ function turnSliceL(cube, slicedCube, parsedTurn) {
       newB = reverse(oldD);
     }
 
-    splice(slicedCube.u.cols, i - 1, 1, newU);
-    splice(slicedCube.f.cols, i - 1, 1, newF);
-    splice(slicedCube.d.cols, i - 1, 1, newD);
-    splice(slicedCube.b.cols, -i, 1, newB);
+    splice(slicedCube.u.cols, iSubOne, 1, newU);
+    splice(slicedCube.f.cols, iSubOne, 1, newF);
+    splice(slicedCube.d.cols, iSubOne, 1, newD);
+    splice(slicedCube.b.cols, negI, 1, newB);
     cube.state.u = flattenCols(slicedCube.u.cols);
     cube.state.f = flattenCols(slicedCube.f.cols);
     cube.state.d = flattenCols(slicedCube.d.cols);
@@ -704,11 +704,11 @@ function turnSliceR(cube, slicedCube, parsedTurn) {
       double = parsedTurn.double,
       outer = parsedTurn.outer,
       prime = parsedTurn.prime;
-  loopSlices(parsedTurn, function (i) {
-    var oldU = first(slicedCube.u.cols, -i);
-    var oldB = first(slicedCube.b.cols, i - 1);
-    var oldD = first(slicedCube.d.cols, -i);
-    var oldF = first(slicedCube.f.cols, -i);
+  loopSlices(parsedTurn, function (i, negI, iSubOne) {
+    var oldU = first(slicedCube.u.cols, negI);
+    var oldB = first(slicedCube.b.cols, iSubOne);
+    var oldD = first(slicedCube.d.cols, negI);
+    var oldF = first(slicedCube.f.cols, negI);
     var newU, newB, newD, newF;
 
     if (double) {
@@ -731,10 +731,10 @@ function turnSliceR(cube, slicedCube, parsedTurn) {
       newF = oldD;
     }
 
-    splice(slicedCube.u.cols, -i, 1, newU);
-    splice(slicedCube.b.cols, i - 1, 1, newB);
-    splice(slicedCube.d.cols, -i, 1, newD);
-    splice(slicedCube.f.cols, -i, 1, newF);
+    splice(slicedCube.u.cols, negI, 1, newU);
+    splice(slicedCube.b.cols, iSubOne, 1, newB);
+    splice(slicedCube.d.cols, negI, 1, newD);
+    splice(slicedCube.f.cols, negI, 1, newF);
     cube.state.u = flattenCols(slicedCube.u.cols);
     cube.state.b = flattenCols(slicedCube.b.cols);
     cube.state.d = flattenCols(slicedCube.d.cols);
@@ -755,11 +755,11 @@ function turnSliceU(cube, slicedCube, parsedTurn) {
       double = parsedTurn.double,
       outer = parsedTurn.outer,
       prime = parsedTurn.prime;
-  loopSlices(parsedTurn, function (i) {
-    var oldB = first(slicedCube.b.rows, i - 1);
-    var oldR = first(slicedCube.r.rows, i - 1);
-    var oldF = first(slicedCube.f.rows, i - 1);
-    var oldL = first(slicedCube.l.rows, i - 1);
+  loopSlices(parsedTurn, function (i, negI, iSubOne) {
+    var oldB = first(slicedCube.b.rows, iSubOne);
+    var oldR = first(slicedCube.r.rows, iSubOne);
+    var oldF = first(slicedCube.f.rows, iSubOne);
+    var oldL = first(slicedCube.l.rows, iSubOne);
     var newB, newR, newF, newL;
 
     if (double) {
@@ -782,10 +782,10 @@ function turnSliceU(cube, slicedCube, parsedTurn) {
       newL = oldF;
     }
 
-    splice(slicedCube.b.rows, i - 1, 1, newB);
-    splice(slicedCube.r.rows, i - 1, 1, newR);
-    splice(slicedCube.f.rows, i - 1, 1, newF);
-    splice(slicedCube.l.rows, i - 1, 1, newL);
+    splice(slicedCube.b.rows, iSubOne, 1, newB);
+    splice(slicedCube.r.rows, iSubOne, 1, newR);
+    splice(slicedCube.f.rows, iSubOne, 1, newF);
+    splice(slicedCube.l.rows, iSubOne, 1, newL);
     cube.state.b = flattenRows(slicedCube.b.rows);
     cube.state.r = flattenRows(slicedCube.r.rows);
     cube.state.f = flattenRows(slicedCube.f.rows);
