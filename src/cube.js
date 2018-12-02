@@ -102,6 +102,7 @@ export default class Cube {
      * @return {boolean}
      */
     isSolved() {
+        const stickerLength = this.state.u.length;
         const u = this.state.u[0];
         const l = this.state.l[0];
         const f = this.state.f[0];
@@ -110,7 +111,7 @@ export default class Cube {
         const d = this.state.d[0];
 
         if (this.options.useObjects) {
-            for (let i = 1; i < this.size; i++) {
+            for (let i = 1; i < stickerLength; i++) {
                 if (
                     this.state.u[i].value !== u.value ||
                     this.state.l[i].value !== l.value ||
@@ -123,7 +124,7 @@ export default class Cube {
                 }
             }
         } else {
-            for (let i = 1; i < this.size; i++) {
+            for (let i = 1; i < stickerLength; i++) {
                 if (
                     this.state.u[i] !== u ||
                     this.state.l[i] !== l ||
