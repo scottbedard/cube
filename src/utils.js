@@ -203,28 +203,28 @@ export function sliceCube(cube) {
 
     return {
         U: {
-            rows: chunkRows(U),
-            cols: chunkCols(U),
+            r: chunkRows(U),
+            c: chunkCols(U),
         },
         L: {
-            rows: chunkRows(L),
-            cols: chunkCols(L),
+            r: chunkRows(L),
+            c: chunkCols(L),
         },
         F: {
-            rows: chunkRows(F),
-            cols: chunkCols(F),
+            r: chunkRows(F),
+            c: chunkCols(F),
         },
         R: {
-            rows: chunkRows(R),
-            cols: chunkCols(R),
+            r: chunkRows(R),
+            c: chunkCols(R),
         },
         B: {
-            rows: chunkRows(B),
-            cols: chunkCols(B),
+            r: chunkRows(B),
+            c: chunkCols(B),
         },
         D: {
-            rows: chunkRows(D),
-            cols: chunkCols(D),
+            r: chunkRows(D),
+            c: chunkCols(D),
         },
     };
 }
@@ -259,6 +259,7 @@ export function splice(arr, start, deleteCount, item) {
  * @return {void}
  */
 export function turnCubeX(cube, parsedTurn) {
+    const state = cube.state;
     const prime = parsedTurn.rotation === -1;
     const double = parsedTurn.rotation === 2;
 
@@ -266,36 +267,36 @@ export function turnCubeX(cube, parsedTurn) {
 
     if (double) {
         // 180
-        newU = slice(cube.state.D);
-        newL = rotate(cube.state.L, 2);
-        newF = reverse(cube.state.B);
-        newR = rotate(cube.state.R, 2);
-        newB = reverse(cube.state.F);
-        newD = slice(cube.state.U);
+        newU = slice(state.D);
+        newL = rotate(state.L, 2);
+        newF = reverse(state.B);
+        newR = rotate(state.R, 2);
+        newB = reverse(state.F);
+        newD = slice(state.U);
     } else if (prime) {
         // 90 counter-clockwise
-        newU = reverse(cube.state.B);
-        newL = rotate(cube.state.L, 1);
-        newF = slice(cube.state.U);
-        newR = rotate(cube.state.R, -1);
-        newB = reverse(cube.state.D);
-        newD = slice(cube.state.F);
+        newU = reverse(state.B);
+        newL = rotate(state.L, 1);
+        newF = slice(state.U);
+        newR = rotate(state.R, -1);
+        newB = reverse(state.D);
+        newD = slice(state.F);
     } else {
         // 90 clockwise
-        newU = slice(cube.state.F);
-        newL = rotate(cube.state.L, -1);
-        newF = slice(cube.state.D);
-        newR = rotate(cube.state.R, 1);
-        newB = reverse(cube.state.U);
-        newD = reverse(cube.state.B);
+        newU = slice(state.F);
+        newL = rotate(state.L, -1);
+        newF = slice(state.D);
+        newR = rotate(state.R, 1);
+        newB = reverse(state.U);
+        newD = reverse(state.B);
     }
 
-    cube.state.U = newU;
-    cube.state.L = newL;
-    cube.state.F = newF;
-    cube.state.R = newR;
-    cube.state.B = newB;
-    cube.state.D = newD;
+    state.U = newU;
+    state.L = newL;
+    state.F = newF;
+    state.R = newR;
+    state.B = newB;
+    state.D = newD;
 }
 
 /**
@@ -306,6 +307,7 @@ export function turnCubeX(cube, parsedTurn) {
  * @return {void}
  */
 export function turnCubeY(cube, parsedTurn) {
+    const state = cube.state;
     const prime = parsedTurn.rotation === -1;
     const double = parsedTurn.rotation === 2;
 
@@ -313,36 +315,36 @@ export function turnCubeY(cube, parsedTurn) {
 
     if (double) {
         // 180
-        newU = rotate(cube.state.U, 2);
-        newL = slice(cube.state.R);
-        newF = slice(cube.state.B);
-        newR = slice(cube.state.L);
-        newB = slice(cube.state.F);
-        newD = rotate(cube.state.D, 2);
+        newU = rotate(state.U, 2);
+        newL = slice(state.R);
+        newF = slice(state.B);
+        newR = slice(state.L);
+        newB = slice(state.F);
+        newD = rotate(state.D, 2);
     } else if (prime) {
         // 90 counter-clockwise
-        newU = rotate(cube.state.U, -1);
-        newL = slice(cube.state.B);
-        newF = slice(cube.state.L);
-        newR = slice(cube.state.F);
-        newB = slice(cube.state.R);
-        newD = rotate(cube.state.D, 1);
+        newU = rotate(state.U, -1);
+        newL = slice(state.B);
+        newF = slice(state.L);
+        newR = slice(state.F);
+        newB = slice(state.R);
+        newD = rotate(state.D, 1);
     } else {
         // 90 clockwise
-        newU = rotate(cube.state.U, 1);
-        newL = slice(cube.state.F);
-        newF = slice(cube.state.R);
-        newR = slice(cube.state.B);
-        newB = slice(cube.state.L);
-        newD = rotate(cube.state.D, -1);
+        newU = rotate(state.U, 1);
+        newL = slice(state.F);
+        newF = slice(state.R);
+        newR = slice(state.B);
+        newB = slice(state.L);
+        newD = rotate(state.D, -1);
     }
 
-    cube.state.U = newU;
-    cube.state.L = newL;
-    cube.state.F = newF;
-    cube.state.R = newR;
-    cube.state.B = newB;
-    cube.state.D = newD;
+    state.U = newU;
+    state.L = newL;
+    state.F = newF;
+    state.R = newR;
+    state.B = newB;
+    state.D = newD;
 }
 
 /**
@@ -353,6 +355,7 @@ export function turnCubeY(cube, parsedTurn) {
  * @return {void}
  */
 export function turnCubeZ(cube, parsedTurn) {
+    const state = cube.state;
     const prime = parsedTurn.rotation === -1;
     const double = parsedTurn.rotation === 2;
 
@@ -360,36 +363,36 @@ export function turnCubeZ(cube, parsedTurn) {
 
     if (double) {
         // 180
-        newU = reverse(cube.state.D);
-        newL = reverse(cube.state.R);
-        newF = rotate(cube.state.F, 2);
-        newR = reverse(cube.state.L);
-        newB = rotate(cube.state.B, 2);
-        newD = reverse(cube.state.U);
+        newU = reverse(state.D);
+        newL = reverse(state.R);
+        newF = rotate(state.F, 2);
+        newR = reverse(state.L);
+        newB = rotate(state.B, 2);
+        newD = reverse(state.U);
     } else if (prime) {
         // 90 counter-clockwise
-        newU = rotate(cube.state.R, -1);
-        newL = rotate(cube.state.U, -1);
-        newF = rotate(cube.state.F, -1);
-        newR = rotate(cube.state.D, -1);
-        newB = rotate(cube.state.B, 1);
-        newD = rotate(cube.state.L, -1);
+        newU = rotate(state.R, -1);
+        newL = rotate(state.U, -1);
+        newF = rotate(state.F, -1);
+        newR = rotate(state.D, -1);
+        newB = rotate(state.B, 1);
+        newD = rotate(state.L, -1);
     } else {
         // 90 clockwise
-        newU = rotate(cube.state.L, 1);
-        newL = rotate(cube.state.D, 1);
-        newF = rotate(cube.state.F, 1);
-        newR = rotate(cube.state.U, 1);
-        newB = rotate(cube.state.B, -1);
-        newD = rotate(cube.state.R, 1);
+        newU = rotate(state.L, 1);
+        newL = rotate(state.D, 1);
+        newF = rotate(state.F, 1);
+        newR = rotate(state.U, 1);
+        newB = rotate(state.B, -1);
+        newD = rotate(state.R, 1);
     }
 
-    cube.state.U = newU;
-    cube.state.L = newL;
-    cube.state.F = newF;
-    cube.state.R = newR;
-    cube.state.B = newB;
-    cube.state.D = newD;
+    state.U = newU;
+    state.L = newL;
+    state.F = newF;
+    state.R = newR;
+    state.B = newB;
+    state.D = newD;
 }
 
 /**
@@ -401,11 +404,13 @@ export function turnCubeZ(cube, parsedTurn) {
  * @return {void}
  */
 export function turnSliceB(cube, slicedCube, parsedTurn) {
+    const state = cube.state;
+
     loopSlices(parsedTurn, (i, negI, iSubOne) => {
-        const oldU = first(slicedCube.U.rows, iSubOne);
-        const oldL = first(slicedCube.L.cols, iSubOne);
-        const oldD = first(slicedCube.D.rows, negI);
-        const oldR = first(slicedCube.R.cols, negI);
+        const oldU = first(slicedCube.U.r, iSubOne);
+        const oldL = first(slicedCube.L.c, iSubOne);
+        const oldD = first(slicedCube.D.r, negI);
+        const oldR = first(slicedCube.R.c, negI);
         
         let newU, newL, newD, newR;
 
@@ -429,15 +434,15 @@ export function turnSliceB(cube, slicedCube, parsedTurn) {
             newR = reverse(oldD);
         }
 
-        splice(slicedCube.U.rows, i - 1, 1, newU);
-        splice(slicedCube.L.cols, i - 1, 1, newL);
-        splice(slicedCube.D.rows, negI, 1, newD);
-        splice(slicedCube.R.cols, negI, 1, newR);
+        splice(slicedCube.U.r, i - 1, 1, newU);
+        splice(slicedCube.L.c, i - 1, 1, newL);
+        splice(slicedCube.D.r, negI, 1, newD);
+        splice(slicedCube.R.c, negI, 1, newR);
 
-        cube.state.U = flattenRows(slicedCube.U.rows);
-        cube.state.L = flattenCols(slicedCube.L.cols);
-        cube.state.D = flattenRows(slicedCube.D.rows);
-        cube.state.R = flattenCols(slicedCube.R.cols);
+        state.U = flattenRows(slicedCube.U.r);
+        state.L = flattenCols(slicedCube.L.c);
+        state.D = flattenRows(slicedCube.D.r);
+        state.R = flattenCols(slicedCube.R.c);
     });
 }
 
@@ -450,11 +455,13 @@ export function turnSliceB(cube, slicedCube, parsedTurn) {
  * @return {void}
  */
 export function turnSliceD(cube, slicedCube, parsedTurn) {
+    const state = cube.state;
+
     loopSlices(parsedTurn, (i, negI) => {
-        const oldF = first(slicedCube.F.rows, negI);
-        const oldR = first(slicedCube.R.rows, negI);
-        const oldB = first(slicedCube.B.rows, negI);
-        const oldL = first(slicedCube.L.rows, negI);
+        const oldF = first(slicedCube.F.r, negI);
+        const oldR = first(slicedCube.R.r, negI);
+        const oldB = first(slicedCube.B.r, negI);
+        const oldL = first(slicedCube.L.r, negI);
         
         let newF, newR, newB, newL;
 
@@ -478,15 +485,15 @@ export function turnSliceD(cube, slicedCube, parsedTurn) {
             newL = oldB;
         }
 
-        splice(slicedCube.F.rows, negI, 1, newF);
-        splice(slicedCube.R.rows, negI, 1, newR);
-        splice(slicedCube.B.rows, negI, 1, newB);
-        splice(slicedCube.L.rows, negI, 1, newL);
+        splice(slicedCube.F.r, negI, 1, newF);
+        splice(slicedCube.R.r, negI, 1, newR);
+        splice(slicedCube.B.r, negI, 1, newB);
+        splice(slicedCube.L.r, negI, 1, newL);
 
-        cube.state.F = flattenRows(slicedCube.F.rows);
-        cube.state.R = flattenRows(slicedCube.R.rows);
-        cube.state.B = flattenRows(slicedCube.B.rows);
-        cube.state.L = flattenRows(slicedCube.L.rows);
+        state.F = flattenRows(slicedCube.F.r);
+        state.R = flattenRows(slicedCube.R.r);
+        state.B = flattenRows(slicedCube.B.r);
+        state.L = flattenRows(slicedCube.L.r);
     });
 }
 
@@ -499,11 +506,13 @@ export function turnSliceD(cube, slicedCube, parsedTurn) {
  * @return {void}
  */
 export function turnSliceF(cube, slicedCube, parsedTurn) {
+    const state = cube.state;
+
     loopSlices(parsedTurn, (i, negI, iSubOne) => {
-        const oldU = first(slicedCube.U.rows, negI);
-        const oldR = first(slicedCube.R.cols, iSubOne);
-        const oldD = first(slicedCube.D.rows, iSubOne);
-        const oldL = first(slicedCube.L.cols, negI);
+        const oldU = first(slicedCube.U.r, negI);
+        const oldR = first(slicedCube.R.c, iSubOne);
+        const oldD = first(slicedCube.D.r, iSubOne);
+        const oldL = first(slicedCube.L.c, negI);
 
         let newU, newR, newD, newL;
 
@@ -527,15 +536,15 @@ export function turnSliceF(cube, slicedCube, parsedTurn) {
             newL = oldD;
         }
 
-        splice(slicedCube.U.rows, negI, 1, newU);
-        splice(slicedCube.R.cols, iSubOne, 1, newR);
-        splice(slicedCube.D.rows, iSubOne, 1, newD);
-        splice(slicedCube.L.cols, negI, 1, newL);
+        splice(slicedCube.U.r, negI, 1, newU);
+        splice(slicedCube.R.c, iSubOne, 1, newR);
+        splice(slicedCube.D.r, iSubOne, 1, newD);
+        splice(slicedCube.L.c, negI, 1, newL);
 
-        cube.state.U = flattenRows(slicedCube.U.rows);
-        cube.state.R = flattenCols(slicedCube.R.cols);
-        cube.state.D = flattenRows(slicedCube.D.rows);
-        cube.state.L = flattenCols(slicedCube.L.cols);
+        state.U = flattenRows(slicedCube.U.r);
+        state.R = flattenCols(slicedCube.R.c);
+        state.D = flattenRows(slicedCube.D.r);
+        state.L = flattenCols(slicedCube.L.c);
     });
 }
 
@@ -548,11 +557,13 @@ export function turnSliceF(cube, slicedCube, parsedTurn) {
  * @return {void}
  */
 export function turnSliceL(cube, slicedCube, parsedTurn) {
+    const state = cube.state;
+
     loopSlices(parsedTurn, (i, negI, iSubOne) => {
-        const oldU = first(slicedCube.U.cols, iSubOne);
-        const oldF = first(slicedCube.F.cols, iSubOne);
-        const oldD = first(slicedCube.D.cols, iSubOne);
-        const oldB = first(slicedCube.B.cols, negI);
+        const oldU = first(slicedCube.U.c, iSubOne);
+        const oldF = first(slicedCube.F.c, iSubOne);
+        const oldD = first(slicedCube.D.c, iSubOne);
+        const oldB = first(slicedCube.B.c, negI);
 
         let newU, newF, newD, newB;
 
@@ -576,15 +587,15 @@ export function turnSliceL(cube, slicedCube, parsedTurn) {
             newB = reverse(oldD);
         }
 
-        splice(slicedCube.U.cols, iSubOne, 1, newU);
-        splice(slicedCube.F.cols, iSubOne, 1, newF);
-        splice(slicedCube.D.cols, iSubOne, 1, newD);
-        splice(slicedCube.B.cols, negI, 1, newB);
+        splice(slicedCube.U.c, iSubOne, 1, newU);
+        splice(slicedCube.F.c, iSubOne, 1, newF);
+        splice(slicedCube.D.c, iSubOne, 1, newD);
+        splice(slicedCube.B.c, negI, 1, newB);
 
-        cube.state.U = flattenCols(slicedCube.U.cols);
-        cube.state.F = flattenCols(slicedCube.F.cols);
-        cube.state.D = flattenCols(slicedCube.D.cols);
-        cube.state.B = flattenCols(slicedCube.B.cols);
+        state.U = flattenCols(slicedCube.U.c);
+        state.F = flattenCols(slicedCube.F.c);
+        state.D = flattenCols(slicedCube.D.c);
+        state.B = flattenCols(slicedCube.B.c);
     });
 }
 
@@ -597,11 +608,13 @@ export function turnSliceL(cube, slicedCube, parsedTurn) {
  * @return {void}
  */
 export function turnSliceR(cube, slicedCube, parsedTurn) {
+    const state = cube.state;
+
     loopSlices(parsedTurn, (i, negI, iSubOne) => {
-        const oldU = first(slicedCube.U.cols, negI);
-        const oldB = first(slicedCube.B.cols, iSubOne);
-        const oldD = first(slicedCube.D.cols, negI);
-        const oldF = first(slicedCube.F.cols, negI);
+        const oldU = first(slicedCube.U.c, negI);
+        const oldB = first(slicedCube.B.c, iSubOne);
+        const oldD = first(slicedCube.D.c, negI);
+        const oldF = first(slicedCube.F.c, negI);
         
         let newU, newB, newD, newF;
 
@@ -625,15 +638,15 @@ export function turnSliceR(cube, slicedCube, parsedTurn) {
             newF = oldD;
         }
 
-        splice(slicedCube.U.cols, negI, 1, newU);
-        splice(slicedCube.B.cols, iSubOne, 1, newB);
-        splice(slicedCube.D.cols, negI, 1, newD);
-        splice(slicedCube.F.cols, negI, 1, newF);
+        splice(slicedCube.U.c, negI, 1, newU);
+        splice(slicedCube.B.c, iSubOne, 1, newB);
+        splice(slicedCube.D.c, negI, 1, newD);
+        splice(slicedCube.F.c, negI, 1, newF);
 
-        cube.state.U = flattenCols(slicedCube.U.cols);
-        cube.state.B = flattenCols(slicedCube.B.cols);
-        cube.state.D = flattenCols(slicedCube.D.cols);
-        cube.state.F = flattenCols(slicedCube.F.cols);
+        state.U = flattenCols(slicedCube.U.c);
+        state.B = flattenCols(slicedCube.B.c);
+        state.D = flattenCols(slicedCube.D.c);
+        state.F = flattenCols(slicedCube.F.c);
     });
 }
 
@@ -646,11 +659,13 @@ export function turnSliceR(cube, slicedCube, parsedTurn) {
  * @return {void}
  */
 export function turnSliceU(cube, slicedCube, parsedTurn) {
+    const state = cube.state;
+
     loopSlices(parsedTurn, (i, negI, iSubOne) => {
-        const oldB = first(slicedCube.B.rows, iSubOne);
-        const oldR = first(slicedCube.R.rows, iSubOne);
-        const oldF = first(slicedCube.F.rows, iSubOne);
-        const oldL = first(slicedCube.L.rows, iSubOne);
+        const oldB = first(slicedCube.B.r, iSubOne);
+        const oldR = first(slicedCube.R.r, iSubOne);
+        const oldF = first(slicedCube.F.r, iSubOne);
+        const oldL = first(slicedCube.L.r, iSubOne);
 
         let newB, newR, newF, newL;
 
@@ -674,14 +689,14 @@ export function turnSliceU(cube, slicedCube, parsedTurn) {
             newL = oldF;
         }
 
-        splice(slicedCube.B.rows, iSubOne, 1, newB);
-        splice(slicedCube.R.rows, iSubOne, 1, newR);
-        splice(slicedCube.F.rows, iSubOne, 1, newF);
-        splice(slicedCube.L.rows, iSubOne, 1, newL);
+        splice(slicedCube.B.r, iSubOne, 1, newB);
+        splice(slicedCube.R.r, iSubOne, 1, newR);
+        splice(slicedCube.F.r, iSubOne, 1, newF);
+        splice(slicedCube.L.r, iSubOne, 1, newL);
 
-        cube.state.B = flattenRows(slicedCube.B.rows);
-        cube.state.R = flattenRows(slicedCube.R.rows);
-        cube.state.F = flattenRows(slicedCube.F.rows);
-        cube.state.L = flattenRows(slicedCube.L.rows);
+        state.B = flattenRows(slicedCube.B.r);
+        state.R = flattenRows(slicedCube.R.r);
+        state.F = flattenRows(slicedCube.F.r);
+        state.L = flattenRows(slicedCube.L.r);
     });
 }
