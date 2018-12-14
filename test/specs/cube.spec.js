@@ -38,7 +38,7 @@ describe('Cube', function() {
         expect(() => new Cube(NaN)).to.throw();
     });
 
-    it.skip('tests for solved state using integer values', function() {
+    it('tests for solved state using integer values', function() {
         const u = new Cube(2);
         const l = new Cube(2);
         const f = new Cube(2);
@@ -73,7 +73,7 @@ describe('Cube', function() {
         expect(d.isSolved()).to.be.true;
     });
 
-    it.skip('tests for solved state using object values', function() {
+    it('tests for solved state using object values', function() {
         const u = new Cube(2, { useObjects: true });
         const l = new Cube(2, { useObjects: true });
         const f = new Cube(2, { useObjects: true });

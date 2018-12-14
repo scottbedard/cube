@@ -98,23 +98,23 @@ export default class Cube {
      * @return {boolean}
      */
     isSolved() {
-        const stickerLength = this.state.u.length;
-        const u = this.state.u[0];
-        const l = this.state.l[0];
-        const f = this.state.f[0];
-        const r = this.state.r[0];
-        const b = this.state.b[0];
-        const d = this.state.d[0];
+        const stickerLength = this.state.U.length;
+        const U = this.state.U[0];
+        const L = this.state.L[0];
+        const F = this.state.F[0];
+        const R = this.state.R[0];
+        const B = this.state.B[0];
+        const D = this.state.D[0];
 
         if (this.options.useObjects) {
             for (let i = 1; i < stickerLength; i++) {
                 if (
-                    this.state.u[i].value !== u.value ||
-                    this.state.l[i].value !== l.value ||
-                    this.state.f[i].value !== f.value ||
-                    this.state.r[i].value !== r.value ||
-                    this.state.b[i].value !== b.value ||
-                    this.state.d[i].value !== d.value
+                    this.state.U[i].value !== U.value ||
+                    this.state.L[i].value !== L.value ||
+                    this.state.F[i].value !== F.value ||
+                    this.state.R[i].value !== R.value ||
+                    this.state.B[i].value !== B.value ||
+                    this.state.D[i].value !== D.value
                 ) {
                     return false;
                 }
@@ -122,12 +122,12 @@ export default class Cube {
         } else {
             for (let i = 1; i < stickerLength; i++) {
                 if (
-                    this.state.u[i] !== u ||
-                    this.state.l[i] !== l ||
-                    this.state.f[i] !== f ||
-                    this.state.r[i] !== r ||
-                    this.state.b[i] !== b ||
-                    this.state.d[i] !== d
+                    this.state.U[i] !== U ||
+                    this.state.L[i] !== L ||
+                    this.state.F[i] !== F ||
+                    this.state.R[i] !== R ||
+                    this.state.B[i] !== B ||
+                    this.state.D[i] !== D
                 ) {
                     return false;
                 }
