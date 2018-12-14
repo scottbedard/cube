@@ -5,25 +5,38 @@
  * @return {Object}
  */
 export function parseTurn(turn) {
-    const rawDepth = turn.match(/^[0-9]+/) || 1;
+    const find = (exp, def) => {
+        const result = turn.match(exp);
+        return Array.isArray(result) ? (result[1] || def) : def;
+    }
 
-    const depth = Array.isArray(rawDepth) ? Number(rawDepth[0]) : rawDepth;
-    const face = turn.match(/[A-Za-z]/)[0].toLowerCase();
-    const double = turn.endsWith('2');
-    const outer = depth === 1 || turn.match(/[a-z]/) !== null;
-    const prime = turn.endsWith('-') || turn.endsWith(`'`);
-    const whole = ['x', 'y', 'z'].includes(face);
+    // wide
+    const wide = turn.includes('w');
 
+    // depth
+    let depth = parseInt(find(/^([0-9]+)/, 1), 10);
+
+    if (wide) {
+        depth = Math.max(2, depth);
+    }
+
+    // target
+    const target = find(/([ULFRBDXYZ])/i, '').toUpperCase();
+
+    // rotation
+    let rotation = 1;
+
+    if (turn.endsWith('-') || turn.endsWith('\'')) {
+        rotation = -1;
+    } else if (turn.endsWith('2')) {
+        rotation = 2;
+    }
+    
     return {
-        // old properties
         depth,
-        face,
-        double,
-        outer,
-        prime,
-        whole,
-
-        // new properties
+        target,
+        wide,
+        rotation,
     };
 }
 
