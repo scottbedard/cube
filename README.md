@@ -64,32 +64,32 @@ To read the current state of the cube, access the `state` property. This propert
 
 ```js
 {
-    u: [
+    U: [
         0, 0, 0,
         0, 0, 0,
         0, 0, 0,
     ],
-    l: [
+    L: [
         1, 1, 1,
         1, 1, 1,
         1, 1, 1,
     },
-    f: [
+    F: [
         2, 2, 2,
         2, 2, 2,
         2, 2, 2,
     ],
-    r: [
+    R: [
         3, 3, 3,
         3, 3, 3,
         3, 3, 3,
     ],
-    b: [
+    B: [
         4, 4, 4,
         4, 4, 4,
         4, 4, 4,
     ],
-    d: [
+    D: [
         5, 5, 5,
         5, 5, 5,
         5, 5, 5,
@@ -113,31 +113,7 @@ new Cube(size, { useObjects: true });
 
 ## Notation
 
-Turn notation has 3 basic parts.
-
-**Depth**, defines how many layers from the outer face to turn. By default, this value is `1`.
-
-**Face / Axis**, defines which face or axis is being turned. For face turns, this value may be `U`, `L`, `F`, `R`, `B`, or `D`, and if lower cased the turn will include all layers from the depth to the face being turned. For axis turns, this value may be `X`, `Y`, or `Z`.
-
-**Direction**, defines which direction to turn the face. A value of `-` will turn the face/axis 90 degrees counter-clockwise, and a value of `2` will turn the face/axis 180 degrees. If omitted, the face/axis will be turned 90 degrees clockwise. A single-quote may also be used to indicate a counter-clockwise turn.
-
-```js
-'F'   // turn the F face 90 degrees clockwise
-'F-'  // turn the F face 90 degrees counter-clockwise
-'F2'  // turn the F face 180 degrees
-
-'2R'  // turn the second slice from the R face 90 degrees clockwise
-'2R-' // turn the second slice from the R face 90 degrees counter-clockwise
-'2R2' // turn the second slice from the R face 180 degrees
-
-'2d'  // turn the first and second slices from the D face 90 degrees clockwise
-'2d-' // turn the first and second slices from the D face 90 degrees counter-clockwise
-'2d2' // turn the first and second slices from the D face 180 degrees
-
-'X'   // turn the cube around the X axis 90 degrees clockwise
-'X-'  // turn the cube around the X axis 90 degrees counter-clockwise
-'X2'  // turn the cube around the X axis 180 degrees
-```
+The notation system used by this library is a superset of [WCA notation](https://www.worldcubeassociation.org/regulations/#12a). Any algorithm produced by a WCA scrambler should be compatible with this library. There are however a couple of extensions we've made to the WCA syntax. The first of which being optional use of a `-` to indicate prime turns. The second is the ability to annotate "slice turns" with a single move. To do this, simply omit the `wide` segment of a turn. For example, a `3F` in our notation system would be equivalent to `3Fw 2Fw-` in WCA notation.
 
 ### License
 
