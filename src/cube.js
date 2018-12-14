@@ -1,8 +1,4 @@
 import {
-    intersectingFaces,
-} from './constants';
-
-import {
     parseTurn,
     printTurn,
 } from './notation';
@@ -56,27 +52,39 @@ export default class Cube {
             length = this.size ** 3;
         }
 
+        // always turn intersecting faces so we can produce quality scrambles
+        const intersectingFaces = {
+            U: ['L', 'F', 'R', 'B'],
+            L: ['U', 'F', 'D', 'B'],
+            F: ['L', 'U', 'R', 'D'],
+            R: ['U', 'B', 'D', 'F'],
+            B: ['U', 'L', 'D', 'R'],
+            D: ['F', 'R', 'B', 'L'],
+        }
+
         // in order to avoid poor scrambles, we need to prevent
         // turns from cancelling prior turns. for example, turning 
         // F then F- would not effect the cube and should be avoided.
         const scramble = [];
-        
-        // generate an array of the faces we'll be turning
-        for (let i = 0, face; i < length; i++) {
-            // pick a random direction and amount to turn
-            const double = Boolean(rand(0, 2)) === 2;
-            const outer = this.size > 3 && Boolean(rand(0, 1));
-            const prime = !double && Boolean(rand(0, 1));
 
-            // pick a random depth to turn
-            const depth = this.size > 3 ? rand(0, Math.floor(this.size / 2)) : 0;
+        // generate an array of the faces we'll be turning
+        for (let i = 0, target; i < length; i++) {
+
+            const depth = this.size > 3 ? rand(0, Math.floor(this.size / 2)) : 1;
+            const rotation = [-1, 1, 2][rand(0, 2)];
+            const wide = this.size > 3 && !!rand(0, 1);
 
             // pick a random face
-            face = i === 0
-                ? ['u', 'l', 'f', 'r', 'b', 'd'][rand(0, 5)]
-                : intersectingFaces[face][rand(0, 3)];
+            target = i < 1
+                ? ['U', 'L', 'F', 'R', 'B', 'D'][rand(0, 5)]
+                : intersectingFaces[target][rand(0, 3)];
 
-            scramble.push({ depth, double, face, outer, prime });
+            scramble.push({
+                depth,
+                wide,
+                target,
+                rotation,
+            });
         }
         
         return scramble;

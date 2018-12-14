@@ -118,33 +118,32 @@ describe('Cube', function() {
         expect(cube.isSolved()).to.be.false;
     });
 
-    it.skip('generates scrambles at a default length', function() {
+    it('generates scrambles at a default length', function() {
         const cube = new Cube(3);
+
         const scramble = cube.generateScramble();
+
         expect(scramble.length).to.equal(27);
     });
 
-    it.skip('can generate scrambles of a given length', function() {
+    it('can generate scrambles of a given length', function() {
         const cube = new Cube(3);
         const scramble = cube.generateScramble(5);
+
         expect(scramble.length).to.equal(5);
 
         const turn = scramble.pop();
+        
         expect(typeof turn).to.equal('object');
-        expect(typeof turn.depth).to.equal('number');
-        expect(typeof turn.double).to.equal('boolean');
-        expect(typeof turn.face).to.equal('string');
-        expect(typeof turn.outer).to.equal('boolean');
-        expect(typeof turn.prime).to.equal('boolean');
     });
 
-    it.skip('generates a scramble string', function() {
+    it('generates a scramble string', function() {
         const cube = new Cube(3);
 
         expect(typeof cube.generateScrambleString(5)).to.equal('string');
     });
 
-    it.skip('can scramble the cube', function() {
+    it('can scramble the cube', function() {
         const cube = new Cube(2);
 
         cube.scramble(5);
