@@ -13,15 +13,23 @@ import {
 //
 describe('notation', function() {
     describe('parseTurn', function() {
-        it('depth', function() {
+        it.only('depth', function() {
             Object.entries({
                 'F': 1,
                 'F-': 1,
                 'F2': 1,
-                '1F': 1,
-                '2F': 2,
-                '2F-': 2,
-                '2F2': 2,
+                'Fw': 2,
+                'Fw-': 2,
+                'Fw2': 2,
+                '3F': 3,
+                '3F-': 3,
+                '3F2': 3,
+                '100F': 100,
+                '100F-': 100,
+                '100F2': 100,
+                '100Fw': 100,
+                '100Fw-': 100,
+                '100Fw2': 100,
             }).forEach(([turn, depth]) => {
                 expect(parseTurn(turn), turn).to.containSubset({ depth });
             });
