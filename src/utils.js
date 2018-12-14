@@ -183,15 +183,13 @@ export function reverse(arr) {
  * @param {number}  degrees 
  */
 export function rotate(arr, degrees) {
-    if (degrees === 90) {
+    if (degrees === 1) {
         return flattenCols(reverse(chunkRows(arr)));
-    } else if (degrees === -90) {
+    } else if (degrees === -1) {
         return flattenRows(reverse(chunkCols(arr)));
-    } else if (degrees === 180) {
+    } else if (degrees === 2) {
         return reverse(arr);
     }
-    
-    throw new Error('Invalid rotation degrees, must be 90, -90, or 180');
 }
 
 /**
@@ -261,32 +259,33 @@ export function splice(arr, start, deleteCount, item) {
  * @return {void}
  */
 export function turnCubeX(cube, parsedTurn) {
-    const { double, prime } = parsedTurn;
+    const prime = parsedTurn.rotation === -1;
+    const double = parsedTurn.rotation === 2;
 
     let newU, newL, newF, newR, newB, newD;
 
     if (double) {
         // 180
         newU = slice(cube.state.d);
-        newL = rotate(cube.state.l, 180);
+        newL = rotate(cube.state.l, 2);
         newF = reverse(cube.state.b);
-        newR = rotate(cube.state.r, 180);
+        newR = rotate(cube.state.r, 2);
         newB = reverse(cube.state.f);
         newD = slice(cube.state.u);
     } else if (prime) {
         // 90 counter-clockwise
         newU = reverse(cube.state.b);
-        newL = rotate(cube.state.l, 90);
+        newL = rotate(cube.state.l, 1);
         newF = slice(cube.state.u);
-        newR = rotate(cube.state.r, -90);
+        newR = rotate(cube.state.r, -1);
         newB = reverse(cube.state.d);
         newD = slice(cube.state.f);
     } else {
         // 90 clockwise
         newU = slice(cube.state.f);
-        newL = rotate(cube.state.l, -90);
+        newL = rotate(cube.state.l, -1);
         newF = slice(cube.state.d);
-        newR = rotate(cube.state.r, 90);
+        newR = rotate(cube.state.r, 1);
         newB = reverse(cube.state.u);
         newD = reverse(cube.state.b);
     }
@@ -307,34 +306,35 @@ export function turnCubeX(cube, parsedTurn) {
  * @return {void}
  */
 export function turnCubeY(cube, parsedTurn) {
-    const { double, prime } = parsedTurn;
+    const prime = parsedTurn.rotation === -1;
+    const double = parsedTurn.rotation === 2;
 
     let newU, newL, newF, newR, newB, newD;
 
     if (double) {
         // 180
-        newU = rotate(cube.state.u, 180);
+        newU = rotate(cube.state.u, 2);
         newL = slice(cube.state.r);
         newF = slice(cube.state.b);
         newR = slice(cube.state.l);
         newB = slice(cube.state.f);
-        newD = rotate(cube.state.d, 180);
+        newD = rotate(cube.state.d, 2);
     } else if (prime) {
         // 90 counter-clockwise
-        newU = rotate(cube.state.u, -90);
+        newU = rotate(cube.state.u, -1);
         newL = slice(cube.state.b);
         newF = slice(cube.state.l);
         newR = slice(cube.state.f);
         newB = slice(cube.state.r);
-        newD = rotate(cube.state.d, 90);
+        newD = rotate(cube.state.d, 1);
     } else {
         // 90 clockwise
-        newU = rotate(cube.state.u, 90);
+        newU = rotate(cube.state.u, 1);
         newL = slice(cube.state.f);
         newF = slice(cube.state.r);
         newR = slice(cube.state.b);
         newB = slice(cube.state.l);
-        newD = rotate(cube.state.d, -90);
+        newD = rotate(cube.state.d, -1);
     }
 
     cube.state.u = newU;
@@ -353,7 +353,8 @@ export function turnCubeY(cube, parsedTurn) {
  * @return {void}
  */
 export function turnCubeZ(cube, parsedTurn) {
-    const { double, prime } = parsedTurn;
+    const prime = parsedTurn.rotation === -1;
+    const double = parsedTurn.rotation === 2;
 
     let newU, newL, newF, newR, newB, newD;
 
@@ -361,26 +362,26 @@ export function turnCubeZ(cube, parsedTurn) {
         // 180
         newU = reverse(cube.state.d);
         newL = reverse(cube.state.r);
-        newF = rotate(cube.state.f, 180);
+        newF = rotate(cube.state.f, 2);
         newR = reverse(cube.state.l);
-        newB = rotate(cube.state.b, 180);
+        newB = rotate(cube.state.b, 2);
         newD = reverse(cube.state.u);
     } else if (prime) {
         // 90 counter-clockwise
-        newU = rotate(cube.state.r, -90);
-        newL = rotate(cube.state.u, -90);
-        newF = rotate(cube.state.f, -90);
-        newR = rotate(cube.state.d, -90);
-        newB = rotate(cube.state.b, 90);
-        newD = rotate(cube.state.l, -90);
+        newU = rotate(cube.state.r, -1);
+        newL = rotate(cube.state.u, -1);
+        newF = rotate(cube.state.f, -1);
+        newR = rotate(cube.state.d, -1);
+        newB = rotate(cube.state.b, 1);
+        newD = rotate(cube.state.l, -1);
     } else {
         // 90 clockwise
-        newU = rotate(cube.state.l, 90);
-        newL = rotate(cube.state.d, 90);
-        newF = rotate(cube.state.f, 90);
-        newR = rotate(cube.state.u, 90);
-        newB = rotate(cube.state.b, -90);
-        newD = rotate(cube.state.r, 90);
+        newU = rotate(cube.state.l, 1);
+        newL = rotate(cube.state.d, 1);
+        newF = rotate(cube.state.f, 1);
+        newR = rotate(cube.state.u, 1);
+        newB = rotate(cube.state.b, -1);
+        newD = rotate(cube.state.r, 1);
     }
 
     cube.state.u = newU;

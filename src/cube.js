@@ -204,72 +204,60 @@ export default class Cube {
 
         turnsArray.forEach(turn => {
             const parsedTurn = typeof turn === 'string' ? parseTurn(turn) : turn;
-            const { depth, double, face, outer, prime, whole } = parsedTurn;
+            const { depth, target, wide, rotation } = parsedTurn;
     
             // make a log of the turn
-            const date = Date.now();
-            const event = { date, parsedTurn };
+            const event = { date: Date.now(), parsedTurn };
     
-            // whole-cube turns
-            if (whole) {
-                if (face === 'x') {
-                    turnCubeX(this, parsedTurn);
-                } else if (face === 'y') {
-                    turnCubeY(this, parsedTurn);
-                } else if (face === 'z') {
-                    turnCubeZ(this, parsedTurn);
+            // cube rotations
+            if (target === 'X') {
+                turnCubeX(this, parsedTurn);
+            } else if (target === 'Y') {
+                turnCubeY(this, parsedTurn);
+            } else if (target === 'Z') {
+                turnCubeZ(this, parsedTurn);
+            } 
+            
+            // face / slice turns
+            else {
+                // turn the outer face if necessary
+                if (depth === 1 || wide) {
+                    this.state[face] = rotate(this.state[face], rotation);
                 }
-    
-                return event;
-            }
-    
-            // turn the outer face if necessary
-            if (outer) {
-                let deg = 90;
-    
-                if (prime) {
-                    deg = -90;
-                } else if (double) {
-                    deg = 180;
+        
+                // turn the inner face if necessary
+                if (depth >= this.size) {
+                    let innerRotation = 2;
+
+                    // if this isn't a double turn, reverse the direction because
+                    // it's being turned from the context of the opposite face
+                    if (rotation === 1 || rotation === -1) {
+                        innerRotation *= -1
+                    }
+        
+                    const oppositeFace = getOppositeFace(target);
+        
+                    this.state[oppositeFace] = rotate(this.state[oppositeFace], innerRotation);
                 }
-    
-                this.state[face] = rotate(this.state[face], deg);
-            }
-    
-            // turn the inner face if necessary. notice the
-            // turn direction is reversed because it's being
-            // turned from the context of the opposite face
-            if (depth >= this.size) {
-                let deg = -90;
-    
-                if (prime) {
-                    deg = 90;
-                } else if (double) {
-                    deg = 180;
+        
+                // turn slices
+                const slicedCube = sliceCube(this);
+        
+                if (face === 'U') {
+                    turnSliceU(this, slicedCube, parsedTurn);
+                } else if (face === 'L') {
+                    turnSliceL(this, slicedCube, parsedTurn);
+                } else if (face === 'F') {
+                    turnSliceF(this, slicedCube, parsedTurn);
+                } else if (face === 'R') {
+                    turnSliceR(this, slicedCube, parsedTurn);
+                } else if (face === 'B') {
+                    turnSliceB(this, slicedCube, parsedTurn);
+                } else if (face === 'D') {
+                    turnSliceD(this, slicedCube, parsedTurn);
                 }
-    
-                const oppositeFace = getOppositeFace(face);
-    
-                this.state[oppositeFace] = rotate(this.state[oppositeFace], deg);
             }
-    
-            // turn slices
-            const slicedCube = sliceCube(this);
-    
-            if (face === 'u') {
-                turnSliceU(this, slicedCube, parsedTurn);
-            } else if (face === 'l') {
-                turnSliceL(this, slicedCube, parsedTurn);
-            } else if (face === 'f') {
-                turnSliceF(this, slicedCube, parsedTurn);
-            } else if (face === 'r') {
-                turnSliceR(this, slicedCube, parsedTurn);
-            } else if (face === 'b') {
-                turnSliceB(this, slicedCube, parsedTurn);
-            } else if (face === 'd') {
-                turnSliceD(this, slicedCube, parsedTurn);
-            }
-    
+
             return event;
         });
     }
