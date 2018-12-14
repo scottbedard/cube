@@ -3,11 +3,14 @@ import {
 } from './constants';
 
 import {
+    parseTurn,
+    printTurn,
+} from './notation';
+
+import {
     generateStickers,
     getOppositeFace,
     isInt,
-    parseTurn,
-    printTurn,
     rand,
     rotate,
     sliceCube,

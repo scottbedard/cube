@@ -1,7 +1,7 @@
 import Cube from '../../src/cube';
 import { spy } from 'sinon';
 import { expect } from 'chai';
-import { parseTurn } from '../../src/utils';
+import { parseTurn } from '../../src/notation';
 
 //
 // specs
