@@ -7,7 +7,7 @@ import { expect } from 'chai';
 
 // scrambles are generated from old WCA scrambler at
 // https://www.worldcubeassociation.org/regulations/history/files/scrambles/scramble_cube.htm
-describe.skip('scrambles', function() {
+describe('scrambles', function() {
     const w = 0, o = 1, g = 2, r = 3, b = 4, y = 5;
     
     it('2x2', function() {
@@ -16,27 +16,27 @@ describe.skip('scrambles', function() {
         cube.turn(`F2 U2 F2 U' F' R F2 U2 F' U2`);
 
         expect(cube.state).to.deep.equal({
-            u: [
+            U: [
                 w, g,
                 b, g,
             ],
-            l: [
+            L: [
                 g, r,
                 o, b,
             ],
-            f: [
+            F: [
                 y, o,
                 r, o,
             ],
-            r: [
+            R: [
                 y, y,
                 b, g,
             ],
-            b: [
+            B: [
                 r, o,
                 w, b,
             ],
-            d: [
+            D: [
                 w, w,
                 y, r,
             ],
@@ -49,32 +49,32 @@ describe.skip('scrambles', function() {
         cube.turn(`R U' L' B2 F2 L' R' U2 R D' L R' D' L D B' L B D' B2 F' L R D2 B' R' F2 L B2 D2`);
 
         expect(cube.state).to.deep.equal({
-            u: [
+            U: [
                 o, r, b,
                 w, w, o,
                 b, y, g,
             ],
-            l: [
+            L: [
                 g, o, o,
                 y, o, r,
                 o, b, b,
             ],
-            f: [
+            F: [
                 w, g, y,
                 g, g, r,
                 y, w, y,
             ],
-            r: [
+            R: [
                 r, g, w,
                 w, r, r,
                 b, y, g,
             ],
-            b: [
+            B: [
                 r, y, y,
                 b, b, b,
                 w, w, g,
             ],
-            d: [
+            D: [
                 r, b, o,
                 o, y, o,
                 w, g, r,
