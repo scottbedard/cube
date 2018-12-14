@@ -70,7 +70,7 @@ describe('utils', function() {
             1, 2, 3,
             4, 5, 6,
             7, 8, 9,
-        ], 90)).to.deep.equal([
+        ], 1)).to.deep.equal([
             7, 4, 1,
             8, 5, 2,
             9, 6, 3,
@@ -80,7 +80,7 @@ describe('utils', function() {
             1, 2, 3,
             4, 5, 6,
             7, 8, 9,
-        ], -90)).to.deep.equal([
+        ], -1)).to.deep.equal([
             3, 6, 9,
             2, 5, 8,
             1, 4, 7,
@@ -90,17 +90,10 @@ describe('utils', function() {
             1, 2, 3,
             4, 5, 6,
             7, 8, 9,
-        ], 180)).to.deep.equal([
+        ], 2)).to.deep.equal([
             9, 8, 7,
             6, 5, 4,
             3, 2, 1,
         ]);
-
-        expect(() => {
-            rotate([
-                1, 2,
-                3, 4,
-            ], 'invalid degrees');
-        }).to.throw();
     });
 });

@@ -1,8 +1,4 @@
 import {
-    intersectingFaces,
-} from './constants';
-
-import {
     parseTurn,
     printTurn,
 } from './notation';
@@ -56,27 +52,39 @@ export default class Cube {
             length = this.size ** 3;
         }
 
+        // always turn intersecting faces so we can produce quality scrambles
+        const intersectingFaces = {
+            U: ['L', 'F', 'R', 'B'],
+            L: ['U', 'F', 'D', 'B'],
+            F: ['L', 'U', 'R', 'D'],
+            R: ['U', 'B', 'D', 'F'],
+            B: ['U', 'L', 'D', 'R'],
+            D: ['F', 'R', 'B', 'L'],
+        }
+
         // in order to avoid poor scrambles, we need to prevent
         // turns from cancelling prior turns. for example, turning 
         // F then F- would not effect the cube and should be avoided.
         const scramble = [];
-        
-        // generate an array of the faces we'll be turning
-        for (let i = 0, face; i < length; i++) {
-            // pick a random direction and amount to turn
-            const double = Boolean(rand(0, 2)) === 2;
-            const outer = this.size > 3 && Boolean(rand(0, 1));
-            const prime = !double && Boolean(rand(0, 1));
 
-            // pick a random depth to turn
-            const depth = this.size > 3 ? rand(0, Math.floor(this.size / 2)) : 0;
+        // generate an array of the faces we'll be turning
+        for (let i = 0, target; i < length; i++) {
+
+            const depth = this.size > 3 ? rand(0, Math.floor(this.size / 2)) : 1;
+            const rotation = [-1, 1, 2][rand(0, 2)];
+            const wide = this.size > 3 && !!rand(0, 1);
 
             // pick a random face
-            face = i === 0
-                ? ['u', 'l', 'f', 'r', 'b', 'd'][rand(0, 5)]
-                : intersectingFaces[face][rand(0, 3)];
+            target = i < 1
+                ? ['U', 'L', 'F', 'R', 'B', 'D'][rand(0, 5)]
+                : intersectingFaces[target][rand(0, 3)];
 
-            scramble.push({ depth, double, face, outer, prime });
+            scramble.push({
+                depth,
+                wide,
+                target,
+                rotation,
+            });
         }
         
         return scramble;
@@ -98,23 +106,23 @@ export default class Cube {
      * @return {boolean}
      */
     isSolved() {
-        const stickerLength = this.state.u.length;
-        const u = this.state.u[0];
-        const l = this.state.l[0];
-        const f = this.state.f[0];
-        const r = this.state.r[0];
-        const b = this.state.b[0];
-        const d = this.state.d[0];
+        const stickerLength = this.state.U.length;
+        const U = this.state.U[0];
+        const L = this.state.L[0];
+        const F = this.state.F[0];
+        const R = this.state.R[0];
+        const B = this.state.B[0];
+        const D = this.state.D[0];
 
         if (this.options.useObjects) {
             for (let i = 1; i < stickerLength; i++) {
                 if (
-                    this.state.u[i].value !== u.value ||
-                    this.state.l[i].value !== l.value ||
-                    this.state.f[i].value !== f.value ||
-                    this.state.r[i].value !== r.value ||
-                    this.state.b[i].value !== b.value ||
-                    this.state.d[i].value !== d.value
+                    this.state.U[i].value !== U.value ||
+                    this.state.L[i].value !== L.value ||
+                    this.state.F[i].value !== F.value ||
+                    this.state.R[i].value !== R.value ||
+                    this.state.B[i].value !== B.value ||
+                    this.state.D[i].value !== D.value
                 ) {
                     return false;
                 }
@@ -122,12 +130,12 @@ export default class Cube {
         } else {
             for (let i = 1; i < stickerLength; i++) {
                 if (
-                    this.state.u[i] !== u ||
-                    this.state.l[i] !== l ||
-                    this.state.f[i] !== f ||
-                    this.state.r[i] !== r ||
-                    this.state.b[i] !== b ||
-                    this.state.d[i] !== d
+                    this.state.U[i] !== U ||
+                    this.state.L[i] !== L ||
+                    this.state.F[i] !== F ||
+                    this.state.R[i] !== R ||
+                    this.state.B[i] !== B ||
+                    this.state.D[i] !== D
                 ) {
                     return false;
                 }
@@ -158,12 +166,12 @@ export default class Cube {
         const useObjects = !!this.options.useObjects;
 
         this.state = {
-            u: generateStickers(stickers, 0, useObjects),
-            l: generateStickers(stickers, 1, useObjects),
-            f: generateStickers(stickers, 2, useObjects),
-            r: generateStickers(stickers, 3, useObjects),
-            b: generateStickers(stickers, 4, useObjects),
-            d: generateStickers(stickers, 5, useObjects),
+            U: generateStickers(stickers, 0, useObjects),
+            L: generateStickers(stickers, 1, useObjects),
+            F: generateStickers(stickers, 2, useObjects),
+            R: generateStickers(stickers, 3, useObjects),
+            B: generateStickers(stickers, 4, useObjects),
+            D: generateStickers(stickers, 5, useObjects),
         };
     }
 
@@ -186,9 +194,9 @@ export default class Cube {
      * @return {void}
      */
     stickers(fn) {
-        const { u, l, f, r, b, d } = this.state;
+        const { U, L, F, R, B, D } = this.state;
         
-        [].concat(u, l, f, r, b, d).forEach(fn);
+        [].concat(U, L, F, R, B, D).forEach(fn);
     }
 
     /**
@@ -204,72 +212,61 @@ export default class Cube {
 
         turnsArray.forEach(turn => {
             const parsedTurn = typeof turn === 'string' ? parseTurn(turn) : turn;
-            const { depth, double, face, outer, prime, whole } = parsedTurn;
+            const { depth, target, wide, rotation } = parsedTurn;
     
             // make a log of the turn
-            const date = Date.now();
-            const event = { date, parsedTurn };
+            const event = { date: Date.now(), parsedTurn };
     
-            // whole-cube turns
-            if (whole) {
-                if (face === 'x') {
-                    turnCubeX(this, parsedTurn);
-                } else if (face === 'y') {
-                    turnCubeY(this, parsedTurn);
-                } else if (face === 'z') {
-                    turnCubeZ(this, parsedTurn);
+            // cube rotations
+            if (target === 'X') {
+                turnCubeX(this, parsedTurn);
+            } else if (target === 'Y') {
+                turnCubeY(this, parsedTurn);
+            } else if (target === 'Z') {
+                turnCubeZ(this, parsedTurn);
+            } 
+            
+            // face / slice turns
+            else {
+
+                // turn the outer face if necessary
+                if (depth === 1 || wide) {
+                    this.state[target] = rotate(this.state[target], rotation);
                 }
-    
-                return event;
-            }
-    
-            // turn the outer face if necessary
-            if (outer) {
-                let deg = 90;
-    
-                if (prime) {
-                    deg = -90;
-                } else if (double) {
-                    deg = 180;
+        
+                // turn the inner face if necessary
+                if (depth >= this.size) {
+                    let innerRotation = 2;
+
+                    // if this isn't a double turn, reverse the direction because
+                    // it's being turned from the context of the opposite face
+                    if (rotation === 1 || rotation === -1) {
+                        innerRotation = rotation * -1;
+                    }
+        
+                    const oppositeFace = getOppositeFace(target);
+
+                    this.state[oppositeFace] = rotate(this.state[oppositeFace], innerRotation);
                 }
-    
-                this.state[face] = rotate(this.state[face], deg);
-            }
-    
-            // turn the inner face if necessary. notice the
-            // turn direction is reversed because it's being
-            // turned from the context of the opposite face
-            if (depth >= this.size) {
-                let deg = -90;
-    
-                if (prime) {
-                    deg = 90;
-                } else if (double) {
-                    deg = 180;
+
+                // turn slices
+                const slicedCube = sliceCube(this);
+        
+                if (target === 'U') {
+                    turnSliceU(this, slicedCube, parsedTurn);
+                } else if (target === 'L') {
+                    turnSliceL(this, slicedCube, parsedTurn);
+                } else if (target === 'F') {
+                    turnSliceF(this, slicedCube, parsedTurn);
+                } else if (target === 'R') {
+                    turnSliceR(this, slicedCube, parsedTurn);
+                } else if (target === 'B') {
+                    turnSliceB(this, slicedCube, parsedTurn);
+                } else if (target === 'D') {
+                    turnSliceD(this, slicedCube, parsedTurn);
                 }
-    
-                const oppositeFace = getOppositeFace(face);
-    
-                this.state[oppositeFace] = rotate(this.state[oppositeFace], deg);
             }
-    
-            // turn slices
-            const slicedCube = sliceCube(this);
-    
-            if (face === 'u') {
-                turnSliceU(this, slicedCube, parsedTurn);
-            } else if (face === 'l') {
-                turnSliceL(this, slicedCube, parsedTurn);
-            } else if (face === 'f') {
-                turnSliceF(this, slicedCube, parsedTurn);
-            } else if (face === 'r') {
-                turnSliceR(this, slicedCube, parsedTurn);
-            } else if (face === 'b') {
-                turnSliceB(this, slicedCube, parsedTurn);
-            } else if (face === 'd') {
-                turnSliceD(this, slicedCube, parsedTurn);
-            }
-    
+
             return event;
         });
     }

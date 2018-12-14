@@ -1,4 +1,7 @@
-import { expect } from 'chai';
+import chai, { expect } from 'chai';
+import chaiSubset from 'chai-subset';
+
+chai.use(chaiSubset);
 
 import {
     parseTurn,
@@ -9,151 +12,104 @@ import {
 // specs
 //
 describe('notation', function() {
-    it('parseTurn', function() {
-        expect(parseTurn('F')).to.deep.equal({
-            depth: 1,
-            double: false,
-            face: 'f',
-            outer: true,
-            prime: false,
-            whole: false,
+
+    //
+    // parseTurn
+    //
+    describe('parseTurn', function() {
+        it('depth', function() {
+            Object.entries({
+                'F': 1,
+                'F-': 1,
+                'F2': 1,
+                'Fw': 2,
+                'Fw-': 2,
+                'Fw2': 2,
+                '3F': 3,
+                '3F-': 3,
+                '3F2': 3,
+                '100F': 100,
+                '100F-': 100,
+                '100F2': 100,
+                '100Fw': 100,
+                '100Fw-': 100,
+                '100Fw2': 100,
+            }).forEach(([turn, depth]) => {
+                expect(parseTurn(turn), turn).to.containSubset({ depth });
+            });
         });
 
-        expect(parseTurn('F-')).to.deep.equal({
-            depth: 1,
-            double: false,
-            face: 'f',
-            outer: true,
-            prime: true,
-            whole: false,
+        it('target', function () {
+            const target = 'F';
+
+            [
+                'F',
+                'F-',
+                'F2',
+                '2F',
+                '2F-',
+                '2F2',
+                'Fw',
+                'Fw-',
+                'Fw2',
+                '3Fw',
+                '3Fw-',
+                '3Fw2',
+            ].forEach(turn => {
+                expect(parseTurn(turn), turn).to.containSubset({ target });
+            });
         });
 
-        expect(parseTurn(`F'`)).to.deep.equal({
-            depth: 1,
-            double: false,
-            face: 'f',
-            outer: true,
-            prime: true,
-            whole: false,
+        it('wide', function () {
+            Object.entries({
+                'F': false,
+                '2F': false,
+                '2F-': false,
+                '2F2': false,
+                'Fw': true,
+                'Fw-': true,
+                'Fw2': true,
+                '3Fw': true,
+                '3Fw-': true,
+                '3Fw2': true,
+            }).forEach(([turn, wide]) => {
+                expect(parseTurn(turn), turn).to.containSubset({ wide });
+            });
         });
 
-        expect(parseTurn('F2')).to.deep.equal({
-            depth: 1,
-            double: true,
-            face: 'f',
-            outer: true,
-            prime: false,
-            whole: false,
-        });
+        it('rotation', function() {
+            Object.entries({
+                'F': 1,
+                'F-': -1,
+                'F2': 2,
 
-        expect(parseTurn('2F')).to.deep.equal({
-            depth: 2,
-            double: false,
-            face: 'f',
-            outer: false,
-            prime: false,
-            whole: false,
-        });
-
-        expect(parseTurn('2f')).to.deep.equal({
-            depth: 2,
-            double: false,
-            face: 'f',
-            outer: true,
-            prime: false,
-            whole: false,
-        });
-
-        expect(parseTurn('X')).to.deep.equal({
-            depth: 1,
-            double: false,
-            face: 'x',
-            outer: true,
-            prime: false,
-            whole: true,
-        });
-
-        expect(parseTurn('y')).to.deep.equal({
-            depth: 1,
-            double: false,
-            face: 'y',
-            outer: true,
-            prime: false,
-            whole: true,
-        });
-
-        expect(parseTurn('z')).to.deep.equal({
-            depth: 1,
-            double: false,
-            face: 'z',
-            outer: true,
-            prime: false,
-            whole: true,
+            }).forEach(([turn, rotation]) => {
+                expect(parseTurn(turn), turn).to.containSubset({ rotation });
+            });
         });
     });
 
+    //
+    // printTurn
+    //
     it('printTurn', function() {
-        expect(printTurn({
-            depth: 0,
-            double: false,
-            face: 'f',
-            outer: true,
-            prime: false,
-            whole: false,
-        })).to.equal('F');
+        [
+            'F',
+            'F-',
+            'F2',
+            'Fw',
+            'Fw-',
+            'Fw2',
+            '2F',
+            '2F-',
+            '2F2',
+            '3Fw',
+            '3Fw-',
+            '3Fw2',
+        ].forEach(turn => {
+            const turnObj = parseTurn(turn);
 
-        expect(printTurn({
-            depth: 0,
-            double: true,
-            face: 'f',
-            outer: true,
-            prime: false,
-            whole: false,
-        })).to.equal('F2');
-
-        expect(printTurn({
-            depth: 0,
-            double: false,
-            face: 'f',
-            outer: true,
-            prime: true,
-            whole: false,
-        })).to.equal('F-');
-        
-        expect(printTurn({
-            depth: 2,
-            double: false,
-            face: 'f',
-            outer: true,
-            prime: false,
-            whole: false,
-        })).to.equal('2F');
-
-        expect(printTurn({
-            depth: 2,
-            double: false,
-            face: 'f',
-            outer: true,
-            prime: false,
-            whole: false,
-        }, 4)).to.equal('2f');
-
-        expect(printTurn({
-            depth: 0,
-            double: false,
-            face: 'X',
-            outer: true,
-            prime: false,
-            whole: true,
-        })).to.equal('X');
-
-        expect(printTurn({
-            depth: 1,
-            double: false,
-            face: 'F',
-            outer: true,
-            prime: false,
-            whole: false,
-        })).to.equal('F');
+            expect(turn, turn).to.equal(printTurn(turnObj));
+        });
     });
 });
