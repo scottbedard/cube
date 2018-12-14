@@ -158,12 +158,12 @@ export default class Cube {
         const useObjects = !!this.options.useObjects;
 
         this.state = {
-            u: generateStickers(stickers, 0, useObjects),
-            l: generateStickers(stickers, 1, useObjects),
-            f: generateStickers(stickers, 2, useObjects),
-            r: generateStickers(stickers, 3, useObjects),
-            b: generateStickers(stickers, 4, useObjects),
-            d: generateStickers(stickers, 5, useObjects),
+            U: generateStickers(stickers, 0, useObjects),
+            L: generateStickers(stickers, 1, useObjects),
+            F: generateStickers(stickers, 2, useObjects),
+            R: generateStickers(stickers, 3, useObjects),
+            B: generateStickers(stickers, 4, useObjects),
+            D: generateStickers(stickers, 5, useObjects),
         };
     }
 
@@ -186,9 +186,9 @@ export default class Cube {
      * @return {void}
      */
     stickers(fn) {
-        const { u, l, f, r, b, d } = this.state;
+        const { U, L, F, R, B, D } = this.state;
         
-        [].concat(u, l, f, r, b, d).forEach(fn);
+        [].concat(U, L, F, R, B, D).forEach(fn);
     }
 
     /**
@@ -220,9 +220,10 @@ export default class Cube {
             
             // face / slice turns
             else {
+
                 // turn the outer face if necessary
                 if (depth === 1 || wide) {
-                    this.state[face] = rotate(this.state[face], rotation);
+                    this.state[target] = rotate(this.state[target], rotation);
                 }
         
                 // turn the inner face if necessary
@@ -232,28 +233,28 @@ export default class Cube {
                     // if this isn't a double turn, reverse the direction because
                     // it's being turned from the context of the opposite face
                     if (rotation === 1 || rotation === -1) {
-                        innerRotation *= -1
+                        innerRotation = rotation * -1;
                     }
         
                     const oppositeFace = getOppositeFace(target);
-        
+
                     this.state[oppositeFace] = rotate(this.state[oppositeFace], innerRotation);
                 }
-        
+
                 // turn slices
                 const slicedCube = sliceCube(this);
         
-                if (face === 'U') {
+                if (target === 'U') {
                     turnSliceU(this, slicedCube, parsedTurn);
-                } else if (face === 'L') {
+                } else if (target === 'L') {
                     turnSliceL(this, slicedCube, parsedTurn);
-                } else if (face === 'F') {
+                } else if (target === 'F') {
                     turnSliceF(this, slicedCube, parsedTurn);
-                } else if (face === 'R') {
+                } else if (target === 'R') {
                     turnSliceR(this, slicedCube, parsedTurn);
-                } else if (face === 'B') {
+                } else if (target === 'B') {
                     turnSliceB(this, slicedCube, parsedTurn);
-                } else if (face === 'D') {
+                } else if (target === 'D') {
                     turnSliceD(this, slicedCube, parsedTurn);
                 }
             }

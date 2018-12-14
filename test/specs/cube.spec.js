@@ -10,22 +10,22 @@ describe('Cube', function() {
     it('creates a cube of a given size', function() {
         const cube = new Cube(2);
         expect(cube.size).to.equal(2);
-        expect(cube.state.u).to.deep.equal([0, 0, 0, 0]);
-        expect(cube.state.l).to.deep.equal([1, 1, 1, 1]);
-        expect(cube.state.f).to.deep.equal([2, 2, 2, 2]);
-        expect(cube.state.r).to.deep.equal([3, 3, 3, 3]);
-        expect(cube.state.b).to.deep.equal([4, 4, 4, 4]);
-        expect(cube.state.d).to.deep.equal([5, 5, 5, 5]);
+        expect(cube.state.U).to.deep.equal([0, 0, 0, 0]);
+        expect(cube.state.L).to.deep.equal([1, 1, 1, 1]);
+        expect(cube.state.F).to.deep.equal([2, 2, 2, 2]);
+        expect(cube.state.R).to.deep.equal([3, 3, 3, 3]);
+        expect(cube.state.B).to.deep.equal([4, 4, 4, 4]);
+        expect(cube.state.D).to.deep.equal([5, 5, 5, 5]);
     });
 
     it('can use objects as sticker values', function() {
         const cube = new Cube(2, { useObjects: true });
 
-        expect(cube.state.u.map(sticker => sticker.originalIndex)).to.deep.equal([
+        expect(cube.state.U.map(sticker => sticker.originalIndex)).to.deep.equal([
             0, 1, 2, 3,
         ]);
 
-        expect(cube.state.u.map(sticker => sticker.value)).to.deep.equal([
+        expect(cube.state.U.map(sticker => sticker.value)).to.deep.equal([
             0, 0, 0, 0,
         ]);
     });
