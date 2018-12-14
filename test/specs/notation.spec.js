@@ -12,8 +12,12 @@ import {
 // specs
 //
 describe('notation', function() {
+
+    //
+    // parseTurn
+    //
     describe('parseTurn', function() {
-        it.only('depth', function() {
+        it('depth', function() {
             Object.entries({
                 'F': 1,
                 'F-': 1,
@@ -85,68 +89,27 @@ describe('notation', function() {
         });
     });
 
-    it.skip('printTurn', function() {
-        expect(printTurn({
-            depth: 0,
-            double: false,
-            face: 'f',
-            outer: true,
-            prime: false,
-            whole: false,
-        })).to.equal('F');
+    //
+    // printTurn
+    //
+    it('printTurn', function() {
+        [
+            'F',
+            'F-',
+            'F2',
+            'Fw',
+            'Fw-',
+            'Fw2',
+            '2F',
+            '2F-',
+            '2F2',
+            '3Fw',
+            '3Fw-',
+            '3Fw2',
+        ].forEach(turn => {
+            const turnObj = parseTurn(turn);
 
-        expect(printTurn({
-            depth: 0,
-            double: true,
-            face: 'f',
-            outer: true,
-            prime: false,
-            whole: false,
-        })).to.equal('F2');
-
-        expect(printTurn({
-            depth: 0,
-            double: false,
-            face: 'f',
-            outer: true,
-            prime: true,
-            whole: false,
-        })).to.equal('F-');
-        
-        expect(printTurn({
-            depth: 2,
-            double: false,
-            face: 'f',
-            outer: true,
-            prime: false,
-            whole: false,
-        })).to.equal('2F');
-
-        expect(printTurn({
-            depth: 2,
-            double: false,
-            face: 'f',
-            outer: true,
-            prime: false,
-            whole: false,
-        }, 4)).to.equal('2f');
-
-        expect(printTurn({
-            depth: 0,
-            double: false,
-            face: 'X',
-            outer: true,
-            prime: false,
-            whole: true,
-        })).to.equal('X');
-
-        expect(printTurn({
-            depth: 1,
-            double: false,
-            face: 'F',
-            outer: true,
-            prime: false,
-            whole: false,
-        })).to.equal('F');
+            expect(turn, turn).to.equal(printTurn(turnObj));
+        });
     });
 });

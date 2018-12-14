@@ -43,33 +43,32 @@ export function parseTurn(turn) {
 /**
  * Print a turn object.
  * 
- * @param {object} turn
- * @param {number} size
+ * @param  {Object} turnObj
+ * @return {string}
  */
-export function printTurn(turn, size = 3) {
-    let suffix = '';
+export function printTurn(turnObj) {
+    let { depth, target, wide, rotation } = turnObj;
 
-    if (turn.prime) {
-        suffix = '-';
-    } else if (turn.double) {
-        suffix = '2';
-    }
-
-    if (turn.whole) {
-        return `${turn.face}${suffix}`
-    }
-
+    // prefix
     let prefix = '';
 
-    if (turn.depth > 1) {
-        prefix = turn.depth;
+    if (depth > 1 && !wide) {
+        prefix = 2;
+    } else if (depth > 2) {
+        prefix = depth;
     }
 
-    let content = turn.face.toUpperCase();
+    // modifier
+    let modifier = wide ? 'w' : '';
 
-    if (size > 3 && turn.outer) {
-        content = content.toLowerCase();
+    // suffix
+    let suffix = '';
+    
+    if (rotation === -1) {
+        suffix = '-';
+    } else if (rotation === 2) {
+        suffix = 2;
     }
 
-    return `${prefix}${content}${suffix}`
+    return `${prefix}${target}${modifier}${suffix}`;
 }
