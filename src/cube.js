@@ -1,4 +1,8 @@
 import {
+    intersectingFaces,
+} from './constants';
+
+import {
     generateStickers,
     getOppositeFace,
     isInt,
@@ -53,17 +57,6 @@ export default class Cube {
         // turns from cancelling prior turns. for example, turning 
         // F then F- would not effect the cube and should be avoided.
         const scramble = [];
-
-        // this holds the faces that are acceptable to turn with a
-        // given face. anything intersecting the key is a valid option.
-        const intersectingFaces = {
-            u: ['l', 'f', 'r', 'b'],
-            l: ['u', 'f', 'd', 'b'],
-            f: ['l', 'u', 'r', 'd'],
-            r: ['u', 'b', 'd', 'f'],
-            b: ['u', 'l', 'd', 'r'],
-            d: ['f', 'r', 'b', 'l'],
-        };
         
         // generate an array of the faces we'll be turning
         for (let i = 0, face; i < length; i++) {
