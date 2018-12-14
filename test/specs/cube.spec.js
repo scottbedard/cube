@@ -6,7 +6,7 @@ import { parseTurn } from '../../src/notation';
 //
 // specs
 //
-describe.skip('Cube', function() {
+describe('Cube', function() {
     it('creates a cube of a given size', function() {
         const cube = new Cube(2);
         expect(cube.size).to.equal(2);
@@ -38,7 +38,7 @@ describe.skip('Cube', function() {
         expect(() => new Cube(NaN)).to.throw();
     });
 
-    it('tests for solved state using integer values', function() {
+    it.skip('tests for solved state using integer values', function() {
         const u = new Cube(2);
         const l = new Cube(2);
         const f = new Cube(2);
@@ -73,7 +73,7 @@ describe.skip('Cube', function() {
         expect(d.isSolved()).to.be.true;
     });
 
-    it('tests for solved state using object values', function() {
+    it.skip('tests for solved state using object values', function() {
         const u = new Cube(2, { useObjects: true });
         const l = new Cube(2, { useObjects: true });
         const f = new Cube(2, { useObjects: true });
@@ -108,7 +108,7 @@ describe.skip('Cube', function() {
         expect(d.isSolved()).to.be.true;
     });
 
-    it('can be turned with an array of turn objects', function() {
+    it.skip('can be turned with an array of turn objects', function() {
         const cube = new Cube(2);
         const f = parseTurn('F');
         const r = parseTurn('R');
@@ -118,13 +118,13 @@ describe.skip('Cube', function() {
         expect(cube.isSolved()).to.be.false;
     });
 
-    it('generates scrambles at a default length', function() {
+    it.skip('generates scrambles at a default length', function() {
         const cube = new Cube(3);
         const scramble = cube.generateScramble();
         expect(scramble.length).to.equal(27);
     });
 
-    it('can generate scrambles of a given length', function() {
+    it.skip('can generate scrambles of a given length', function() {
         const cube = new Cube(3);
         const scramble = cube.generateScramble(5);
         expect(scramble.length).to.equal(5);
@@ -138,13 +138,13 @@ describe.skip('Cube', function() {
         expect(typeof turn.prime).to.equal('boolean');
     });
 
-    it('generates a scramble string', function() {
+    it.skip('generates a scramble string', function() {
         const cube = new Cube(3);
 
         expect(typeof cube.generateScrambleString(5)).to.equal('string');
     });
 
-    it('can scramble the cube', function() {
+    it.skip('can scramble the cube', function() {
         const cube = new Cube(2);
 
         cube.scramble(5);
@@ -152,7 +152,7 @@ describe.skip('Cube', function() {
         expect(cube.isSolved()).to.be.false;
     });
 
-    it('exposes a method to itterate over all stickers', function() {
+    it.skip('exposes a method to itterate over all stickers', function() {
         const fn = spy();
         const cube = new Cube(2);
 
@@ -161,7 +161,7 @@ describe.skip('Cube', function() {
         expect(fn.callCount).to.equal(24);
     });
 
-    it('exposes a method to parse turn strings', function() {
+    it.skip('exposes a method to parse turn strings', function() {
         const cube = new Cube(2);
         const turn = cube.parseTurn('F');
 
