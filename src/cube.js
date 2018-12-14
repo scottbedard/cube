@@ -106,23 +106,24 @@ export default class Cube {
      * @return {boolean}
      */
     isSolved() {
-        const stickerLength = this.state.U.length;
-        const U = this.state.U[0];
-        const L = this.state.L[0];
-        const F = this.state.F[0];
-        const R = this.state.R[0];
-        const B = this.state.B[0];
-        const D = this.state.D[0];
+        const state = this.state;
+        const stickerLength = state.U.length;
+        const U = state.U[0];
+        const L = state.L[0];
+        const F = state.F[0];
+        const R = state.R[0];
+        const B = state.B[0];
+        const D = state.D[0];
 
         if (this.options.useObjects) {
             for (let i = 1; i < stickerLength; i++) {
                 if (
-                    this.state.U[i].value !== U.value ||
-                    this.state.L[i].value !== L.value ||
-                    this.state.F[i].value !== F.value ||
-                    this.state.R[i].value !== R.value ||
-                    this.state.B[i].value !== B.value ||
-                    this.state.D[i].value !== D.value
+                    state.U[i].value !== U.value ||
+                    state.L[i].value !== L.value ||
+                    state.F[i].value !== F.value ||
+                    state.R[i].value !== R.value ||
+                    state.B[i].value !== B.value ||
+                    state.D[i].value !== D.value
                 ) {
                     return false;
                 }
@@ -130,12 +131,12 @@ export default class Cube {
         } else {
             for (let i = 1; i < stickerLength; i++) {
                 if (
-                    this.state.U[i] !== U ||
-                    this.state.L[i] !== L ||
-                    this.state.F[i] !== F ||
-                    this.state.R[i] !== R ||
-                    this.state.B[i] !== B ||
-                    this.state.D[i] !== D
+                    state.U[i] !== U ||
+                    state.L[i] !== L ||
+                    state.F[i] !== F ||
+                    state.R[i] !== R ||
+                    state.B[i] !== B ||
+                    state.D[i] !== D
                 ) {
                     return false;
                 }
@@ -206,6 +207,8 @@ export default class Cube {
      * @return {void}
      */
     turn(turns) {
+        const state = this.state;
+
         const turnsArray = Array.isArray(turns) 
             ? turns 
             : turns.split(/[ ,]+/);
@@ -231,7 +234,7 @@ export default class Cube {
 
                 // turn the outer face if necessary
                 if (depth === 1 || wide) {
-                    this.state[target] = rotate(this.state[target], rotation);
+                    state[target] = rotate(state[target], rotation);
                 }
         
                 // turn the inner face if necessary
@@ -246,7 +249,7 @@ export default class Cube {
         
                     const oppositeFace = getOppositeFace(target);
 
-                    this.state[oppositeFace] = rotate(this.state[oppositeFace], innerRotation);
+                    state[oppositeFace] = rotate(state[oppositeFace], innerRotation);
                 }
 
                 // turn slices

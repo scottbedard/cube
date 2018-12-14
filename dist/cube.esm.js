@@ -884,23 +884,24 @@ function () {
   }, {
     key: "isSolved",
     value: function isSolved() {
-      var stickerLength = this.state.U.length;
-      var U = this.state.U[0];
-      var L = this.state.L[0];
-      var F = this.state.F[0];
-      var R = this.state.R[0];
-      var B = this.state.B[0];
-      var D = this.state.D[0];
+      var state = this.state;
+      var stickerLength = state.U.length;
+      var U = state.U[0];
+      var L = state.L[0];
+      var F = state.F[0];
+      var R = state.R[0];
+      var B = state.B[0];
+      var D = state.D[0];
 
       if (this.options.useObjects) {
         for (var i = 1; i < stickerLength; i++) {
-          if (this.state.U[i].value !== U.value || this.state.L[i].value !== L.value || this.state.F[i].value !== F.value || this.state.R[i].value !== R.value || this.state.B[i].value !== B.value || this.state.D[i].value !== D.value) {
+          if (state.U[i].value !== U.value || state.L[i].value !== L.value || state.F[i].value !== F.value || state.R[i].value !== R.value || state.B[i].value !== B.value || state.D[i].value !== D.value) {
             return false;
           }
         }
       } else {
         for (var _i = 1; _i < stickerLength; _i++) {
-          if (this.state.U[_i] !== U || this.state.L[_i] !== L || this.state.F[_i] !== F || this.state.R[_i] !== R || this.state.B[_i] !== B || this.state.D[_i] !== D) {
+          if (state.U[_i] !== U || state.L[_i] !== L || state.F[_i] !== F || state.R[_i] !== R || state.B[_i] !== B || state.D[_i] !== D) {
             return false;
           }
         }
@@ -986,6 +987,7 @@ function () {
     value: function turn(turns) {
       var _this = this;
 
+      var state = this.state;
       var turnsArray = Array.isArray(turns) ? turns : turns.split(/[ ,]+/);
       turnsArray.forEach(function (turn) {
         var parsedTurn = typeof turn === 'string' ? parseTurn(turn) : turn;
@@ -1009,7 +1011,7 @@ function () {
         else {
             // turn the outer face if necessary
             if (depth === 1 || wide) {
-              _this.state[target] = rotate(_this.state[target], rotation);
+              state[target] = rotate(state[target], rotation);
             } // turn the inner face if necessary
 
 
@@ -1022,7 +1024,7 @@ function () {
               }
 
               var oppositeFace = getOppositeFace(target);
-              _this.state[oppositeFace] = rotate(_this.state[oppositeFace], innerRotation);
+              state[oppositeFace] = rotate(state[oppositeFace], innerRotation);
             } // turn slices
 
 
