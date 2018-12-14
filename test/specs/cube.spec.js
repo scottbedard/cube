@@ -108,7 +108,7 @@ describe('Cube', function() {
         expect(d.isSolved()).to.be.true;
     });
 
-    it.skip('can be turned with an array of turn objects', function() {
+    it('can be turned with an array of turn objects', function() {
         const cube = new Cube(2);
         const f = parseTurn('F');
         const r = parseTurn('R');
@@ -152,7 +152,7 @@ describe('Cube', function() {
         expect(cube.isSolved()).to.be.false;
     });
 
-    it.skip('exposes a method to itterate over all stickers', function() {
+    it('exposes a method to itterate over all stickers', function() {
         const fn = spy();
         const cube = new Cube(2);
 
@@ -161,7 +161,7 @@ describe('Cube', function() {
         expect(fn.callCount).to.equal(24);
     });
 
-    it.skip('exposes a method to parse turn strings', function() {
+    it('exposes a method to parse turn strings', function() {
         const cube = new Cube(2);
         const turn = cube.parseTurn('F');
 
