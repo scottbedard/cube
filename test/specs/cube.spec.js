@@ -6,7 +6,7 @@ import { parseTurn } from '../../src/notation';
 //
 // specs
 //
-describe('Cube', function() {
+describe.skip('Cube', function() {
     it('creates a cube of a given size', function() {
         const cube = new Cube(2);
         expect(cube.size).to.equal(2);

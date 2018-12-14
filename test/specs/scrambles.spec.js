@@ -7,7 +7,7 @@ import { expect } from 'chai';
 
 // scrambles are generated from old WCA scrambler at
 // https://www.worldcubeassociation.org/regulations/history/files/scrambles/scramble_cube.htm
-describe('scrambles', function() {
+describe.skip('scrambles', function() {
     const w = 0, o = 1, g = 2, r = 3, b = 4, y = 5;
     
     it('2x2', function() {

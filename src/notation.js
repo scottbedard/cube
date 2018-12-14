@@ -14,7 +14,17 @@ export function parseTurn(turn) {
     const prime = turn.endsWith('-') || turn.endsWith(`'`);
     const whole = ['x', 'y', 'z'].includes(face);
 
-    return { depth, face, double, outer, prime, whole };
+    return {
+        // old properties
+        depth,
+        face,
+        double,
+        outer,
+        prime,
+        whole,
+
+        // new properties
+    };
 }
 
 /**

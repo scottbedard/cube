@@ -4,7 +4,7 @@ import { expect } from 'chai';
 //
 // specs
 //
-describe('turns', function() {
+describe.skip('turns', function() {
     let cube;
 
     beforeEach(function() {
