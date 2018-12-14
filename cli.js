@@ -6,6 +6,18 @@ var program = require('commander');
 program.version(pkg.version, '-v, --version');
 
 //
+// parse
+//
+program
+    .command('parse [turns]')
+    .description('parse a series of turns')
+    .action(function(turns) {
+        const cube = new Cube(3);
+
+        console.log(JSON.stringify(turns.split(' ').map(turn => cube.parseTurn(turn.trim()))));
+    });
+
+//
 // scramble
 //
 program
