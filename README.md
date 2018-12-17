@@ -113,7 +113,7 @@ new Cube(size, { useObjects: true });
 
 ## Notation
 
-The notation system used by this library is a superset of [WCA notation](https://www.worldcubeassociation.org/regulations/#12a). Any algorithm produced by a WCA scrambler should be compatible with this library. There are however a couple of extensions we've made to the WCA syntax. The first of which being optional use of a `-` to indicate prime turns. The second is the ability to annotate "slice turns" with a single move. To do this, simply omit the `wide` segment of a turn. For example, a `3F` in our notation system would be equivalent to `3Fw 2Fw-` in WCA notation.
+The notation system used by this library is a superset of [WCA notation](https://www.worldcubeassociation.org/regulations/#12a). Any algorithm produced by a WCA scrambler should be compatible with this library. There are however a couple of extensions we've made to the WCA syntax. The first of which being optional use of a `-` to indicate counter-clockwise turns. The second is the ability to annotate "slice turns" with a single move. To do this, simply omit the `wide` segment of a turn. For example, a `3F` in our notation system would be equal to `3Fw 2Fw-` in WCA notation.
 
 ### License
 
