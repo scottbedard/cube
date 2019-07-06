@@ -372,10 +372,12 @@ function splice(arr, start, deleteCount, item) {
 function turnCubeX(cube, parsedTurn) {
   var state = cube.state;
   var prime = parsedTurn.rotation === -1;
-  var double = parsedTurn.rotation === 2;
+
+  var _double = parsedTurn.rotation === 2;
+
   var newU, newL, newF, newR, newB, newD;
 
-  if (double) {
+  if (_double) {
     // 180
     newU = slice(state.D);
     newL = rotate(state.L, 2);
@@ -419,10 +421,12 @@ function turnCubeX(cube, parsedTurn) {
 function turnCubeY(cube, parsedTurn) {
   var state = cube.state;
   var prime = parsedTurn.rotation === -1;
-  var double = parsedTurn.rotation === 2;
+
+  var _double2 = parsedTurn.rotation === 2;
+
   var newU, newL, newF, newR, newB, newD;
 
-  if (double) {
+  if (_double2) {
     // 180
     newU = rotate(state.U, 2);
     newL = slice(state.R);
@@ -466,10 +470,12 @@ function turnCubeY(cube, parsedTurn) {
 function turnCubeZ(cube, parsedTurn) {
   var state = cube.state;
   var prime = parsedTurn.rotation === -1;
-  var double = parsedTurn.rotation === 2;
+
+  var _double3 = parsedTurn.rotation === 2;
+
   var newU, newL, newF, newR, newB, newD;
 
-  if (double) {
+  if (_double3) {
     // 180
     newU = reverse(state.D);
     newL = reverse(state.R);
@@ -918,7 +924,7 @@ function () {
 
   }, {
     key: "parseTurn",
-    value: function parseTurn$$1(turn) {
+    value: function parseTurn$1(turn) {
       return parseTurn(turn);
     }
     /**
