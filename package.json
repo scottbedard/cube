@@ -26,7 +26,7 @@
     "@babel/register": "^7.4.4",
     "chai": "^4.2.0",
     "chai-subset": "^1.6.0",
-    "codecov": "^3.5.0",
+    "codecov": "^3.7.1",
     "commander": "^2.20.0",
     "minimist": "^1.2.0",
     "mocha": "^6.1.4",
