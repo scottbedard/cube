@@ -1,5 +1,7 @@
 # cube
 
+This repository is no longer maintained, see https://github.com/scottbedard/twister
+
 [![Build](https://img.shields.io/circleci/project/github/scottbedard/cube.svg)](https://circleci.com/gh/scottbedard/cube)
 [![Coverage](https://img.shields.io/codecov/c/github/scottbedard/cube.svg)](https://codecov.io/gh/scottbedard/cube)
 [![Dependencies](https://img.shields.io/david/scottbedard/cube.svg)](https://david-dm.org/scottbedard/cube)
