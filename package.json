@@ -28,7 +28,7 @@
     "chai-subset": "^1.6.0",
     "codecov": "^3.5.0",
     "commander": "^2.20.0",
-    "minimist": "^1.2.0",
+    "minimist": "^1.2.3",
     "mocha": "^6.1.4",
     "nyc": "^14.1.1",
     "rollup": "^1.16.6",
